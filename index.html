@@ -564,17 +564,17 @@ endmodule</textarea>
             btn.innerText = "Uploading to Database..."; btn.disabled = true;
             if(editorInstance) studentAnswers[currentQuestionIndex] = editorInstance.getValue();
 
-            // Format data beautifully for Google Sheets cell using Dashes (---)
-            const formattedAnswers = currentActiveTest.questions.map((q, idx) => {
-                return `--- QUESTION ${idx+1}: ${q.title} ---\n${studentAnswers[idx]}\n\n`;
-            }).join('');
+            // CHANGED: Instead of .join(''), we keep it as an Array of strings!
+            const answersArray = currentActiveTest.questions.map((q, idx) => {
+                return `--- QUESTION ${idx+1}: ${q.title} ---\n${studentAnswers[idx]}`;
+            });
 
             const payload = {
                 action: 'submitTest',
                 email: currentUser.email,
                 enrollment: currentUser.id,
                 testTitle: currentActiveTest.title,
-                code: formattedAnswers
+                answers: answersArray // Sending as an array instead of a single string
             };
 
             try {

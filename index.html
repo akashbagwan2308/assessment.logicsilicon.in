@@ -221,6 +221,7 @@ endmodule</textarea>
             <div class="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shadow-sm z-10 shrink-0">
                 <span class="font-extrabold tracking-tight text-xl" id="ide-test-title">Test</span>
                 <div class="flex items-center gap-6">
+                    <span id="save-status" class="text-slate-400 text-sm font-medium">Ready</span>
                     <div id="timer-display" class="font-mono text-xl font-bold bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 text-[#5b54e5]">60:00</div>
                     <button onclick="submitTest()" id="final-submit-btn" class="px-6 py-2.5 rounded-xl font-bold bg-[#5b54e5] text-white">Submit</button>
                 </div>
@@ -269,6 +270,8 @@ endmodule</textarea>
         let currentQuestionIndex = 0;   
         let studentAnswers = [];        
         let testTimer = null;
+        let currentTimeLeft = 0;
+        let autosaveInterval = null;
         let editorInstance = null;
 
         // On Load Check Session
@@ -492,6 +495,7 @@ endmodule</textarea>
             document.getElementById('agree-checkbox').checked = false;
             document.getElementById('start-test-btn').disabled = true;
             document.getElementById('start-test-btn').className = "px-8 py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400";
+            document.getElementById('start-test-btn').innerText = "Start Test";
             navigateTo('instructions-view');
         }
 
@@ -501,14 +505,42 @@ endmodule</textarea>
             btn.className = btn.disabled ? "px-8 py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400" : "px-8 py-3.5 rounded-xl font-bold bg-[#5b54e5] text-white";
         }
 
-        function startTest() {
+        // --- START TEST & SESSION RECOVERY ---
+        async function startTest() {
             if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(e=>e);
+            
+            const btn = document.getElementById('start-test-btn');
+            btn.innerText = "Restoring Session...";
+            btn.disabled = true;
+
+            // Set Defaults
+            currentTimeLeft = currentActiveTest.duration * 60;
             studentAnswers = currentActiveTest.questions.map(q => q.code || "");
+
+            // Attempt to Fetch Previous Session
+            try {
+                const res = await fetch(GOOGLE_WEB_APP_URL, {
+                    method: 'POST', headers: {'Content-Type': 'text/plain'},
+                    body: JSON.stringify({ action: 'fetchSession', email: currentUser.email, enrollment: currentUser.id, testTitle: currentActiveTest.title })
+                });
+                const data = await res.json();
+                
+                if (data.status === 'success') {
+                    if (data.timeLeft) currentTimeLeft = data.timeLeft;
+                    if (data.answers && data.answers.length > 0) studentAnswers = data.answers;
+                }
+            } catch(e) { 
+                console.log("No previous session found or network error, starting fresh."); 
+            }
+
             currentQuestionIndex = 0;
             document.getElementById('ide-test-title').innerText = currentActiveTest.title;
             navigateTo('test-view');
             setTimeout(initMonaco, 200); 
-            startCountdown(currentActiveTest.duration * 60);
+            startCountdown();
+
+            // Start Autosave Loop (every 30 seconds)
+            autosaveInterval = setInterval(triggerAutosave, 30000);
         }
 
         function initMonaco() {
@@ -535,7 +567,7 @@ endmodule</textarea>
             const dots = document.getElementById('q-dots-container');
             dots.innerHTML = '';
             for(let i=0; i<currentActiveTest.questions.length; i++) {
-                dots.innerHTML += `<button onclick="jumpToQuestion(${i})" class="w-10 h-10 rounded-full font-bold ${i === currentQuestionIndex ? 'bg-[#5b54e5] text-white' : 'bg-slate-100'}">${i+1}</button>`;
+                dots.innerHTML += `<button onclick="jumpToQuestion(${i})" class="w-10 h-10 rounded-full font-bold transition-colors ${i === currentQuestionIndex ? 'bg-[#5b54e5] text-white shadow-md' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}">${i+1}</button>`;
             }
             if(editorInstance) editorInstance.setValue(studentAnswers[currentQuestionIndex]);
         }
@@ -546,25 +578,63 @@ endmodule</textarea>
         }
         function jumpToQuestion(i) { if(i !== currentQuestionIndex) { currentQuestionIndex = i; renderQuestionUI(); } }
 
-        function startCountdown(duration) {
-            let time = duration;
+        function startCountdown() {
             const timerDisplay = document.getElementById('timer-display');
+            // Initial render
+            let m = Math.floor(currentTimeLeft / 60); let s = currentTimeLeft % 60;
+            timerDisplay.innerText = `${m < 10 ? "0"+m : m}:${s < 10 ? "0"+s : s}`;
+
             testTimer = setInterval(() => {
-                let m = Math.floor(time / 60); let s = time % 60;
+                m = Math.floor(currentTimeLeft / 60); s = currentTimeLeft % 60;
                 timerDisplay.innerText = `${m < 10 ? "0"+m : m}:${s < 10 ? "0"+s : s}`;
-                if (--time < 0) { clearInterval(testTimer); submitTest(); }
+                
+                if(currentTimeLeft < 300) timerDisplay.className = "font-mono text-xl font-bold bg-red-50 px-4 py-2 rounded-lg border border-red-200 text-red-600 animate-pulse";
+
+                if (--currentTimeLeft < 0) { clearInterval(testTimer); submitTest(); }
             }, 1000);
         }
 
+        // --- AUTOSAVE TO TEMP DB ---
+        async function triggerAutosave() {
+            if(!editorInstance) return;
+            const statusIndicator = document.getElementById('save-status');
+            statusIndicator.style.color = '#f59e0b'; // warning/orange color
+            statusIndicator.innerText = "Syncing...";
+
+            // Ensure current array is up to date with editor
+            studentAnswers[currentQuestionIndex] = editorInstance.getValue();
+
+            const payload = {
+                action: 'autosave', 
+                email: currentUser.email, 
+                enrollment: currentUser.id,
+                testTitle: currentActiveTest.title, 
+                timeLeft: currentTimeLeft, 
+                answers: studentAnswers
+            };
+
+            try {
+                await fetch(GOOGLE_WEB_APP_URL, {
+                    method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify(payload)
+                });
+                statusIndicator.style.color = '#94a3b8'; // default muted color
+                statusIndicator.innerText = `Saved at ${new Date().toLocaleTimeString()}`;
+            } catch(e) {
+                statusIndicator.style.color = '#ef4444'; // red error color
+                statusIndicator.innerText = "Sync failed";
+            }
+        }
+
+        // --- FINAL SUBMIT ---
         async function submitTest() {
             clearInterval(testTimer);
+            clearInterval(autosaveInterval);
             if (document.exitFullscreen) document.exitFullscreen().catch(e=>e);
             
             const btn = document.getElementById('final-submit-btn');
             btn.innerText = "Uploading to Database..."; btn.disabled = true;
             if(editorInstance) studentAnswers[currentQuestionIndex] = editorInstance.getValue();
 
-            // CHANGED: Instead of .join(''), we keep it as an Array of strings!
             const answersArray = currentActiveTest.questions.map((q, idx) => {
                 return `--- QUESTION ${idx+1}: ${q.title} ---\n${studentAnswers[idx]}`;
             });
@@ -574,7 +644,7 @@ endmodule</textarea>
                 email: currentUser.email,
                 enrollment: currentUser.id,
                 testTitle: currentActiveTest.title,
-                answers: answersArray // Sending as an array instead of a single string
+                answers: answersArray
             };
 
             try {

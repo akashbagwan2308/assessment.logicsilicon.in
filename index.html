@@ -97,7 +97,7 @@
             <div class="p-8 max-w-6xl mx-auto w-full">
                 <div class="flex justify-between items-center mb-10">
                     <h1 class="text-3xl font-extrabold text-slate-900">Instructor Dashboard</h1>
-                    <button onclick="navigateTo('admin-create-test-view')" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white shadow-sm">
+                    <button onclick="navigateTo('admin-create-test-view')" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white shadow-sm hover:bg-[#4a44c9]">
                         + Schedule New Test
                     </button>
                 </div>
@@ -137,13 +137,13 @@
                         <input type="number" id="create-duration" value="60" required class="w-full max-w-[200px] p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] outline-none">
                     </div>
                     <div class="pt-4">
-                        <button type="submit" id="btn-create-test" class="w-full py-4 rounded-xl font-bold bg-[#5b54e5] text-white">Create Test & Add Questions &rarr;</button>
+                        <button type="submit" id="btn-create-test" class="w-full py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">Create Test & Add Questions &rarr;</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <!-- 3.5. INSTRUCTOR MANAGE TEST (Add Questions) -->
+        <!-- 3.5. INSTRUCTOR MANAGE TEST -->
         <div id="admin-manage-test-view" class="view">
             <div class="p-8 max-w-5xl mx-auto w-full">
                 <button onclick="fetchDataFromGoogle(true)" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Dashboard</button>
@@ -152,7 +152,7 @@
                         <h1 class="text-2xl font-extrabold text-slate-900 mb-2" id="manage-test-title">Test Title</h1>
                         <p class="text-slate-500 text-sm" id="manage-test-desc">Description</p>
                     </div>
-                    <button onclick="navigateTo('admin-add-question-view')" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white">
+                    <button onclick="navigateTo('admin-add-question-view')" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">
                         + Add Coding Question
                     </button>
                 </div>
@@ -184,7 +184,7 @@
 
 endmodule</textarea>
                     </div>
-                    <button type="submit" id="btn-save-question" class="w-full py-4 rounded-xl font-bold bg-[#5b54e5] text-white">Save & Upload to Database</button>
+                    <button type="submit" id="btn-save-question" class="w-full py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">Save & Upload to Database</button>
                 </form>
             </div>
         </div>
@@ -218,48 +218,86 @@ endmodule</textarea>
 
         <!-- 6. TEST ENVIRONMENT (IDE) -->
         <div id="test-view" class="view h-full overflow-hidden bg-white">
+            
+            <!-- Header (Glued to Top) -->
             <div class="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shadow-sm z-10 shrink-0">
                 <span class="font-extrabold tracking-tight text-xl" id="ide-test-title">Test</span>
-                <div class="flex items-center gap-6">
-                    <span id="save-status" class="text-slate-400 text-sm font-medium">Ready</span>
+                <div class="flex items-center gap-4">
+                    <!-- RUN CODE BUTTON -->
+                    <button onclick="runVerilogCode()" id="run-code-btn" class="px-5 py-2.5 rounded-xl font-bold bg-slate-800 text-white hover:bg-slate-700 flex items-center gap-2 transition-colors">
+                        ▶ Run Code
+                    </button>
+                    
+                    <span id="save-status" class="text-slate-400 text-sm font-medium border-l pl-4 border-slate-200">Ready</span>
                     <div id="timer-display" class="font-mono text-xl font-bold bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 text-[#5b54e5]">60:00</div>
-                    <button onclick="submitTest()" id="final-submit-btn" class="px-6 py-2.5 rounded-xl font-bold bg-[#5b54e5] text-white">Submit</button>
+                    <button onclick="submitTest()" id="final-submit-btn" class="px-6 py-2.5 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">Submit</button>
                 </div>
             </div>
 
+            <!-- Workspace Body -->
             <div class="flex-1 flex overflow-hidden">
-                <div class="w-1/3 bg-white border-r border-slate-200 p-8 overflow-y-auto shrink-0 flex flex-col">
+                
+                <!-- LEFT PANEL (Question Details) -->
+                <div id="left-panel" style="width: 33.333%;" class="bg-white border-r border-slate-200 p-8 overflow-y-auto shrink-0 flex flex-col">
                     <span class="text-[#5b54e5] font-bold text-sm mb-4" id="ide-q-counter">Question 1</span>
                     <h3 class="text-2xl font-extrabold text-slate-900 mb-6" id="ide-q-title">Title</h3>
                     <div class="text-slate-600 text-[15px] whitespace-pre-wrap" id="ide-q-desc">Desc</div>
                 </div>
-                <div class="flex-1 flex flex-col bg-[#1e1e1e] relative">
-                    <div class="bg-[#2d2d2d] px-4 py-2.5 border-b border-[#3d3d3d] text-slate-300 font-mono text-sm" id="ide-filename">module.v</div>
-                    <div id="monaco-container" class="flex-1 w-full"></div>
-                    <div class="bg-white border-t border-slate-200 p-4 flex justify-between items-center shrink-0">
+
+                <!-- HORIZONTAL RESIZER -->
+                <div id="h-resizer" class="w-1.5 bg-slate-200 cursor-col-resize hover:bg-[#5b54e5] transition-colors shrink-0 z-20 flex items-center justify-center">
+                    <div class="h-8 w-0.5 bg-slate-400 rounded"></div>
+                </div>
+
+                <!-- RIGHT PANEL (Editor & Terminal) -->
+                <div id="right-panel" class="flex-1 flex flex-col bg-[#1e1e1e] relative min-w-0 overflow-hidden">
+                    <div class="bg-[#2d2d2d] px-4 py-2.5 border-b border-[#3d3d3d] text-slate-300 font-mono text-sm shrink-0" id="ide-filename">module.v</div>
+                    
+                    <div id="monaco-container" class="flex-1 w-full min-h-0 relative"></div>
+                    
+                    <!-- VERTICAL RESIZER -->
+                    <div id="v-resizer" class="h-1.5 bg-slate-200 cursor-row-resize hover:bg-[#5b54e5] transition-colors shrink-0 z-20 flex items-center justify-center hidden">
+                        <div class="w-8 h-0.5 bg-slate-400 rounded"></div>
+                    </div>
+
+                    <!-- TERMINAL OUTPUT PANEL -->
+                    <div id="terminal-panel" style="height: 192px;" class="bg-[#0d0d0d] border-t border-[#3d3d3d] flex-col hidden shrink-0">
+                        <div class="bg-[#2d2d2d] px-4 py-1.5 flex justify-between items-center text-[10px] text-slate-400 font-bold tracking-widest uppercase shrink-0">
+                            <span>Terminal Output</span>
+                            <button onclick="closeTerminal()" class="hover:text-white transition-colors p-1">✕</button>
+                        </div>
+                        <div class="p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-slate-300" id="terminal-output"></div>
+                    </div>
+
+                    <!-- PAGINATION FOOTER (Glued to Bottom) -->
+                    <div id="test-footer" class="bg-white border-t border-slate-200 p-4 flex justify-between items-center shrink-0 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
                         <button id="btn-prev-q" onclick="navigateQuestion(-1)" class="px-5 py-2.5 rounded-xl font-bold border border-slate-200 hover:bg-slate-50">&larr; Previous</button>
                         <div id="q-dots-container" class="flex gap-2.5"></div>
                         <button id="btn-next-q" onclick="navigateQuestion(1)" class="px-5 py-2.5 rounded-xl font-bold border border-slate-200 hover:bg-slate-50">Next &rarr;</button>
                     </div>
                 </div>
+
             </div>
         </div>
 
         <!-- 7. SUBMIT SUCCESS -->
         <div id="submit-view" class="view items-center justify-center p-4">
-            <div class="bg-white p-10 rounded-[1.5rem] border border-slate-200 w-full max-w-[500px] text-center">
+            <div class="bg-white p-10 rounded-[1.5rem] border border-slate-200 w-full max-w-[500px] text-center shadow-sm">
                 <h2 class="text-2xl font-extrabold text-slate-900 mb-4">Submitted Successfully</h2>
                 <p class="text-slate-500 mb-8">Data safely stored in Database.</p>
-                <button onclick="logout()" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white w-full">Log Out & Return to Home</button>
+                <button onclick="logout()" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9] w-full transition-colors">Log Out & Return to Home</button>
             </div>
         </div>
     </div>
 
     <script>
         // =========================================================
-        // 1. IMPORTANT: GOOGLE SCRIPT URL 
+        // IMPORTANT URLs
         // =========================================================
         const GOOGLE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzhtk4rISUDJvMb3nLzJq2CBY5cVnm9kAnL_fuW77MLOkoR0-_dS0nKtmCwBjpD3mpAnQ/exec"; 
+        
+        // Your newly deployed Render API URL for compiling Verilog
+        const VERILOG_API_URL = "https://assessment-backend-6yrh.onrender.com/run"; 
 
         // =========================================================
         
@@ -401,10 +439,10 @@ endmodule</textarea>
             dbTests.forEach(test => {
                 const qCount = test.questions ? test.questions.length : 0;
                 list.innerHTML += `
-                    <div class="bg-white p-6 rounded-2xl border shadow-sm flex flex-col">
+                    <div class="bg-white p-6 rounded-2xl border shadow-sm flex flex-col hover:border-[#5b54e5] transition-colors">
                         <h2 class="text-xl font-bold mb-2">${test.title}</h2>
                         <p class="text-slate-500 mb-6 text-sm flex-grow">${test.description}</p>
-                        <button onclick="manageTest('${test.id}')" class="w-full py-2.5 rounded-xl font-bold border text-slate-700 hover:bg-slate-50">Manage (${qCount} Questions)</button>
+                        <button onclick="manageTest('${test.id}')" class="w-full py-2.5 rounded-xl font-bold border border-slate-200 text-[#5b54e5] hover:bg-slate-50 transition-colors bg-white">Manage Questions (${qCount})</button>
                     </div>`;
             });
         }
@@ -432,7 +470,7 @@ endmodule</textarea>
             });
 
             dbTests.push(newTest);
-            btn.innerText = "Create Test"; btn.disabled = false; e.target.reset();
+            btn.innerText = "Create Test & Add Questions \u2192"; btn.disabled = false; e.target.reset();
             manageTest(newTest.id);
         }
 
@@ -445,9 +483,13 @@ endmodule</textarea>
             
             const qList = document.getElementById('manage-q-list');
             qList.innerHTML = '';
-            test.questions.forEach((q, idx) => {
-                qList.innerHTML += `<div class="bg-slate-50 p-6 rounded-xl border flex gap-4"><div class="bg-[#e0e7ff] text-[#5b54e5] font-bold w-8 h-8 rounded flex items-center justify-center shrink-0">${idx + 1}</div><div><h3 class="font-bold">${q.title}</h3></div></div>`;
-            });
+            if(test.questions.length === 0) {
+                 qList.innerHTML = `<div class="bg-slate-50 p-6 rounded-xl border text-center text-slate-500">No questions added yet.</div>`;
+            } else {
+                test.questions.forEach((q, idx) => {
+                    qList.innerHTML += `<div class="bg-slate-50 p-6 rounded-xl border flex gap-4"><div class="bg-[#e0e7ff] text-[#5b54e5] font-bold w-8 h-8 rounded flex items-center justify-center shrink-0">${idx + 1}</div><div><h3 class="font-bold">${q.title}</h3></div></div>`;
+                });
+            }
             navigateTo('admin-manage-test-view');
         }
 
@@ -465,7 +507,7 @@ endmodule</textarea>
                 body: JSON.stringify({ action: 'createTest', test: dbTests[testIndex] }) 
             });
 
-            btn.innerText = "Save"; btn.disabled = false; e.target.reset();
+            btn.innerText = "Save & Upload to Database"; btn.disabled = false; e.target.reset();
             manageTest(currentManageTestId); 
         }
 
@@ -474,15 +516,19 @@ endmodule</textarea>
             const list = document.getElementById('student-test-list');
             list.innerHTML = '';
             const now = new Date();
-            const activeTests = dbTests.filter(t => new Date(t.startTime) <= now && new Date(t.endTime) >= now && t.questions.length > 0);
+            const activeTests = dbTests.filter(t => new Date(t.startTime) <= now && new Date(t.endTime) >= now && t.questions && t.questions.length > 0);
 
             if(activeTests.length === 0) { list.innerHTML = `<div class="col-span-full bg-white p-12 rounded-2xl border text-center text-slate-500 font-medium">No active assessments found for this time window.</div>`; return; }
 
             activeTests.forEach(test => {
                 list.innerHTML += `
-                    <div class="bg-white p-6 rounded-2xl border flex flex-col hover:border-[#5b54e5] transition-colors">
-                        <h2 class="text-xl font-bold mb-2">${test.title}</h2>
-                        <button onclick="prepareTest('${test.id}')" class="mt-auto w-full py-3 rounded-xl font-bold bg-[#5b54e5] text-white">Enter Assessment</button>
+                    <div class="bg-white p-6 rounded-2xl border flex flex-col hover:border-[#5b54e5] transition-colors shadow-sm">
+                        <h2 class="text-xl font-bold mb-4">${test.title}</h2>
+                        <div class="flex gap-2 mb-6 text-xs font-bold">
+                            <span class="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-200">⏱ ${test.duration} mins</span>
+                            <span class="bg-[#f0f4ff] text-[#5b54e5] px-3 py-1.5 rounded-lg border border-[#c7d2fe]">${test.questions.length} Qs</span>
+                        </div>
+                        <button onclick="prepareTest('${test.id}')" class="mt-auto w-full py-3.5 rounded-xl font-bold bg-[#5b54e5] hover:bg-[#4a44c9] transition-colors text-white">Enter Assessment</button>
                     </div>`;
             });
         }
@@ -494,7 +540,7 @@ endmodule</textarea>
             document.getElementById('inst-q-count').innerText = currentActiveTest.questions.length;
             document.getElementById('agree-checkbox').checked = false;
             document.getElementById('start-test-btn').disabled = true;
-            document.getElementById('start-test-btn').className = "px-8 py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400";
+            document.getElementById('start-test-btn').className = "px-8 py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400 cursor-not-allowed";
             document.getElementById('start-test-btn').innerText = "Start Test";
             navigateTo('instructions-view');
         }
@@ -502,7 +548,7 @@ endmodule</textarea>
         function toggleStartButton() {
             const btn = document.getElementById('start-test-btn');
             btn.disabled = !document.getElementById('agree-checkbox').checked;
-            btn.className = btn.disabled ? "px-8 py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400" : "px-8 py-3.5 rounded-xl font-bold bg-[#5b54e5] text-white";
+            btn.className = btn.disabled ? "px-8 py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400 cursor-not-allowed transition-all" : "px-8 py-3.5 rounded-xl font-bold bg-[#5b54e5] hover:bg-[#4a44c9] text-white transition-all";
         }
 
         // --- START TEST & SESSION RECOVERY ---
@@ -548,7 +594,7 @@ endmodule</textarea>
             require(['vs/editor/editor.main'], function() {
                 if(editorInstance) editorInstance.dispose();
                 editorInstance = monaco.editor.create(document.getElementById('monaco-container'), {
-                    value: studentAnswers[currentQuestionIndex], language: 'verilog', theme: 'vs-dark', automaticLayout: true, minimap: { enabled: false }
+                    value: studentAnswers[currentQuestionIndex], language: 'verilog', theme: 'vs-dark', automaticLayout: true, minimap: { enabled: false }, fontSize: 15
                 });
                 editorInstance.onDidChangeModelContent(() => { studentAnswers[currentQuestionIndex] = editorInstance.getValue(); });
                 renderQuestionUI();
@@ -570,6 +616,7 @@ endmodule</textarea>
                 dots.innerHTML += `<button onclick="jumpToQuestion(${i})" class="w-10 h-10 rounded-full font-bold transition-colors ${i === currentQuestionIndex ? 'bg-[#5b54e5] text-white shadow-md' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}">${i+1}</button>`;
             }
             if(editorInstance) editorInstance.setValue(studentAnswers[currentQuestionIndex]);
+            closeTerminal(); // Close terminal when switching questions
         }
 
         function navigateQuestion(dir) {
@@ -593,6 +640,117 @@ endmodule</textarea>
                 if (--currentTimeLeft < 0) { clearInterval(testTimer); submitTest(); }
             }, 1000);
         }
+
+        // --- VERILOG COMPILATION API LOGIC ---
+        async function runVerilogCode() {
+            if(!editorInstance) return;
+            const btn = document.getElementById('run-code-btn');
+            const terminal = document.getElementById('terminal-panel');
+            const vResizer = document.getElementById('v-resizer');
+            const output = document.getElementById('terminal-output');
+            
+            btn.innerText = "Running...";
+            btn.disabled = true;
+            
+            // Show terminal and resizer
+            terminal.classList.remove('hidden');
+            terminal.classList.add('flex');
+            vResizer.classList.remove('hidden');
+            vResizer.classList.add('flex');
+            
+            if (editorInstance) setTimeout(() => editorInstance.layout(), 50);
+
+            output.innerText = "Compiling and simulating...\n";
+            output.className = "p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-slate-400";
+
+            const code = editorInstance.getValue();
+
+            try {
+                const res = await fetch(VERILOG_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code: code })
+                });
+                
+                const data = await res.json();
+                
+                if (data.status === "success") {
+                    output.className = "p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-emerald-400";
+                    output.innerText += "\n--- SIMULATION SUCCESS ---\n\n" + data.output;
+                } else {
+                    output.className = "p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-red-400";
+                    output.innerText += "\n--- COMPILATION ERROR ---\n\n" + data.output;
+                }
+            } catch (err) {
+                output.className = "p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-red-400";
+                output.innerText += "\n--- NETWORK ERROR ---\nCould not connect to compilation server.";
+            } finally {
+                btn.innerHTML = "▶ Run Code";
+                btn.disabled = false;
+            }
+        }
+
+        function closeTerminal() {
+            document.getElementById('terminal-panel').classList.remove('flex');
+            document.getElementById('terminal-panel').classList.add('hidden');
+            document.getElementById('v-resizer').classList.remove('flex');
+            document.getElementById('v-resizer').classList.add('hidden');
+            if (editorInstance) setTimeout(() => editorInstance.layout(), 50);
+        }
+
+        // --- SPLIT SCREEN & TERMINAL RESIZER LOGIC ---
+        const hResizer = document.getElementById('h-resizer');
+        const vResizer = document.getElementById('v-resizer');
+        const leftPanel = document.getElementById('left-panel');
+        const rightPanel = document.getElementById('right-panel');
+        const terminalPanel = document.getElementById('terminal-panel');
+        const monacoContainer = document.getElementById('monaco-container');
+        
+        let isResizingH = false;
+        let isResizingV = false;
+
+        hResizer.addEventListener('mousedown', function(e) {
+            isResizingH = true;
+            document.body.style.cursor = 'col-resize';
+            monacoContainer.style.pointerEvents = 'none';
+            e.preventDefault(); 
+        });
+
+        vResizer.addEventListener('mousedown', function(e) {
+            isResizingV = true;
+            document.body.style.cursor = 'row-resize';
+            monacoContainer.style.pointerEvents = 'none';
+            e.preventDefault(); 
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (isResizingH) {
+                const containerWidth = document.body.clientWidth;
+                const newWidth = (e.clientX / containerWidth) * 100;
+                if (newWidth > 15 && newWidth < 60) {
+                    leftPanel.style.width = newWidth + '%';
+                }
+            }
+            if (isResizingV) {
+                const containerRect = rightPanel.getBoundingClientRect();
+                const footerHeight = document.getElementById('test-footer').offsetHeight || 68;
+                const newHeight = containerRect.bottom - e.clientY - footerHeight;
+                
+                if (newHeight > 60 && newHeight < containerRect.height * 0.8) {
+                    terminalPanel.style.height = newHeight + 'px';
+                }
+            }
+        });
+
+        document.addEventListener('mouseup', function(e) {
+            if (isResizingH || isResizingV) {
+                isResizingH = false;
+                isResizingV = false;
+                document.body.style.cursor = 'default';
+                monacoContainer.style.pointerEvents = 'auto';
+                if (editorInstance) editorInstance.layout();
+            }
+        });
 
         // --- AUTOSAVE TO TEMP DB ---
         async function triggerAutosave() {

@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="favicon1.svg">
     <title>LogicSilicon - Assessment Portal</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/loader.min.js"></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden;}
@@ -238,20 +240,22 @@ endmodule</textarea>
                 <p class="text-slate-500 mb-8" id="subs-test-title">Test Title</p>
 
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <table class="w-full text-left">
-                        <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
-                            <tr>
-                                <th class="px-6 py-4">Student Email</th>
-                                <th class="px-6 py-4">Enrollment ID</th>
-                                <th class="px-6 py-4">Timestamp</th>
-                                <th class="px-6 py-4">Status</th>
-                                <th class="px-6 py-4 text-right">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="subs-list-body" class="divide-y divide-slate-100 text-sm text-slate-700">
-                            <!-- Dynamic Rows -->
-                        </tbody>
-                    </table>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left min-w-[800px]">
+                            <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4">Student Email</th>
+                                    <th class="px-6 py-4">Enrollment ID</th>
+                                    <th class="px-6 py-4">Timestamp</th>
+                                    <th class="px-6 py-4">Status</th>
+                                    <th class="px-6 py-4 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subs-list-body" class="divide-y divide-slate-100 text-sm text-slate-700">
+                                <!-- Dynamic Rows -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -303,24 +307,31 @@ endmodule</textarea>
             </div>
         </div>
 
-        <!-- 4.5. STUDENT RESULTS VIEW -->
+        <!-- 4.5. STUDENT RESULTS VIEW (Updated with Rank) -->
         <div id="student-results-view" class="view">
             <div class="p-8 max-w-5xl mx-auto w-full">
                 <button onclick="navigateTo('student-dashboard-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Dashboard</button>
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm mb-8 flex justify-between items-center">
-                    <div>
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm mb-8 flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div class="flex-1">
                         <h1 class="text-2xl font-extrabold text-slate-900 mb-2" id="res-test-title">Test Title</h1>
                         <p class="text-emerald-600 font-bold text-sm bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200 inline-block mt-2">Evaluation Complete</p>
+                        
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 mt-6">
+                            <h3 class="text-xs font-bold text-[#8ba3c7] uppercase tracking-wider mb-2">Instructor Remarks</h3>
+                            <p class="text-slate-700 whitespace-pre-wrap" id="res-remarks">No remarks provided.</p>
+                        </div>
                     </div>
-                    <div class="text-right">
-                        <p class="text-xs font-bold text-[#8ba3c7] uppercase mb-1">Total Marks</p>
-                        <p class="text-5xl font-black text-[#5b54e5]" id="res-marks">--</p>
+                    
+                    <div class="w-full md:w-64 shrink-0 bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center flex flex-col justify-center">
+                        <p class="text-xs font-bold text-[#8ba3c7] uppercase mb-1">Your Total Marks</p>
+                        <p class="text-5xl font-black text-[#5b54e5] mb-2" id="res-marks">--</p>
+                        
+                        <!-- NEW: Class Rank Display -->
+                        <div class="mt-4 pt-4 border-t border-slate-200">
+                            <p class="text-xs font-bold text-[#8ba3c7] uppercase mb-1">Class Rank</p>
+                            <p class="text-3xl font-black text-emerald-500" id="res-rank">--</p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 mb-8">
-                    <h3 class="text-xs font-bold text-[#8ba3c7] uppercase tracking-wider mb-2">Instructor Remarks</h3>
-                    <p class="text-slate-700 whitespace-pre-wrap" id="res-remarks">No remarks provided.</p>
                 </div>
 
                 <h2 class="text-xl font-bold text-slate-800 mb-6">Your Submitted Responses</h2>
@@ -338,7 +349,8 @@ endmodule</textarea>
                 <ul class="space-y-4 text-slate-600 mb-10 list-disc pl-5">
                     <li><strong>Duration:</strong> Test timer: <span id="inst-duration">60</span> minutes. The timer starts when you click "Start Test".</li>
                     <li><strong>Questions:</strong> The test contains <strong id="inst-q-count">0</strong> questions. You can navigate between them.</li>
-                    <li><strong>Environment:</strong> The system will monitor window focus. Switching tabs or exiting full-screen will log a security infraction.</li>
+                    <li><strong>Environment (Strict):</strong> The system actively monitors window focus. Switching tabs or exiting full-screen will trigger an immediate warning and flag your submission.</li>
+                    <li><strong>Copy & Paste:</strong> Pasting code from external sources is disabled to ensure academic integrity.</li>
                     <li><strong>Auto-Save:</strong> Your responses are automatically synced locally.</li>
                 </ul>
                 <div class="bg-[#f3f5fe] p-6 rounded-2xl flex items-center justify-between">
@@ -349,8 +361,20 @@ endmodule</textarea>
         </div>
 
         <!-- 6. TEST ENVIRONMENT (IDE) -->
-        <div id="test-view" class="view h-full overflow-hidden bg-white">
+        <div id="test-view" class="view h-full overflow-hidden bg-white relative">
             
+            <!-- NEW: Fullscreen Warning Overlay -->
+            <div id="fullscreen-warning" class="hidden absolute inset-0 z-[100] bg-slate-900/90 flex flex-col items-center justify-center backdrop-blur-sm">
+                <div class="bg-white p-8 rounded-3xl text-center max-w-md shadow-2xl">
+                    <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 animate-bounce">⚠️</div>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-2">Fullscreen Exited</h2>
+                    <p class="text-slate-600 mb-6 text-sm">You must remain in fullscreen mode to continue the assessment. This action has been logged as a security warning.</p>
+                    <button onclick="enterFullscreen()" class="px-6 py-3.5 bg-[#5b54e5] text-white font-bold rounded-xl hover:bg-[#4a44c9] transition-colors w-full flex items-center justify-center gap-2">
+                        Return to Fullscreen <span class="bg-indigo-400/30 px-2 py-0.5 rounded text-xs">Press F</span>
+                    </button>
+                </div>
+            </div>
+
             <!-- Header (Glued to Top) -->
             <div class="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shadow-sm z-10 shrink-0">
                 <span class="font-extrabold tracking-tight text-xl" id="ide-test-title">Test</span>
@@ -449,6 +473,7 @@ endmodule</textarea>
         let dbTests = []; 
         let dbSubmissions = []; 
         let dbGrades = [];      
+        let dbClassAverages = {}; 
         
         let currentManageTestId = null; 
         let currentEditQuestionIndex = -1; // -1 means adding new, >= 0 means editing
@@ -461,6 +486,9 @@ endmodule</textarea>
         let currentTimeLeft = 0;
         let autosaveInterval = null;
         let editorInstance = null;
+        
+        let warningCount = 0; // Tracks anti-cheating warnings
+        let isSubmitting = false; // Tracks if test is currently being submitted
 
         // On Load Check Session
         window.onload = () => {
@@ -679,7 +707,6 @@ endmodule</textarea>
             navigateTo('admin-add-question-view');
         }
 
-        // --- NEW: Toggle Question Type in Admin UI ---
         function toggleQType() {
             const type = document.getElementById('add-q-type').value;
             if (type === 'mcq') {
@@ -720,17 +747,14 @@ endmodule</textarea>
             const testIndex = dbTests.findIndex(t => t.id === currentManageTestId);
             
             if (currentEditQuestionIndex !== -1) {
-                // Update existing question
                 dbTests[testIndex].questions[currentEditQuestionIndex] = qData;
             } else {
-                // Push new question
                 dbTests[testIndex].questions.push(qData);
             }
             
             await fetch(GOOGLE_WEB_APP_URL, { method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify({ action: 'createTest', test: dbTests[testIndex] }) });
             
             btn.innerText = originalText; btn.disabled = false; e.target.reset();
-            // Reset to default
             document.getElementById('add-q-type').value = 'coding'; toggleQType();
             manageTest(currentManageTestId); 
         }
@@ -754,15 +778,22 @@ endmodule</textarea>
                     const statusHtml = gradeRecord 
                         ? `<span class="bg-[#ecfdf5] text-[#10b981] px-3 py-1 rounded-full text-xs font-bold border border-[#a7f3d0]">Graded: ${gradeRecord.marks} Marks</span>`
                         : `<span class="bg-[#fffbeb] text-[#f59e0b] px-3 py-1 rounded-full text-xs font-bold border border-[#fde68a]">Needs Grading</span>`;
+                    
+                    const warningBadge = sub.warnings > 0 
+                        ? `<span class="bg-red-100 text-red-700 px-2 py-0.5 rounded-md text-[10px] font-bold animate-pulse border border-red-200 inline-block">⚠️ ${sub.warnings} Warnings</span>` 
+                        : '';
 
                     tbody.innerHTML += `
                         <tr class="hover:bg-slate-50 transition">
-                            <td class="px-6 py-4 font-bold text-slate-800">${sub.email}</td>
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-800 break-all">${sub.email}</div>
+                                ${warningBadge ? `<div class="mt-1">${warningBadge}</div>` : ''}
+                            </td>
                             <td class="px-6 py-4 font-mono text-slate-500 text-xs">${sub.enrollment}</td>
-                            <td class="px-6 py-4 text-slate-500 text-xs">${sub.timestamp}</td>
-                            <td class="px-6 py-4">${statusHtml}</td>
-                            <td class="px-6 py-4 text-right">
-                                <button onclick="openGradeView('${sub.email}', '${sub.enrollment}', '${test.title}')" class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-[#5b54e5] hover:bg-slate-50">Review & Grade</button>
+                            <td class="px-6 py-4 text-slate-500 text-xs whitespace-nowrap">${sub.timestamp}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">${statusHtml}</td>
+                            <td class="px-6 py-4 text-right whitespace-nowrap">
+                                <button onclick="openGradeView('${sub.email}', '${sub.enrollment}', '${test.id}')" class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-[#5b54e5] hover:bg-slate-50">Review & Grade</button>
                             </td>
                         </tr>
                     `;
@@ -771,7 +802,11 @@ endmodule</textarea>
             navigateTo('admin-submissions-view');
         }
 
-        function openGradeView(email, enrollment, testTitle) {
+        function openGradeView(email, enrollment, testId) {
+            const testData = dbTests.find(t => t.id === testId);
+            if (!testData) return;
+            
+            const testTitle = testData.title;
             currentGradingSubmission = dbSubmissions.find(s => s.email === email && s.testTitle === testTitle);
             if(!currentGradingSubmission) return;
 
@@ -786,10 +821,8 @@ endmodule</textarea>
             const container = document.getElementById('grade-answers-container');
             container.innerHTML = '';
             
-            const testData = dbTests.find(t => t.title === testTitle);
             const testQuestions = testData ? testData.questions : [];
 
-            // Render Answer Code Blocks alongside Individual Grading Inputs
             currentGradingSubmission.answers.forEach((ans, idx) => {
                 const q = testQuestions[idx];
                 const isMcq = q && q.type === 'mcq';
@@ -814,7 +847,6 @@ endmodule</textarea>
             navigateTo('admin-grade-view');
         }
 
-        // Dynamically sums up individual question marks for the instructor
         function recalcTotalMarks() {
             const inputs = document.querySelectorAll('.q-grade-input');
             let total = 0;
@@ -882,7 +914,7 @@ endmodule</textarea>
 
                 if (isSubmitted) {
                     if (isGraded) {
-                        actionHtml = `<button onclick="viewResults('${test.title}')" class="mt-auto w-full py-3.5 rounded-xl font-bold bg-[#5b54e5] hover:bg-[#4a44c9] text-white transition-colors">View Results</button>`;
+                        actionHtml = `<button onclick="viewResults('${test.id}')" class="mt-auto w-full py-3.5 rounded-xl font-bold bg-[#5b54e5] hover:bg-[#4a44c9] text-white transition-colors">View Results</button>`;
                     } else {
                         actionHtml = `<button disabled class="mt-auto w-full py-3.5 rounded-xl font-bold bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200">Submitted (Pending Review)</button>`;
                     }
@@ -905,14 +937,22 @@ endmodule</textarea>
         }
 
         // --- STUDENT RESULTS ---
-        function viewResults(testTitle) {
-            const grade = dbGrades.find(g => g.testTitle === testTitle);
-            const sub = dbSubmissions.find(s => s.testTitle === testTitle);
-            if(!grade || !sub) return;
+        function viewResults(testId) {
+            const test = dbTests.find(t => t.id === testId);
+            if (!test) return;
 
-            document.getElementById('res-test-title').innerText = testTitle;
+            const grade = dbGrades.find(g => g.testTitle === test.title);
+            const sub = dbSubmissions.find(s => s.testTitle === test.title);
+            
+            if(!grade || !sub) {
+                alert("Evaluation data is incomplete or corrupted. Please contact your instructor.");
+                return;
+            }
+
+            document.getElementById('res-test-title').innerText = test.title;
             document.getElementById('res-marks').innerText = grade.marks;
             document.getElementById('res-remarks').innerText = grade.remarks || "No remarks provided.";
+            document.getElementById('res-rank').innerText = grade.rankText || "--";
 
             const container = document.getElementById('res-answers-container');
             container.innerHTML = '';
@@ -920,10 +960,12 @@ endmodule</textarea>
 
             sub.answers.forEach((ans, idx) => {
                 const markAwarded = breakdown[idx] !== undefined ? breakdown[idx] : 0;
+                const qTitle = test.questions && test.questions[idx] ? test.questions[idx].title : `Answer ${idx + 1}`;
+
                 container.innerHTML += `
                     <div class="bg-[#1e1e1e] rounded-xl overflow-hidden shadow-sm">
                         <div class="bg-[#2d2d2d] px-4 py-2 flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-[#3d3d3d]">
-                            <span>Answer ${idx + 1}</span>
+                            <span>${idx + 1}. ${qTitle}</span>
                             <span class="text-emerald-400 text-xs font-mono">${markAwarded} Marks</span>
                         </div>
                         <pre class="p-4 font-mono text-[13px] text-slate-300 overflow-x-auto whitespace-pre-wrap">${ans}</pre>
@@ -958,11 +1000,12 @@ endmodule</textarea>
             btn.innerText = "Restoring Session...";
             btn.disabled = true;
 
-            // Set Defaults
+            warningCount = 0;
+            isSubmitting = false; // Reset submitting flag
+
             currentTimeLeft = currentActiveTest.duration * 60;
             studentAnswers = currentActiveTest.questions.map(q => q.type === 'mcq' ? "" : (q.code || ""));
 
-            // Attempt to Fetch Previous Session
             try {
                 const res = await fetch(GOOGLE_WEB_APP_URL, {
                     method: 'POST', headers: {'Content-Type': 'text/plain'},
@@ -984,9 +1027,63 @@ endmodule</textarea>
             setTimeout(initMonaco, 200); 
             startCountdown();
 
-            // Start Autosave Loop (every 30 seconds)
             autosaveInterval = setInterval(triggerAutosave, 30000);
         }
+
+        // --- ANTI-CHEATING LISTENERS ---
+
+        // Helper to force fullscreen via button or keypress
+        window.enterFullscreen = function() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(e => console.log(e));
+            }
+        };
+
+        // NEW: Strict Fullscreen Enforcement
+        document.addEventListener('fullscreenchange', () => {
+            if (isSubmitting) return; // Do not trigger warning if the student is submitting the test
+            if (document.getElementById('test-view').classList.contains('active')) {
+                if (!document.fullscreenElement) {
+                    document.getElementById('fullscreen-warning').classList.remove('hidden');
+                    warningCount++;
+                    triggerAutosave(); 
+                } else {
+                    document.getElementById('fullscreen-warning').classList.add('hidden');
+                }
+            }
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            if (isSubmitting) return; // Do not trigger warning if the student is submitting the test
+            if (document.hidden && document.getElementById('test-view').classList.contains('active')) {
+                warningCount++;
+                alert("WARNING: You have switched tabs or minimized the window.\n\nThis incident has been logged. Multiple infractions may result in your disqualification from the exam.");
+                triggerAutosave(); 
+            }
+        });
+
+        document.addEventListener('paste', (e) => {
+            if (document.getElementById('test-view').classList.contains('active')) {
+                e.preventDefault();
+                alert('Pasting code is strictly prohibited during the assessment to maintain academic integrity.');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('test-view').classList.contains('active')) {
+                // Prevent Ctrl+V
+                if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
+                    e.preventDefault();
+                    alert('Pasting code is strictly prohibited during the assessment to maintain academic integrity.');
+                }
+
+                // Allow 'F' to return to fullscreen if overlay is active
+                if (!document.fullscreenElement && e.key.toLowerCase() === 'f') {
+                    e.preventDefault(); // Prevents typing 'f' in editor
+                    enterFullscreen();
+                }
+            }
+        });
 
         function initMonaco() {
             require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs' }});
@@ -995,6 +1092,9 @@ endmodule</textarea>
                 editorInstance = monaco.editor.create(document.getElementById('monaco-container'), {
                     value: "", language: 'verilog', theme: 'vs-dark', automaticLayout: true, minimap: { enabled: false }, fontSize: 15
                 });
+                
+                editorInstance.onContextMenu((e) => { e.event.preventDefault(); });
+
                 editorInstance.onDidChangeModelContent(() => { 
                     const currentQ = currentActiveTest.questions[currentQuestionIndex];
                     if(!currentQ.type || currentQ.type === 'coding') {
@@ -1007,7 +1107,7 @@ endmodule</textarea>
 
         window.saveMcqAnswer = function(opt) {
             studentAnswers[currentQuestionIndex] = opt;
-            renderQuestionUI(); // Re-render to update the highlighted border
+            renderQuestionUI(); 
         }
 
         function renderQuestionUI() {
@@ -1027,7 +1127,6 @@ endmodule</textarea>
             }
 
             if (q.type === 'mcq') {
-                // Show MCQ UI
                 document.getElementById('editor-wrapper').classList.add('hidden');
                 document.getElementById('run-code-btn').classList.add('hidden');
                 document.getElementById('mcq-wrapper').classList.remove('hidden');
@@ -1049,7 +1148,6 @@ endmodule</textarea>
                 });
                 closeTerminal();
             } else {
-                // Show Editor UI
                 document.getElementById('mcq-wrapper').classList.add('hidden');
                 document.getElementById('editor-wrapper').classList.remove('hidden');
                 document.getElementById('run-code-btn').classList.remove('hidden');
@@ -1084,7 +1182,6 @@ endmodule</textarea>
             }, 1000);
         }
 
-        // --- VERILOG COMPILATION API LOGIC ---
         async function runVerilogCode() {
             if(!editorInstance) return;
             const btn = document.getElementById('run-code-btn');
@@ -1095,7 +1192,6 @@ endmodule</textarea>
             btn.innerText = "Running...";
             btn.disabled = true;
             
-            // Show terminal and resizer
             terminal.classList.remove('hidden');
             terminal.classList.add('flex');
             vResizer.classList.remove('hidden');
@@ -1141,7 +1237,6 @@ endmodule</textarea>
             if (editorInstance) setTimeout(() => editorInstance.layout(), 50);
         }
 
-        // --- SPLIT SCREEN & TERMINAL RESIZER LOGIC ---
         const hResizer = document.getElementById('h-resizer');
         const vResizer = document.getElementById('v-resizer');
         const leftPanel = document.getElementById('left-panel');
@@ -1179,7 +1274,6 @@ endmodule</textarea>
             }
         });
 
-        // --- AUTOSAVE TO TEMP DB ---
         async function triggerAutosave() {
             const currentQ = currentActiveTest.questions[currentQuestionIndex];
             if ((!currentQ.type || currentQ.type === 'coding') && editorInstance) {
@@ -1191,7 +1285,8 @@ endmodule</textarea>
 
             const payload = {
                 action: 'autosave', email: currentUser.email, enrollment: currentUser.id,
-                testTitle: currentActiveTest.title, timeLeft: currentTimeLeft, answers: studentAnswers
+                testTitle: currentActiveTest.title, timeLeft: currentTimeLeft, 
+                answers: studentAnswers, warnings: warningCount
             };
 
             try {
@@ -1202,9 +1297,10 @@ endmodule</textarea>
             }
         }
 
-        // --- FINAL SUBMIT & AUTO-GRADING ---
         async function submitTest() {
-            clearInterval(testTimer); clearInterval(autosaveInterval); if (document.exitFullscreen) document.exitFullscreen().catch(e=>e);
+            isSubmitting = true; // Set flag to true so fullscreen exit isn't logged as cheating
+            clearInterval(testTimer); clearInterval(autosaveInterval); 
+            if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen().catch(e=>e);
             
             const btn = document.getElementById('final-submit-btn');
             btn.innerText = "Uploading & Evaluating..."; btn.disabled = true;
@@ -1225,7 +1321,7 @@ endmodule</textarea>
                     return marks;
                 } else {
                     hasCoding = true;
-                    return 0; // Needs manual grading
+                    return 0; 
                 }
             });
 
@@ -1238,13 +1334,11 @@ endmodule</textarea>
                 }
             });
 
-            const payloadSubmit = { action: 'submitTest', email: currentUser.email, enrollment: currentUser.id, testTitle: currentActiveTest.title, answers: answersArray };
+            const payloadSubmit = { action: 'submitTest', email: currentUser.email, enrollment: currentUser.id, testTitle: currentActiveTest.title, answers: answersArray, warnings: warningCount };
 
             try {
-                // 1. Submit the test payload
                 await fetch(GOOGLE_WEB_APP_URL, { method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify(payloadSubmit) });
 
-                // 2. Automatically submit grading for MCQs
                 const remarks = hasCoding 
                     ? "MCQs Auto-graded. Coding questions pending instructor review." 
                     : "Test fully auto-graded by system.";
@@ -1259,6 +1353,7 @@ endmodule</textarea>
                 document.getElementById('submit-success-msg').innerText = hasCoding ? "Data safely stored in Database. Pending instructor review." : "Data safely stored. Your test was automatically graded!";
                 navigateTo('submit-view');
             } catch(e) {
+                isSubmitting = false; // Reset flag if submission fails so they can retry securely
                 alert("Submission error. Please check your internet connection.");
                 btn.innerText = "Submit Test"; btn.disabled = false;
             }

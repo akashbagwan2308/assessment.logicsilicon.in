@@ -23,6 +23,7 @@
 </head>
 <body class="text-slate-900">
 
+    <!-- GLOBAL NAVBAR -->
     <nav id="main-navbar" class="hidden bg-white border-b border-slate-200 px-8 py-4 justify-between items-center shadow-sm w-full shrink-0 z-50">
         <div class="flex items-center gap-2">
             <div class="w-10 h-10 bg-slate-800 dark:bg-amber-600 text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-lg border-b-4 border-amber-600 dark:border-amber-800">
@@ -41,8 +42,10 @@
         </div>
     </nav>
 
+    <!-- MAIN CONTENT AREA -->
     <div class="main-content">
         
+        <!-- 1. LOGIN VIEW -->
         <div id="login-view" class="view active items-center justify-center p-4">
             <div class="mb-10 scale-110 flex items-center gap-2">
                 <div class="w-10 h-10 bg-slate-800 dark:bg-amber-600 text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-lg border-b-4 border-amber-600 dark:border-amber-800">
@@ -89,6 +92,7 @@
             </div>
         </div>
 
+        <!-- 2. INSTRUCTOR DASHBOARD -->
         <div id="admin-dashboard-view" class="view">
             <div class="p-8 max-w-6xl mx-auto w-full">
                 <div class="flex justify-between items-center mb-10">
@@ -102,6 +106,7 @@
             </div>
         </div>
 
+        <!-- 3. INSTRUCTOR CREATE TEST -->
         <div id="admin-create-test-view" class="view">
             <div class="p-8 max-w-3xl mx-auto w-full">
                 <button onclick="fetchDataFromGoogle(true)" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Dashboard</button>
@@ -138,6 +143,7 @@
             </div>
         </div>
 
+        <!-- 3.5. INSTRUCTOR MANAGE TEST -->
         <div id="admin-manage-test-view" class="view">
             <div class="p-8 max-w-5xl mx-auto w-full">
                 <button onclick="fetchDataFromGoogle(true)" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Dashboard</button>
@@ -150,8 +156,8 @@
                         <button onclick="viewSubmissions()" class="px-6 py-3 rounded-xl font-bold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">
                             View Submissions
                         </button>
-                        <button onclick="navigateTo('admin-add-question-view')" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">
-                            + Add Coding Question
+                        <button onclick="openAddQuestionView()" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">
+                            + Add Question
                         </button>
                     </div>
                 </div>
@@ -160,12 +166,27 @@
             </div>
         </div>
 
+        <!-- 3.6. INSTRUCTOR ADD/EDIT QUESTION -->
         <div id="admin-add-question-view" class="view">
             <div class="p-8 max-w-4xl mx-auto w-full">
                 <button onclick="navigateTo('admin-manage-test-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Cancel</button>
-                <h1 class="text-3xl font-extrabold text-slate-900 mb-8">Add Coding Question</h1>
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-8" id="view-add-q-title">Add New Question</h1>
                 
-                <form onsubmit="handleAddQuestion(event)" class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                <form id="add-q-form" onsubmit="handleAddQuestion(event)" class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                    <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100 flex gap-6">
+                        <div class="flex-1">
+                            <label class="block text-xs font-bold text-[#5b54e5] mb-2 uppercase">Question Type</label>
+                            <select id="add-q-type" onchange="toggleQType()" class="w-full p-4 rounded-xl border border-slate-200 outline-none font-bold text-slate-700 bg-white">
+                                <option value="coding">Coding / Verilog Simulation</option>
+                                <option value="mcq">Multiple Choice (MCQ)</option>
+                            </select>
+                        </div>
+                        <div class="w-1/3">
+                            <label class="block text-xs font-bold text-[#5b54e5] mb-2 uppercase">Marks</label>
+                            <input type="number" id="add-q-marks" value="5" min="1" required class="w-full p-4 rounded-xl border border-slate-200 outline-none font-bold text-slate-700 bg-white">
+                        </div>
+                    </div>
+
                     <div>
                         <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">Question Title</label>
                         <input type="text" id="add-q-title" required class="w-full p-4 rounded-xl border border-slate-200 outline-none">
@@ -174,19 +195,42 @@
                         <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">Problem Description</label>
                         <textarea id="add-q-desc" rows="6" required class="w-full p-4 rounded-xl border border-slate-200 outline-none font-mono text-sm"></textarea>
                     </div>
-                    <div>
+
+                    <!-- Coding Fields -->
+                    <div id="q-coding-fields">
                         <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">Boilerplate Code</label>
-                        <textarea id="add-q-code" rows="6" required class="w-full p-4 rounded-xl border border-slate-200 outline-none bg-[#1e1e1e] text-[#d4d4d4] font-mono text-sm">module top_module(input a, input b, output y);
+                        <textarea id="add-q-code" rows="6" class="w-full p-4 rounded-xl border border-slate-200 outline-none bg-[#1e1e1e] text-[#d4d4d4] font-mono text-sm">module top_module(input a, input b, output y);
 
     // Your logic here
 
 endmodule</textarea>
                     </div>
+
+                    <!-- MCQ Fields (Hidden by default) -->
+                    <div id="q-mcq-fields" class="hidden space-y-6 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><label class="block text-xs font-bold text-slate-500 mb-1">Option A</label><input type="text" id="mcq-opt-a" class="w-full p-3 rounded-lg border border-slate-300 outline-none focus:border-[#5b54e5]"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 mb-1">Option B</label><input type="text" id="mcq-opt-b" class="w-full p-3 rounded-lg border border-slate-300 outline-none focus:border-[#5b54e5]"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 mb-1">Option C</label><input type="text" id="mcq-opt-c" class="w-full p-3 rounded-lg border border-slate-300 outline-none focus:border-[#5b54e5]"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 mb-1">Option D</label><input type="text" id="mcq-opt-d" class="w-full p-3 rounded-lg border border-slate-300 outline-none focus:border-[#5b54e5]"></div>
+                        </div>
+                        <div class="border-t border-slate-200 pt-6">
+                            <label class="block text-xs font-bold text-emerald-600 mb-1 uppercase tracking-wider">Correct Option</label>
+                            <select id="mcq-correct" class="w-full p-3 rounded-lg border border-slate-300 outline-none font-bold text-slate-700">
+                                <option value="A">Option A</option>
+                                <option value="B">Option B</option>
+                                <option value="C">Option C</option>
+                                <option value="D">Option D</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <button type="submit" id="btn-save-question" class="w-full py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">Save & Upload to Database</button>
                 </form>
             </div>
         </div>
 
+        <!-- 3.7. INSTRUCTOR VIEW SUBMISSIONS -->
         <div id="admin-submissions-view" class="view">
             <div class="p-8 max-w-5xl mx-auto w-full">
                 <button onclick="navigateTo('admin-manage-test-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Test Details</button>
@@ -205,12 +249,14 @@ endmodule</textarea>
                             </tr>
                         </thead>
                         <tbody id="subs-list-body" class="divide-y divide-slate-100 text-sm text-slate-700">
-                            </tbody>
+                            <!-- Dynamic Rows -->
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
+        <!-- 3.8. INSTRUCTOR GRADING VIEW -->
         <div id="admin-grade-view" class="view">
             <div class="p-8 max-w-6xl mx-auto w-full">
                 <button onclick="navigateTo('admin-submissions-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Submissions</button>
@@ -222,9 +268,12 @@ endmodule</textarea>
                 </div>
 
                 <div class="flex gap-8">
+                    <!-- Left: Code Answers -->
                     <div class="flex-1 space-y-6" id="grade-answers-container">
-                        </div>
+                        <!-- Code blocks injected here -->
+                    </div>
 
+                    <!-- Right: Grading Form -->
                     <div class="w-96 shrink-0">
                         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm sticky top-8">
                             <h3 class="text-lg font-bold text-slate-800 mb-6">Evaluation</h3>
@@ -245,6 +294,7 @@ endmodule</textarea>
             </div>
         </div>
 
+        <!-- 4. STUDENT DASHBOARD -->
         <div id="student-dashboard-view" class="view">
             <div class="p-8 max-w-6xl mx-auto w-full">
                 <h1 class="text-3xl font-extrabold text-slate-900 mb-8">Your Assessments</h1>
@@ -253,17 +303,18 @@ endmodule</textarea>
             </div>
         </div>
 
+        <!-- 4.5. STUDENT RESULTS VIEW -->
         <div id="student-results-view" class="view">
             <div class="p-8 max-w-5xl mx-auto w-full">
                 <button onclick="navigateTo('student-dashboard-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Dashboard</button>
                 <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm mb-8 flex justify-between items-center">
                     <div>
                         <h1 class="text-2xl font-extrabold text-slate-900 mb-2" id="res-test-title">Test Title</h1>
-                        <p class="text-slate-500 text-sm">Instructor Evaluation Complete</p>
+                        <p class="text-emerald-600 font-bold text-sm bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200 inline-block mt-2">Evaluation Complete</p>
                     </div>
                     <div class="text-right">
                         <p class="text-xs font-bold text-[#8ba3c7] uppercase mb-1">Total Marks</p>
-                        <p class="text-4xl font-black text-[#5b54e5]" id="res-marks">--</p>
+                        <p class="text-5xl font-black text-[#5b54e5]" id="res-marks">--</p>
                     </div>
                 </div>
 
@@ -272,12 +323,14 @@ endmodule</textarea>
                     <p class="text-slate-700 whitespace-pre-wrap" id="res-remarks">No remarks provided.</p>
                 </div>
 
-                <h2 class="text-xl font-bold text-slate-800 mb-6">Your Submitted Code</h2>
+                <h2 class="text-xl font-bold text-slate-800 mb-6">Your Submitted Responses</h2>
                 <div id="res-answers-container" class="space-y-6">
-                    </div>
+                    <!-- Code blocks injected here -->
+                </div>
             </div>
         </div>
 
+        <!-- 5. TEST INSTRUCTIONS -->
         <div id="instructions-view" class="view items-center justify-center p-4">
             <div class="bg-white p-10 rounded-[1.5rem] border border-slate-200 w-full max-w-[700px] shadow-sm">
                 <h1 class="text-[28px] font-extrabold text-slate-900 mb-6">Test Instructions & Policy</h1>
@@ -286,7 +339,7 @@ endmodule</textarea>
                     <li><strong>Duration:</strong> Test timer: <span id="inst-duration">60</span> minutes. The timer starts when you click "Start Test".</li>
                     <li><strong>Questions:</strong> The test contains <strong id="inst-q-count">0</strong> questions. You can navigate between them.</li>
                     <li><strong>Environment:</strong> The system will monitor window focus. Switching tabs or exiting full-screen will log a security infraction.</li>
-                    <li><strong>Auto-Save:</strong> Your Verilog code is automatically synced locally.</li>
+                    <li><strong>Auto-Save:</strong> Your responses are automatically synced locally.</li>
                 </ul>
                 <div class="bg-[#f3f5fe] p-6 rounded-2xl flex items-center justify-between">
                     <label class="flex items-center gap-3"><input type="checkbox" id="agree-checkbox" onchange="toggleStartButton()" class="w-5 h-5 rounded text-[#5b54e5]"><span class="font-medium">I agree to the policies.</span></label>
@@ -295,11 +348,14 @@ endmodule</textarea>
             </div>
         </div>
 
+        <!-- 6. TEST ENVIRONMENT (IDE) -->
         <div id="test-view" class="view h-full overflow-hidden bg-white">
             
+            <!-- Header (Glued to Top) -->
             <div class="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shadow-sm z-10 shrink-0">
                 <span class="font-extrabold tracking-tight text-xl" id="ide-test-title">Test</span>
                 <div class="flex items-center gap-4">
+                    <!-- RUN CODE BUTTON -->
                     <button onclick="runVerilogCode()" id="run-code-btn" class="px-5 py-2.5 rounded-xl font-bold bg-slate-800 text-white hover:bg-slate-700 flex items-center gap-2 transition-colors">
                         ▶ Run Code
                     </button>
@@ -310,38 +366,59 @@ endmodule</textarea>
                 </div>
             </div>
 
+            <!-- Workspace Body -->
             <div class="flex-1 flex overflow-hidden">
                 
+                <!-- LEFT PANEL (Question Details) -->
                 <div id="left-panel" style="width: 33.333%;" class="bg-white border-r border-slate-200 p-8 overflow-y-auto shrink-0 flex flex-col">
-                    <span class="text-[#5b54e5] font-bold text-sm mb-4" id="ide-q-counter">Question 1</span>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-[#5b54e5] font-bold text-sm" id="ide-q-counter">Question 1</span>
+                        <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-xs font-bold" id="ide-q-marks">Marks: 5</span>
+                    </div>
                     <h3 class="text-2xl font-extrabold text-slate-900 mb-6" id="ide-q-title">Title</h3>
                     <div class="text-slate-600 text-[15px] whitespace-pre-wrap" id="ide-q-desc">Desc</div>
                 </div>
 
+                <!-- HORIZONTAL RESIZER -->
                 <div id="h-resizer" class="w-1.5 bg-slate-200 cursor-col-resize hover:bg-[#5b54e5] transition-colors shrink-0 z-20 flex items-center justify-center">
                     <div class="h-8 w-0.5 bg-slate-400 rounded"></div>
                 </div>
 
+                <!-- RIGHT PANEL (Editor & Terminal & MCQ) -->
                 <div id="right-panel" class="flex-1 flex flex-col bg-[#1e1e1e] relative min-w-0 overflow-hidden">
                     <div class="bg-[#2d2d2d] px-4 py-2.5 border-b border-[#3d3d3d] text-slate-300 font-mono text-sm shrink-0" id="ide-filename">module.v</div>
                     
-                    <div id="monaco-container" class="flex-1 w-full min-h-0 relative"></div>
-                    
-                    <div id="v-resizer" class="h-1.5 bg-slate-200 cursor-row-resize hover:bg-[#5b54e5] transition-colors shrink-0 z-20 flex items-center justify-center hidden">
-                        <div class="w-8 h-0.5 bg-slate-400 rounded"></div>
-                    </div>
-
-                    <div id="terminal-panel" style="height: 192px;" class="bg-[#0d0d0d] border-t border-[#3d3d3d] flex-col hidden shrink-0">
-                        <div class="bg-[#2d2d2d] px-4 py-1.5 flex justify-between items-center text-[10px] text-slate-400 font-bold tracking-widest uppercase shrink-0">
-                            <span>Terminal Output</span>
-                            <button onclick="closeTerminal()" class="hover:text-white transition-colors p-1">✕</button>
+                    <!-- EDITOR WRAPPER -->
+                    <div id="editor-wrapper" class="flex-1 w-full min-h-0 relative flex flex-col">
+                        <div id="monaco-container" class="flex-1 w-full min-h-0 relative"></div>
+                        
+                        <!-- VERTICAL RESIZER -->
+                        <div id="v-resizer" class="h-1.5 bg-slate-200 cursor-row-resize hover:bg-[#5b54e5] transition-colors shrink-0 z-20 flex items-center justify-center hidden">
+                            <div class="w-8 h-0.5 bg-slate-400 rounded"></div>
                         </div>
-                        <div class="p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-slate-300" id="terminal-output"></div>
+
+                        <!-- TERMINAL OUTPUT PANEL -->
+                        <div id="terminal-panel" style="height: 192px;" class="bg-[#0d0d0d] border-t border-[#3d3d3d] flex-col hidden shrink-0">
+                            <div class="bg-[#2d2d2d] px-4 py-1.5 flex justify-between items-center text-[10px] text-slate-400 font-bold tracking-widest uppercase shrink-0">
+                                <span>Terminal Output</span>
+                                <button onclick="closeTerminal()" class="hover:text-white transition-colors p-1">✕</button>
+                            </div>
+                            <div class="p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-slate-300" id="terminal-output"></div>
+                        </div>
                     </div>
 
+                    <!-- MCQ WRAPPER -->
+                    <div id="mcq-wrapper" class="flex-1 w-full min-h-0 bg-[#1e1e1e] hidden p-8 overflow-y-auto">
+                        <h3 class="text-xl font-bold text-slate-300 mb-6">Select the correct option:</h3>
+                        <div id="mcq-options-container" class="space-y-4 max-w-3xl">
+                            <!-- Radio buttons injected here -->
+                        </div>
+                    </div>
+
+                    <!-- PAGINATION FOOTER (Glued to Bottom) -->
                     <div id="test-footer" class="bg-white border-t border-slate-200 p-4 flex justify-between items-center shrink-0 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
                         <button id="btn-prev-q" onclick="navigateQuestion(-1)" class="px-5 py-2.5 rounded-xl font-bold border border-slate-200 hover:bg-slate-50">&larr; Previous</button>
-                        <div id="q-dots-container" class="flex gap-2.5"></div>
+                        <div id="q-dots-container" class="flex gap-2.5 overflow-x-auto max-w-[50vw]"></div>
                         <button id="btn-next-q" onclick="navigateQuestion(1)" class="px-5 py-2.5 rounded-xl font-bold border border-slate-200 hover:bg-slate-50">Next &rarr;</button>
                     </div>
                 </div>
@@ -349,10 +426,11 @@ endmodule</textarea>
             </div>
         </div>
 
+        <!-- 7. SUBMIT SUCCESS -->
         <div id="submit-view" class="view items-center justify-center p-4">
             <div class="bg-white p-10 rounded-[1.5rem] border border-slate-200 w-full max-w-[500px] text-center shadow-sm">
                 <h2 class="text-2xl font-extrabold text-slate-900 mb-4">Submitted Successfully</h2>
-                <p class="text-slate-500 mb-8">Data safely stored in Database.</p>
+                <p class="text-slate-500 mb-8" id="submit-success-msg">Data safely stored in Database.</p>
                 <button onclick="logout()" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9] w-full transition-colors">Log Out & Return to Home</button>
             </div>
         </div>
@@ -363,18 +441,17 @@ endmodule</textarea>
         // IMPORTANT URLs
         // =========================================================
         const GOOGLE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzhtk4rISUDJvMb3nLzJq2CBY5cVnm9kAnL_fuW77MLOkoR0-_dS0nKtmCwBjpD3mpAnQ/exec"; 
-        
-        // Your newly deployed Render API URL for compiling Verilog
         const VERILOG_API_URL = "https://assessment-backend-6yrh.onrender.com/run"; 
 
         // =========================================================
         
         let currentUser = null; 
         let dbTests = []; 
-        let dbSubmissions = []; // Stores all submissions (filtered by role in backend)
-        let dbGrades = [];      // Stores all grades (filtered by role in backend)
+        let dbSubmissions = []; 
+        let dbGrades = [];      
         
         let currentManageTestId = null; 
+        let currentEditQuestionIndex = -1; // -1 means adding new, >= 0 means editing
         let currentActiveTest = null;   
         let currentGradingSubmission = null;
 
@@ -478,11 +555,9 @@ endmodule</textarea>
             document.getElementById(loadingId).classList.remove('hidden');
 
             try {
-                // 1. Fetch Tests
                 const res1 = await fetch(GOOGLE_WEB_APP_URL);
                 dbTests = await res1.json();
 
-                // 2. Fetch Records (POST)
                 const res2 = await fetch(GOOGLE_WEB_APP_URL, {
                     method: 'POST', headers: {'Content-Type': 'text/plain'},
                     body: JSON.stringify({ action: 'fetchRecords', role: currentUser.role, email: currentUser.email })
@@ -499,7 +574,8 @@ endmodule</textarea>
                 else renderStudentDashboard();
             } catch(e) {
                 document.getElementById(loadingId).classList.add('hidden');
-                alert("Error connecting to Database.");
+                alert("Detailed Error: " + e.message);
+                console.error(e);
             }
         }
 
@@ -547,22 +623,115 @@ endmodule</textarea>
             const qList = document.getElementById('manage-q-list');
             qList.innerHTML = '';
             test.questions.forEach((q, idx) => {
-                qList.innerHTML += `<div class="bg-slate-50 p-6 rounded-xl border flex gap-4"><div class="bg-[#e0e7ff] text-[#5b54e5] font-bold w-8 h-8 rounded flex items-center justify-center shrink-0">${idx + 1}</div><div><h3 class="font-bold">${q.title}</h3></div></div>`;
+                const typeLabel = q.type === 'mcq' ? '<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-[10px] ml-2">MCQ</span>' : '<span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-[10px] ml-2">Coding</span>';
+                qList.innerHTML += `
+                    <div class="bg-slate-50 p-6 rounded-xl border flex justify-between items-center gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-[#e0e7ff] text-[#5b54e5] font-bold w-8 h-8 rounded flex items-center justify-center shrink-0">${idx + 1}</div>
+                            <div>
+                                <h3 class="font-bold flex items-center">${q.title} ${typeLabel}</h3>
+                                <p class="text-xs text-slate-500 mt-1">Marks: ${q.marks || '0'}</p>
+                            </div>
+                        </div>
+                        <button onclick="editQuestion(${idx})" class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors">Edit</button>
+                    </div>`;
             });
             navigateTo('admin-manage-test-view');
+        }
+
+        function openAddQuestionView() {
+            currentEditQuestionIndex = -1;
+            document.getElementById('add-q-form').reset();
+            document.getElementById('add-q-type').value = 'coding';
+            toggleQType();
+            document.getElementById('add-q-marks').value = 5;
+            document.getElementById('add-q-code').value = "module top_module(input a, input b, output y);\n\n    // Your logic here\n\nendmodule";
+            
+            document.getElementById('view-add-q-title').innerText = "Add New Question";
+            document.getElementById('btn-save-question').innerText = "Save & Upload to Database";
+            navigateTo('admin-add-question-view');
+        }
+
+        function editQuestion(idx) {
+            currentEditQuestionIndex = idx;
+            const test = dbTests.find(t => t.id === currentManageTestId);
+            const q = test.questions[idx];
+
+            document.getElementById('add-q-type').value = q.type || 'coding';
+            toggleQType();
+            
+            document.getElementById('add-q-title').value = q.title || '';
+            document.getElementById('add-q-desc').value = q.desc || '';
+            document.getElementById('add-q-marks').value = q.marks !== undefined ? q.marks : 5;
+
+            if (q.type === 'mcq') {
+                document.getElementById('mcq-opt-a').value = q.options?.A || '';
+                document.getElementById('mcq-opt-b').value = q.options?.B || '';
+                document.getElementById('mcq-opt-c').value = q.options?.C || '';
+                document.getElementById('mcq-opt-d').value = q.options?.D || '';
+                document.getElementById('mcq-correct').value = q.correctOption || 'A';
+            } else {
+                document.getElementById('add-q-code').value = q.code || '';
+            }
+
+            document.getElementById('view-add-q-title').innerText = "Edit Question";
+            document.getElementById('btn-save-question').innerText = "Update & Upload to Database";
+            navigateTo('admin-add-question-view');
+        }
+
+        // --- NEW: Toggle Question Type in Admin UI ---
+        function toggleQType() {
+            const type = document.getElementById('add-q-type').value;
+            if (type === 'mcq') {
+                document.getElementById('q-coding-fields').classList.add('hidden');
+                document.getElementById('q-mcq-fields').classList.remove('hidden');
+            } else {
+                document.getElementById('q-coding-fields').classList.remove('hidden');
+                document.getElementById('q-mcq-fields').classList.add('hidden');
+            }
         }
 
         async function handleAddQuestion(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-save-question');
+            const originalText = btn.innerText;
             btn.innerText = "Saving..."; btn.disabled = true;
 
-            const newQ = { title: document.getElementById('add-q-title').value, desc: document.getElementById('add-q-desc').value, code: document.getElementById('add-q-code').value };
+            const type = document.getElementById('add-q-type').value;
+            const qData = { 
+                type: type,
+                title: document.getElementById('add-q-title').value, 
+                desc: document.getElementById('add-q-desc').value,
+                marks: parseInt(document.getElementById('add-q-marks').value) || 0
+            };
+
+            if (type === 'coding') {
+                qData.code = document.getElementById('add-q-code').value;
+            } else {
+                qData.options = {
+                    A: document.getElementById('mcq-opt-a').value,
+                    B: document.getElementById('mcq-opt-b').value,
+                    C: document.getElementById('mcq-opt-c').value,
+                    D: document.getElementById('mcq-opt-d').value,
+                };
+                qData.correctOption = document.getElementById('mcq-correct').value;
+            }
+
             const testIndex = dbTests.findIndex(t => t.id === currentManageTestId);
-            dbTests[testIndex].questions.push(newQ);
+            
+            if (currentEditQuestionIndex !== -1) {
+                // Update existing question
+                dbTests[testIndex].questions[currentEditQuestionIndex] = qData;
+            } else {
+                // Push new question
+                dbTests[testIndex].questions.push(qData);
+            }
             
             await fetch(GOOGLE_WEB_APP_URL, { method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify({ action: 'createTest', test: dbTests[testIndex] }) });
-            btn.innerText = "Save"; btn.disabled = false; e.target.reset();
+            
+            btn.innerText = originalText; btn.disabled = false; e.target.reset();
+            // Reset to default
+            document.getElementById('add-q-type').value = 'coding'; toggleQType();
             manageTest(currentManageTestId); 
         }
 
@@ -617,16 +786,24 @@ endmodule</textarea>
             const container = document.getElementById('grade-answers-container');
             container.innerHTML = '';
             
+            const testData = dbTests.find(t => t.title === testTitle);
+            const testQuestions = testData ? testData.questions : [];
+
             // Render Answer Code Blocks alongside Individual Grading Inputs
             currentGradingSubmission.answers.forEach((ans, idx) => {
+                const q = testQuestions[idx];
+                const isMcq = q && q.type === 'mcq';
                 const qMark = breakdown[idx] !== undefined ? breakdown[idx] : '';
+                const maxMarkLabel = q && q.marks ? `<span class="text-xs text-slate-400 ml-1">/ ${q.marks}</span>` : '';
+
                 container.innerHTML += `
                     <div class="bg-[#1e1e1e] rounded-xl overflow-hidden shadow-sm">
                         <div class="bg-[#2d2d2d] px-4 py-2 flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-[#3d3d3d]">
-                            <span>Answer ${idx + 1}</span>
+                            <span>Answer ${idx + 1} ${isMcq ? '(MCQ - Auto Graded)' : ''}</span>
                             <div class="flex items-center gap-2">
                                 <span>Marks:</span>
-                                <input type="number" min="0" class="q-grade-input bg-[#1e1e1e] border border-[#3d3d3d] text-white rounded px-2 py-1 w-16 text-center outline-none focus:border-[#5b54e5]" value="${qMark}" oninput="recalcTotalMarks()">
+                                <input type="number" min="0" max="${q ? q.marks : ''}" class="q-grade-input bg-[#1e1e1e] border border-[#3d3d3d] text-white rounded px-2 py-1 w-16 text-center outline-none focus:border-[#5b54e5]" value="${qMark}" oninput="recalcTotalMarks()">
+                                ${maxMarkLabel}
                             </div>
                         </div>
                         <pre class="p-4 font-mono text-[13px] text-slate-300 overflow-x-auto whitespace-pre-wrap">${ans}</pre>
@@ -747,7 +924,7 @@ endmodule</textarea>
                     <div class="bg-[#1e1e1e] rounded-xl overflow-hidden shadow-sm">
                         <div class="bg-[#2d2d2d] px-4 py-2 flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-[#3d3d3d]">
                             <span>Answer ${idx + 1}</span>
-                            <span class="text-emerald-400 text-xs">${markAwarded} Marks</span>
+                            <span class="text-emerald-400 text-xs font-mono">${markAwarded} Marks</span>
                         </div>
                         <pre class="p-4 font-mono text-[13px] text-slate-300 overflow-x-auto whitespace-pre-wrap">${ans}</pre>
                     </div>
@@ -783,7 +960,7 @@ endmodule</textarea>
 
             // Set Defaults
             currentTimeLeft = currentActiveTest.duration * 60;
-            studentAnswers = currentActiveTest.questions.map(q => q.code || "");
+            studentAnswers = currentActiveTest.questions.map(q => q.type === 'mcq' ? "" : (q.code || ""));
 
             // Attempt to Fetch Previous Session
             try {
@@ -816,11 +993,21 @@ endmodule</textarea>
             require(['vs/editor/editor.main'], function() {
                 if(editorInstance) editorInstance.dispose();
                 editorInstance = monaco.editor.create(document.getElementById('monaco-container'), {
-                    value: studentAnswers[currentQuestionIndex], language: 'verilog', theme: 'vs-dark', automaticLayout: true, minimap: { enabled: false }, fontSize: 15
+                    value: "", language: 'verilog', theme: 'vs-dark', automaticLayout: true, minimap: { enabled: false }, fontSize: 15
                 });
-                editorInstance.onDidChangeModelContent(() => { studentAnswers[currentQuestionIndex] = editorInstance.getValue(); });
+                editorInstance.onDidChangeModelContent(() => { 
+                    const currentQ = currentActiveTest.questions[currentQuestionIndex];
+                    if(!currentQ.type || currentQ.type === 'coding') {
+                        studentAnswers[currentQuestionIndex] = editorInstance.getValue(); 
+                    }
+                });
                 renderQuestionUI();
             });
+        }
+
+        window.saveMcqAnswer = function(opt) {
+            studentAnswers[currentQuestionIndex] = opt;
+            renderQuestionUI(); // Re-render to update the highlighted border
         }
 
         function renderQuestionUI() {
@@ -828,6 +1015,7 @@ endmodule</textarea>
             document.getElementById('ide-q-counter').innerText = `Question ${currentQuestionIndex + 1} of ${currentActiveTest.questions.length}`;
             document.getElementById('ide-q-title').innerText = q.title;
             document.getElementById('ide-q-desc').innerText = q.desc;
+            document.getElementById('ide-q-marks').innerText = `Marks: ${q.marks || 'Pending'}`;
             
             document.getElementById('btn-prev-q').disabled = currentQuestionIndex === 0;
             document.getElementById('btn-next-q').disabled = currentQuestionIndex === currentActiveTest.questions.length - 1;
@@ -835,10 +1023,44 @@ endmodule</textarea>
             const dots = document.getElementById('q-dots-container');
             dots.innerHTML = '';
             for(let i=0; i<currentActiveTest.questions.length; i++) {
-                dots.innerHTML += `<button onclick="jumpToQuestion(${i})" class="w-10 h-10 rounded-full font-bold transition-colors ${i === currentQuestionIndex ? 'bg-[#5b54e5] text-white shadow-md' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}">${i+1}</button>`;
+                dots.innerHTML += `<button onclick="jumpToQuestion(${i})" class="shrink-0 w-10 h-10 rounded-full font-bold transition-colors ${i === currentQuestionIndex ? 'bg-[#5b54e5] text-white shadow-md' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}">${i+1}</button>`;
             }
-            if(editorInstance) editorInstance.setValue(studentAnswers[currentQuestionIndex]);
-            closeTerminal(); // Close terminal when switching questions
+
+            if (q.type === 'mcq') {
+                // Show MCQ UI
+                document.getElementById('editor-wrapper').classList.add('hidden');
+                document.getElementById('run-code-btn').classList.add('hidden');
+                document.getElementById('mcq-wrapper').classList.remove('hidden');
+                document.getElementById('ide-filename').innerText = "Multiple Choice Question";
+
+                const container = document.getElementById('mcq-options-container');
+                container.innerHTML = '';
+                ['A', 'B', 'C', 'D'].forEach(opt => {
+                    if (q.options && q.options[opt]) {
+                        const isChecked = studentAnswers[currentQuestionIndex] === opt;
+                        container.innerHTML += `
+                            <label class="flex items-center gap-4 p-4 rounded-xl border ${isChecked ? 'border-[#5b54e5] bg-[#2d2d3d]' : 'border-[#3d3d3d] bg-[#2d2d2d] hover:border-[#5b54e5]'} cursor-pointer transition-colors">
+                                <input type="radio" name="mcq-ans" value="${opt}" ${isChecked ? 'checked' : ''} onchange="saveMcqAnswer('${opt}')" class="hidden">
+                                <span class="w-8 h-8 rounded-lg bg-[#1e1e1e] text-slate-400 flex items-center justify-center font-bold text-sm border border-[#3d3d3d]">${opt}</span>
+                                <span class="text-slate-200 text-[15px] font-medium">${q.options[opt]}</span>
+                            </label>
+                        `;
+                    }
+                });
+                closeTerminal();
+            } else {
+                // Show Editor UI
+                document.getElementById('mcq-wrapper').classList.add('hidden');
+                document.getElementById('editor-wrapper').classList.remove('hidden');
+                document.getElementById('run-code-btn').classList.remove('hidden');
+                document.getElementById('ide-filename').innerText = "module.v";
+                
+                if(editorInstance) {
+                    editorInstance.setValue(studentAnswers[currentQuestionIndex] || q.code || "");
+                    setTimeout(() => editorInstance.layout(), 50);
+                }
+                closeTerminal();
+            }
         }
 
         function navigateQuestion(dir) {
@@ -849,7 +1071,6 @@ endmodule</textarea>
 
         function startCountdown() {
             const timerDisplay = document.getElementById('timer-display');
-            // Initial render
             let m = Math.floor(currentTimeLeft / 60); let s = currentTimeLeft % 60;
             timerDisplay.innerText = `${m < 10 ? "0"+m : m}:${s < 10 ? "0"+s : s}`;
 
@@ -932,106 +1153,110 @@ endmodule</textarea>
         let isResizingV = false;
 
         hResizer.addEventListener('mousedown', function(e) {
-            isResizingH = true;
-            document.body.style.cursor = 'col-resize';
-            monacoContainer.style.pointerEvents = 'none';
-            e.preventDefault(); 
+            isResizingH = true; document.body.style.cursor = 'col-resize'; monacoContainer.style.pointerEvents = 'none'; e.preventDefault(); 
         });
 
         vResizer.addEventListener('mousedown', function(e) {
-            isResizingV = true;
-            document.body.style.cursor = 'row-resize';
-            monacoContainer.style.pointerEvents = 'none';
-            e.preventDefault(); 
+            isResizingV = true; document.body.style.cursor = 'row-resize'; monacoContainer.style.pointerEvents = 'none'; e.preventDefault(); 
         });
 
         document.addEventListener('mousemove', function(e) {
             if (isResizingH) {
-                const containerWidth = document.body.clientWidth;
-                const newWidth = (e.clientX / containerWidth) * 100;
-                if (newWidth > 15 && newWidth < 60) {
-                    leftPanel.style.width = newWidth + '%';
-                }
+                const containerWidth = document.body.clientWidth; const newWidth = (e.clientX / containerWidth) * 100;
+                if (newWidth > 15 && newWidth < 60) leftPanel.style.width = newWidth + '%';
             }
             if (isResizingV) {
-                const containerRect = rightPanel.getBoundingClientRect();
-                const footerHeight = document.getElementById('test-footer').offsetHeight || 68;
+                const containerRect = rightPanel.getBoundingClientRect(); const footerHeight = document.getElementById('test-footer').offsetHeight || 68;
                 const newHeight = containerRect.bottom - e.clientY - footerHeight;
-                
-                if (newHeight > 60 && newHeight < containerRect.height * 0.8) {
-                    terminalPanel.style.height = newHeight + 'px';
-                }
+                if (newHeight > 60 && newHeight < containerRect.height * 0.8) terminalPanel.style.height = newHeight + 'px';
             }
         });
 
         document.addEventListener('mouseup', function(e) {
             if (isResizingH || isResizingV) {
-                isResizingH = false;
-                isResizingV = false;
-                document.body.style.cursor = 'default';
-                monacoContainer.style.pointerEvents = 'auto';
+                isResizingH = false; isResizingV = false; document.body.style.cursor = 'default'; monacoContainer.style.pointerEvents = 'auto';
                 if (editorInstance) editorInstance.layout();
             }
         });
 
         // --- AUTOSAVE TO TEMP DB ---
         async function triggerAutosave() {
-            if(!editorInstance) return;
-            const statusIndicator = document.getElementById('save-status');
-            statusIndicator.style.color = '#f59e0b'; // warning/orange color
-            statusIndicator.innerText = "Syncing...";
+            const currentQ = currentActiveTest.questions[currentQuestionIndex];
+            if ((!currentQ.type || currentQ.type === 'coding') && editorInstance) {
+                studentAnswers[currentQuestionIndex] = editorInstance.getValue();
+            }
 
-            // Ensure current array is up to date with editor
-            studentAnswers[currentQuestionIndex] = editorInstance.getValue();
+            const statusIndicator = document.getElementById('save-status');
+            statusIndicator.style.color = '#f59e0b'; statusIndicator.innerText = "Syncing...";
 
             const payload = {
-                action: 'autosave', 
-                email: currentUser.email, 
-                enrollment: currentUser.id,
-                testTitle: currentActiveTest.title, 
-                timeLeft: currentTimeLeft, 
-                answers: studentAnswers
+                action: 'autosave', email: currentUser.email, enrollment: currentUser.id,
+                testTitle: currentActiveTest.title, timeLeft: currentTimeLeft, answers: studentAnswers
             };
 
             try {
-                await fetch(GOOGLE_WEB_APP_URL, {
-                    method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify(payload)
-                });
-                statusIndicator.style.color = '#94a3b8'; // default muted color
-                statusIndicator.innerText = `Saved at ${new Date().toLocaleTimeString()}`;
+                await fetch(GOOGLE_WEB_APP_URL, { method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify(payload) });
+                statusIndicator.style.color = '#94a3b8'; statusIndicator.innerText = `Saved at ${new Date().toLocaleTimeString()}`;
             } catch(e) {
-                statusIndicator.style.color = '#ef4444'; // red error color
-                statusIndicator.innerText = "Sync failed";
+                statusIndicator.style.color = '#ef4444'; statusIndicator.innerText = "Sync failed";
             }
         }
 
-        // --- FINAL SUBMIT ---
+        // --- FINAL SUBMIT & AUTO-GRADING ---
         async function submitTest() {
-            clearInterval(testTimer);
-            clearInterval(autosaveInterval);
-            if (document.exitFullscreen) document.exitFullscreen().catch(e=>e);
+            clearInterval(testTimer); clearInterval(autosaveInterval); if (document.exitFullscreen) document.exitFullscreen().catch(e=>e);
             
             const btn = document.getElementById('final-submit-btn');
-            btn.innerText = "Uploading to Database..."; btn.disabled = true;
-            if(editorInstance) studentAnswers[currentQuestionIndex] = editorInstance.getValue();
+            btn.innerText = "Uploading & Evaluating..."; btn.disabled = true;
 
-            const answersArray = currentActiveTest.questions.map((q, idx) => {
-                return `--- QUESTION ${idx+1}: ${q.title} ---\n${studentAnswers[idx]}`;
+            const currentQ = currentActiveTest.questions[currentQuestionIndex];
+            if ((!currentQ.type || currentQ.type === 'coding') && editorInstance) {
+                studentAnswers[currentQuestionIndex] = editorInstance.getValue();
+            }
+
+            let hasCoding = false;
+            let autoMarks = 0;
+
+            const breakdown = currentActiveTest.questions.map((q, idx) => {
+                if (q.type === 'mcq') {
+                    const ans = studentAnswers[idx];
+                    const marks = (ans === q.correctOption) ? Number(q.marks) : 0;
+                    autoMarks += marks;
+                    return marks;
+                } else {
+                    hasCoding = true;
+                    return 0; // Needs manual grading
+                }
             });
 
-            const payload = {
-                action: 'submitTest',
-                email: currentUser.email,
-                enrollment: currentUser.id,
-                testTitle: currentActiveTest.title,
-                answers: answersArray
-            };
+            const answersArray = currentActiveTest.questions.map((q, idx) => {
+                if (q.type === 'mcq') {
+                    const ans = studentAnswers[idx] || 'Not Answered';
+                    return `--- QUESTION ${idx+1}: ${q.title} (MCQ) ---\nSelected: ${ans}\nCorrect Answer: ${q.correctOption}\nMarks Awarded: ${breakdown[idx]} / ${q.marks}`;
+                } else {
+                    return `--- QUESTION ${idx+1}: ${q.title} ---\n${studentAnswers[idx]}`;
+                }
+            });
+
+            const payloadSubmit = { action: 'submitTest', email: currentUser.email, enrollment: currentUser.id, testTitle: currentActiveTest.title, answers: answersArray };
 
             try {
-                await fetch(GOOGLE_WEB_APP_URL, {
-                    method: 'POST', headers: {'Content-Type': 'text/plain'},
-                    body: JSON.stringify(payload)
-                });
+                // 1. Submit the test payload
+                await fetch(GOOGLE_WEB_APP_URL, { method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify(payloadSubmit) });
+
+                // 2. Automatically submit grading for MCQs
+                const remarks = hasCoding 
+                    ? "MCQs Auto-graded. Coding questions pending instructor review." 
+                    : "Test fully auto-graded by system.";
+
+                const payloadGrade = {
+                    action: 'submitGrade', email: currentUser.email, enrollment: currentUser.id,
+                    testTitle: currentActiveTest.title, marks: autoMarks, remarks: remarks, marksBreakdown: breakdown
+                };
+
+                await fetch(GOOGLE_WEB_APP_URL, { method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify(payloadGrade) });
+                
+                document.getElementById('submit-success-msg').innerText = hasCoding ? "Data safely stored in Database. Pending instructor review." : "Data safely stored. Your test was automatically graded!";
                 navigateTo('submit-view');
             } catch(e) {
                 alert("Submission error. Please check your internet connection.");

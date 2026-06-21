@@ -23,7 +23,6 @@
 </head>
 <body class="text-slate-900">
 
-    <!-- GLOBAL NAVBAR (Visible on Dashboards) -->
     <nav id="main-navbar" class="hidden bg-white border-b border-slate-200 px-8 py-4 justify-between items-center shadow-sm w-full shrink-0 z-50">
         <div class="flex items-center gap-2">
             <div class="w-10 h-10 bg-slate-800 dark:bg-amber-600 text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-lg border-b-4 border-amber-600 dark:border-amber-800">
@@ -42,10 +41,8 @@
         </div>
     </nav>
 
-    <!-- MAIN CONTENT AREA -->
     <div class="main-content">
         
-        <!-- 1. LOGIN VIEW -->
         <div id="login-view" class="view active items-center justify-center p-4">
             <div class="mb-10 scale-110 flex items-center gap-2">
                 <div class="w-10 h-10 bg-slate-800 dark:bg-amber-600 text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-lg border-b-4 border-amber-600 dark:border-amber-800">
@@ -92,7 +89,6 @@
             </div>
         </div>
 
-        <!-- 2. INSTRUCTOR DASHBOARD -->
         <div id="admin-dashboard-view" class="view">
             <div class="p-8 max-w-6xl mx-auto w-full">
                 <div class="flex justify-between items-center mb-10">
@@ -101,12 +97,11 @@
                         + Schedule New Test
                     </button>
                 </div>
-                <div id="admin-loading" class="text-center py-10 hidden"><div class="loader"></div><p class="text-slate-500 font-medium">Fetching tests from Database...</p></div>
+                <div id="admin-loading" class="text-center py-10 hidden"><div class="loader"></div><p class="text-slate-500 font-medium">Fetching tests and records...</p></div>
                 <div id="admin-test-list" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
             </div>
         </div>
 
-        <!-- 3. INSTRUCTOR CREATE TEST -->
         <div id="admin-create-test-view" class="view">
             <div class="p-8 max-w-3xl mx-auto w-full">
                 <button onclick="fetchDataFromGoogle(true)" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Dashboard</button>
@@ -143,7 +138,6 @@
             </div>
         </div>
 
-        <!-- 3.5. INSTRUCTOR MANAGE TEST -->
         <div id="admin-manage-test-view" class="view">
             <div class="p-8 max-w-5xl mx-auto w-full">
                 <button onclick="fetchDataFromGoogle(true)" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Dashboard</button>
@@ -152,16 +146,20 @@
                         <h1 class="text-2xl font-extrabold text-slate-900 mb-2" id="manage-test-title">Test Title</h1>
                         <p class="text-slate-500 text-sm" id="manage-test-desc">Description</p>
                     </div>
-                    <button onclick="navigateTo('admin-add-question-view')" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">
-                        + Add Coding Question
-                    </button>
+                    <div class="flex gap-4">
+                        <button onclick="viewSubmissions()" class="px-6 py-3 rounded-xl font-bold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">
+                            View Submissions
+                        </button>
+                        <button onclick="navigateTo('admin-add-question-view')" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">
+                            + Add Coding Question
+                        </button>
+                    </div>
                 </div>
                 <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">Questions <span id="manage-q-count" class="bg-slate-200 text-slate-600 px-3 py-1 rounded-full text-sm">0</span></h2>
                 <div id="manage-q-list" class="space-y-4"></div>
             </div>
         </div>
 
-        <!-- 3.6. INSTRUCTOR ADD QUESTION -->
         <div id="admin-add-question-view" class="view">
             <div class="p-8 max-w-4xl mx-auto w-full">
                 <button onclick="navigateTo('admin-manage-test-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Cancel</button>
@@ -189,16 +187,97 @@ endmodule</textarea>
             </div>
         </div>
 
-        <!-- 4. STUDENT DASHBOARD -->
+        <div id="admin-submissions-view" class="view">
+            <div class="p-8 max-w-5xl mx-auto w-full">
+                <button onclick="navigateTo('admin-manage-test-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Test Details</button>
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-2">Student Submissions</h1>
+                <p class="text-slate-500 mb-8" id="subs-test-title">Test Title</p>
+
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <table class="w-full text-left">
+                        <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
+                            <tr>
+                                <th class="px-6 py-4">Student Email</th>
+                                <th class="px-6 py-4">Enrollment ID</th>
+                                <th class="px-6 py-4">Timestamp</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subs-list-body" class="divide-y divide-slate-100 text-sm text-slate-700">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="admin-grade-view" class="view">
+            <div class="p-8 max-w-6xl mx-auto w-full">
+                <button onclick="navigateTo('admin-submissions-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Submissions</button>
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h1 class="text-3xl font-extrabold text-slate-900 mb-2" id="grade-student-id">Enrollment ID</h1>
+                        <p class="text-slate-500" id="grade-student-email">Email</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-8">
+                    <div class="flex-1 space-y-6" id="grade-answers-container">
+                        </div>
+
+                    <div class="w-96 shrink-0">
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm sticky top-8">
+                            <h3 class="text-lg font-bold text-slate-800 mb-6">Evaluation</h3>
+                            <form onsubmit="handleGradeSubmit(event)">
+                                <div class="mb-4">
+                                    <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">Total Marks</label>
+                                    <div id="grade-total-display" class="text-4xl font-black text-[#5b54e5]">0</div>
+                                </div>
+                                <div class="mb-6">
+                                    <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">Instructor Remarks</label>
+                                    <textarea id="grade-remarks" rows="5" required class="w-full p-3 rounded-xl border border-slate-200 outline-none focus:border-[#5b54e5]" placeholder="Provide feedback here..."></textarea>
+                                </div>
+                                <button type="submit" id="btn-submit-grade" class="w-full py-3.5 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">Save Grade</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="student-dashboard-view" class="view">
             <div class="p-8 max-w-6xl mx-auto w-full">
-                <h1 class="text-3xl font-extrabold text-slate-900 mb-8">Available Assessments</h1>
-                <div id="student-loading" class="text-center py-10 hidden"><div class="loader"></div><p class="text-slate-500 font-medium">Fetching tests from Database...</p></div>
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-8">Your Assessments</h1>
+                <div id="student-loading" class="text-center py-10 hidden"><div class="loader"></div><p class="text-slate-500 font-medium">Fetching tests & records...</p></div>
                 <div id="student-test-list" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
             </div>
         </div>
 
-        <!-- 5. TEST INSTRUCTIONS -->
+        <div id="student-results-view" class="view">
+            <div class="p-8 max-w-5xl mx-auto w-full">
+                <button onclick="navigateTo('student-dashboard-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Dashboard</button>
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm mb-8 flex justify-between items-center">
+                    <div>
+                        <h1 class="text-2xl font-extrabold text-slate-900 mb-2" id="res-test-title">Test Title</h1>
+                        <p class="text-slate-500 text-sm">Instructor Evaluation Complete</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs font-bold text-[#8ba3c7] uppercase mb-1">Total Marks</p>
+                        <p class="text-4xl font-black text-[#5b54e5]" id="res-marks">--</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 mb-8">
+                    <h3 class="text-xs font-bold text-[#8ba3c7] uppercase tracking-wider mb-2">Instructor Remarks</h3>
+                    <p class="text-slate-700 whitespace-pre-wrap" id="res-remarks">No remarks provided.</p>
+                </div>
+
+                <h2 class="text-xl font-bold text-slate-800 mb-6">Your Submitted Code</h2>
+                <div id="res-answers-container" class="space-y-6">
+                    </div>
+            </div>
+        </div>
+
         <div id="instructions-view" class="view items-center justify-center p-4">
             <div class="bg-white p-10 rounded-[1.5rem] border border-slate-200 w-full max-w-[700px] shadow-sm">
                 <h1 class="text-[28px] font-extrabold text-slate-900 mb-6">Test Instructions & Policy</h1>
@@ -216,14 +295,11 @@ endmodule</textarea>
             </div>
         </div>
 
-        <!-- 6. TEST ENVIRONMENT (IDE) -->
         <div id="test-view" class="view h-full overflow-hidden bg-white">
             
-            <!-- Header (Glued to Top) -->
             <div class="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shadow-sm z-10 shrink-0">
                 <span class="font-extrabold tracking-tight text-xl" id="ide-test-title">Test</span>
                 <div class="flex items-center gap-4">
-                    <!-- RUN CODE BUTTON -->
                     <button onclick="runVerilogCode()" id="run-code-btn" class="px-5 py-2.5 rounded-xl font-bold bg-slate-800 text-white hover:bg-slate-700 flex items-center gap-2 transition-colors">
                         ▶ Run Code
                     </button>
@@ -234,33 +310,27 @@ endmodule</textarea>
                 </div>
             </div>
 
-            <!-- Workspace Body -->
             <div class="flex-1 flex overflow-hidden">
                 
-                <!-- LEFT PANEL (Question Details) -->
                 <div id="left-panel" style="width: 33.333%;" class="bg-white border-r border-slate-200 p-8 overflow-y-auto shrink-0 flex flex-col">
                     <span class="text-[#5b54e5] font-bold text-sm mb-4" id="ide-q-counter">Question 1</span>
                     <h3 class="text-2xl font-extrabold text-slate-900 mb-6" id="ide-q-title">Title</h3>
                     <div class="text-slate-600 text-[15px] whitespace-pre-wrap" id="ide-q-desc">Desc</div>
                 </div>
 
-                <!-- HORIZONTAL RESIZER -->
                 <div id="h-resizer" class="w-1.5 bg-slate-200 cursor-col-resize hover:bg-[#5b54e5] transition-colors shrink-0 z-20 flex items-center justify-center">
                     <div class="h-8 w-0.5 bg-slate-400 rounded"></div>
                 </div>
 
-                <!-- RIGHT PANEL (Editor & Terminal) -->
                 <div id="right-panel" class="flex-1 flex flex-col bg-[#1e1e1e] relative min-w-0 overflow-hidden">
                     <div class="bg-[#2d2d2d] px-4 py-2.5 border-b border-[#3d3d3d] text-slate-300 font-mono text-sm shrink-0" id="ide-filename">module.v</div>
                     
                     <div id="monaco-container" class="flex-1 w-full min-h-0 relative"></div>
                     
-                    <!-- VERTICAL RESIZER -->
                     <div id="v-resizer" class="h-1.5 bg-slate-200 cursor-row-resize hover:bg-[#5b54e5] transition-colors shrink-0 z-20 flex items-center justify-center hidden">
                         <div class="w-8 h-0.5 bg-slate-400 rounded"></div>
                     </div>
 
-                    <!-- TERMINAL OUTPUT PANEL -->
                     <div id="terminal-panel" style="height: 192px;" class="bg-[#0d0d0d] border-t border-[#3d3d3d] flex-col hidden shrink-0">
                         <div class="bg-[#2d2d2d] px-4 py-1.5 flex justify-between items-center text-[10px] text-slate-400 font-bold tracking-widest uppercase shrink-0">
                             <span>Terminal Output</span>
@@ -269,7 +339,6 @@ endmodule</textarea>
                         <div class="p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-slate-300" id="terminal-output"></div>
                     </div>
 
-                    <!-- PAGINATION FOOTER (Glued to Bottom) -->
                     <div id="test-footer" class="bg-white border-t border-slate-200 p-4 flex justify-between items-center shrink-0 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
                         <button id="btn-prev-q" onclick="navigateQuestion(-1)" class="px-5 py-2.5 rounded-xl font-bold border border-slate-200 hover:bg-slate-50">&larr; Previous</button>
                         <div id="q-dots-container" class="flex gap-2.5"></div>
@@ -280,7 +349,6 @@ endmodule</textarea>
             </div>
         </div>
 
-        <!-- 7. SUBMIT SUCCESS -->
         <div id="submit-view" class="view items-center justify-center p-4">
             <div class="bg-white p-10 rounded-[1.5rem] border border-slate-200 w-full max-w-[500px] text-center shadow-sm">
                 <h2 class="text-2xl font-extrabold text-slate-900 mb-4">Submitted Successfully</h2>
@@ -303,8 +371,13 @@ endmodule</textarea>
         
         let currentUser = null; 
         let dbTests = []; 
+        let dbSubmissions = []; // Stores all submissions (filtered by role in backend)
+        let dbGrades = [];      // Stores all grades (filtered by role in backend)
+        
         let currentManageTestId = null; 
         let currentActiveTest = null;   
+        let currentGradingSubmission = null;
+
         let currentQuestionIndex = 0;   
         let studentAnswers = [];        
         let testTimer = null;
@@ -317,20 +390,16 @@ endmodule</textarea>
             const session = sessionStorage.getItem('ls_user');
             if(session) {
                 currentUser = JSON.parse(session);
-                if(currentUser.role === 'admin') fetchDataFromGoogle(true);
-                else fetchDataFromGoogle(false);
+                fetchDataFromGoogle(currentUser.role === 'admin');
             } else {
                 navigateTo('login-view');
             }
         };
 
         function navigateTo(viewId) {
-            // Hide all views
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-            // Show target view
             document.getElementById(viewId).classList.add('active');
             
-            // Handle Global Navbar visibility
             const navbar = document.getElementById('main-navbar');
             if(viewId === 'login-view' || viewId === 'test-view' || viewId === 'submit-view') {
                 navbar.classList.add('hidden');
@@ -355,22 +424,17 @@ endmodule</textarea>
 
         async function handleStudentLogin(e) {
             e.preventDefault();
-            const email = document.getElementById('student-email').value;
-            const id = document.getElementById('student-id').value;
-            await authenticateUser('student', email, id);
+            await authenticateUser('student', document.getElementById('student-email').value, document.getElementById('student-id').value);
         }
 
         async function handleAdminLogin(e) {
             e.preventDefault();
-            const email = document.getElementById('admin-email').value;
-            const pass = document.getElementById('admin-password').value;
-            await authenticateUser('admin', email, pass);
+            await authenticateUser('admin', document.getElementById('admin-email').value, document.getElementById('admin-password').value);
         }
 
         async function authenticateUser(role, email, authString) {
             const errorDiv = document.getElementById('login-error');
             errorDiv.classList.add('hidden');
-            
             const formId = role === 'admin' ? 'admin-form' : 'student-form';
             const btn = document.querySelector(`#${formId} button[type="submit"]`);
             const originalText = btn.innerText;
@@ -379,22 +443,21 @@ endmodule</textarea>
 
             try {
                 const res = await fetch(GOOGLE_WEB_APP_URL, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'text/plain'}, 
-                    body: JSON.stringify({ action: 'login', role: role, email: email, authString: authString })
+                    method: 'POST', headers: {'Content-Type': 'text/plain'}, 
+                    body: JSON.stringify({ action: 'login', role, email, authString })
                 });
                 const data = await res.json();
                 
                 if (data.status === 'success') {
-                    currentUser = { email: email, id: role === 'student' ? authString : null, role: role };
+                    currentUser = { email, id: role === 'student' ? authString : null, role };
                     sessionStorage.setItem('ls_user', JSON.stringify(currentUser));
                     fetchDataFromGoogle(role === 'admin');
                 } else {
-                    errorDiv.innerText = data.message || "Invalid credentials. Access denied.";
+                    errorDiv.innerText = data.message || "Invalid credentials.";
                     errorDiv.classList.remove('hidden');
                 }
             } catch(err) {
-                errorDiv.innerText = "Connection error. Ensure your App Script is deployed correctly.";
+                errorDiv.innerText = "Connection error. Ensure your App Script is deployed.";
                 errorDiv.classList.remove('hidden');
             } finally {
                 btn.innerText = originalText;
@@ -408,25 +471,35 @@ endmodule</textarea>
             navigateTo('login-view');
         }
 
-        // --- FETCH FROM GOOGLE SHEETS ---
+        // --- FETCH DATA (TESTS + SUBMISSIONS + GRADES) ---
         async function fetchDataFromGoogle(isAdmin) {
             navigateTo(isAdmin ? 'admin-dashboard-view' : 'student-dashboard-view');
-            
-            const listId = isAdmin ? 'admin-test-list' : 'student-test-list';
             const loadingId = isAdmin ? 'admin-loading' : 'student-loading';
-            
-            document.getElementById(listId).innerHTML = '';
             document.getElementById(loadingId).classList.remove('hidden');
 
             try {
-                const res = await fetch(GOOGLE_WEB_APP_URL);
-                dbTests = await res.json();
+                // 1. Fetch Tests
+                const res1 = await fetch(GOOGLE_WEB_APP_URL);
+                dbTests = await res1.json();
+
+                // 2. Fetch Records (POST)
+                const res2 = await fetch(GOOGLE_WEB_APP_URL, {
+                    method: 'POST', headers: {'Content-Type': 'text/plain'},
+                    body: JSON.stringify({ action: 'fetchRecords', role: currentUser.role, email: currentUser.email })
+                });
+                const recData = await res2.json();
+                
+                if (recData.status === 'success') {
+                    dbSubmissions = recData.submissions || [];
+                    dbGrades = recData.grades || [];
+                }
+
                 document.getElementById(loadingId).classList.add('hidden');
                 if(isAdmin) renderAdminDashboard();
                 else renderStudentDashboard();
             } catch(e) {
                 document.getElementById(loadingId).classList.add('hidden');
-                document.getElementById(listId).innerHTML = '<div class="col-span-full text-red-500 font-bold p-8 bg-red-50 rounded-xl">Error connecting to Google Sheets. Did you deploy the App Script?</div>';
+                alert("Error connecting to Database.");
             }
         }
 
@@ -450,27 +523,17 @@ endmodule</textarea>
         async function handleCreateTest(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-create-test');
-            btn.innerText = "Creating in Google Sheets...";
-            btn.disabled = true;
+            btn.innerText = "Creating..."; btn.disabled = true;
 
             const newTest = {
-                id: "TEST_" + Date.now(),
-                title: document.getElementById('create-title').value,
-                description: document.getElementById('create-desc').value,
-                startTime: document.getElementById('create-start').value,
-                endTime: document.getElementById('create-end').value,
-                duration: parseInt(document.getElementById('create-duration').value),
-                questions: []
+                id: "TEST_" + Date.now(), title: document.getElementById('create-title').value,
+                description: document.getElementById('create-desc').value, startTime: document.getElementById('create-start').value,
+                endTime: document.getElementById('create-end').value, duration: parseInt(document.getElementById('create-duration').value), questions: []
             };
             
-            await fetch(GOOGLE_WEB_APP_URL, {
-                method: 'POST',
-                headers: {'Content-Type': 'text/plain'},
-                body: JSON.stringify({ action: 'createTest', test: newTest })
-            });
-
+            await fetch(GOOGLE_WEB_APP_URL, { method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify({ action: 'createTest', test: newTest }) });
             dbTests.push(newTest);
-            btn.innerText = "Create Test & Add Questions \u2192"; btn.disabled = false; e.target.reset();
+            btn.innerText = "Create Test"; btn.disabled = false; e.target.reset();
             manageTest(newTest.id);
         }
 
@@ -483,54 +546,214 @@ endmodule</textarea>
             
             const qList = document.getElementById('manage-q-list');
             qList.innerHTML = '';
-            if(test.questions.length === 0) {
-                 qList.innerHTML = `<div class="bg-slate-50 p-6 rounded-xl border text-center text-slate-500">No questions added yet.</div>`;
-            } else {
-                test.questions.forEach((q, idx) => {
-                    qList.innerHTML += `<div class="bg-slate-50 p-6 rounded-xl border flex gap-4"><div class="bg-[#e0e7ff] text-[#5b54e5] font-bold w-8 h-8 rounded flex items-center justify-center shrink-0">${idx + 1}</div><div><h3 class="font-bold">${q.title}</h3></div></div>`;
-                });
-            }
+            test.questions.forEach((q, idx) => {
+                qList.innerHTML += `<div class="bg-slate-50 p-6 rounded-xl border flex gap-4"><div class="bg-[#e0e7ff] text-[#5b54e5] font-bold w-8 h-8 rounded flex items-center justify-center shrink-0">${idx + 1}</div><div><h3 class="font-bold">${q.title}</h3></div></div>`;
+            });
             navigateTo('admin-manage-test-view');
         }
 
         async function handleAddQuestion(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-save-question');
-            btn.innerText = "Saving to Google Sheets..."; btn.disabled = true;
+            btn.innerText = "Saving..."; btn.disabled = true;
 
             const newQ = { title: document.getElementById('add-q-title').value, desc: document.getElementById('add-q-desc').value, code: document.getElementById('add-q-code').value };
             const testIndex = dbTests.findIndex(t => t.id === currentManageTestId);
             dbTests[testIndex].questions.push(newQ);
             
-            await fetch(GOOGLE_WEB_APP_URL, {
-                method: 'POST', headers: {'Content-Type': 'text/plain'},
-                body: JSON.stringify({ action: 'createTest', test: dbTests[testIndex] }) 
+            await fetch(GOOGLE_WEB_APP_URL, { method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify({ action: 'createTest', test: dbTests[testIndex] }) });
+            btn.innerText = "Save"; btn.disabled = false; e.target.reset();
+            manageTest(currentManageTestId); 
+        }
+
+        // --- INSTRUCTOR GRADING FLOW ---
+        function viewSubmissions() {
+            const test = dbTests.find(t => t.id === currentManageTestId);
+            document.getElementById('subs-test-title').innerText = test.title;
+            
+            const tbody = document.getElementById('subs-list-body');
+            tbody.innerHTML = '';
+
+            const testSubs = dbSubmissions.filter(s => String(s.testTitle) === String(test.title));
+
+            if(testSubs.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-500 font-medium">No submissions yet for this test.</td></tr>`;
+            } else {
+                testSubs.forEach(sub => {
+                    const gradeRecord = dbGrades.find(g => String(g.email).toLowerCase() === String(sub.email).toLowerCase() && String(g.testTitle) === String(test.title));
+                    
+                    const statusHtml = gradeRecord 
+                        ? `<span class="bg-[#ecfdf5] text-[#10b981] px-3 py-1 rounded-full text-xs font-bold border border-[#a7f3d0]">Graded: ${gradeRecord.marks} Marks</span>`
+                        : `<span class="bg-[#fffbeb] text-[#f59e0b] px-3 py-1 rounded-full text-xs font-bold border border-[#fde68a]">Needs Grading</span>`;
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="px-6 py-4 font-bold text-slate-800">${sub.email}</td>
+                            <td class="px-6 py-4 font-mono text-slate-500 text-xs">${sub.enrollment}</td>
+                            <td class="px-6 py-4 text-slate-500 text-xs">${sub.timestamp}</td>
+                            <td class="px-6 py-4">${statusHtml}</td>
+                            <td class="px-6 py-4 text-right">
+                                <button onclick="openGradeView('${sub.email}', '${sub.enrollment}', '${test.title}')" class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-[#5b54e5] hover:bg-slate-50">Review & Grade</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+            navigateTo('admin-submissions-view');
+        }
+
+        function openGradeView(email, enrollment, testTitle) {
+            currentGradingSubmission = dbSubmissions.find(s => s.email === email && s.testTitle === testTitle);
+            if(!currentGradingSubmission) return;
+
+            document.getElementById('grade-student-id').innerText = enrollment;
+            document.getElementById('grade-student-email').innerText = email;
+
+            const existingGrade = dbGrades.find(g => g.email === email && g.testTitle === testTitle);
+            const breakdown = existingGrade && existingGrade.marksBreakdown ? existingGrade.marksBreakdown : [];
+            document.getElementById('grade-total-display').innerText = existingGrade ? existingGrade.marks : '0';
+            document.getElementById('grade-remarks').value = existingGrade ? existingGrade.remarks : '';
+
+            const container = document.getElementById('grade-answers-container');
+            container.innerHTML = '';
+            
+            // Render Answer Code Blocks alongside Individual Grading Inputs
+            currentGradingSubmission.answers.forEach((ans, idx) => {
+                const qMark = breakdown[idx] !== undefined ? breakdown[idx] : '';
+                container.innerHTML += `
+                    <div class="bg-[#1e1e1e] rounded-xl overflow-hidden shadow-sm">
+                        <div class="bg-[#2d2d2d] px-4 py-2 flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-[#3d3d3d]">
+                            <span>Answer ${idx + 1}</span>
+                            <div class="flex items-center gap-2">
+                                <span>Marks:</span>
+                                <input type="number" min="0" class="q-grade-input bg-[#1e1e1e] border border-[#3d3d3d] text-white rounded px-2 py-1 w-16 text-center outline-none focus:border-[#5b54e5]" value="${qMark}" oninput="recalcTotalMarks()">
+                            </div>
+                        </div>
+                        <pre class="p-4 font-mono text-[13px] text-slate-300 overflow-x-auto whitespace-pre-wrap">${ans}</pre>
+                    </div>
+                `;
             });
 
-            btn.innerText = "Save & Upload to Database"; btn.disabled = false; e.target.reset();
-            manageTest(currentManageTestId); 
+            navigateTo('admin-grade-view');
+        }
+
+        // Dynamically sums up individual question marks for the instructor
+        function recalcTotalMarks() {
+            const inputs = document.querySelectorAll('.q-grade-input');
+            let total = 0;
+            inputs.forEach(inp => {
+                total += Number(inp.value) || 0;
+            });
+            document.getElementById('grade-total-display').innerText = total;
+        }
+
+        async function handleGradeSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-grade');
+            btn.innerText = "Saving..."; btn.disabled = true;
+
+            const inputs = document.querySelectorAll('.q-grade-input');
+            const breakdown = Array.from(inputs).map(inp => Number(inp.value) || 0);
+            const total = breakdown.reduce((a, b) => a + b, 0);
+
+            const payload = {
+                action: 'submitGrade',
+                email: currentGradingSubmission.email,
+                enrollment: currentGradingSubmission.enrollment,
+                testTitle: currentGradingSubmission.testTitle,
+                marks: total,
+                remarks: document.getElementById('grade-remarks').value,
+                marksBreakdown: breakdown
+            };
+
+            try {
+                await fetch(GOOGLE_WEB_APP_URL, { method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify(payload) });
+                
+                const existingIdx = dbGrades.findIndex(g => g.email === payload.email && g.testTitle === payload.testTitle);
+                if(existingIdx !== -1) {
+                    dbGrades[existingIdx] = payload;
+                } else {
+                    dbGrades.push(payload);
+                }
+
+                btn.innerText = "Save Grade"; btn.disabled = false;
+                viewSubmissions(); 
+            } catch(err) {
+                alert("Failed to save grade.");
+                btn.innerText = "Save Grade"; btn.disabled = false;
+            }
         }
 
         // --- STUDENT DASHBOARD ---
         function renderStudentDashboard() {
             const list = document.getElementById('student-test-list');
             list.innerHTML = '';
+            
+            if(dbTests.length === 0) { list.innerHTML = `<div class="col-span-full bg-white p-12 rounded-2xl border text-center text-slate-500 font-medium">No assessments scheduled.</div>`; return; }
+
             const now = new Date();
-            const activeTests = dbTests.filter(t => new Date(t.startTime) <= now && new Date(t.endTime) >= now && t.questions && t.questions.length > 0);
 
-            if(activeTests.length === 0) { list.innerHTML = `<div class="col-span-full bg-white p-12 rounded-2xl border text-center text-slate-500 font-medium">No active assessments found for this time window.</div>`; return; }
+            dbTests.forEach(test => {
+                const isSubmitted = dbSubmissions.find(s => s.testTitle === test.title);
+                const isGraded = dbGrades.find(g => g.testTitle === test.title);
+                
+                const startTime = new Date(test.startTime);
+                const endTime = new Date(test.endTime);
+                const isActive = now >= startTime && now <= endTime;
 
-            activeTests.forEach(test => {
+                let actionHtml = '';
+
+                if (isSubmitted) {
+                    if (isGraded) {
+                        actionHtml = `<button onclick="viewResults('${test.title}')" class="mt-auto w-full py-3.5 rounded-xl font-bold bg-[#5b54e5] hover:bg-[#4a44c9] text-white transition-colors">View Results</button>`;
+                    } else {
+                        actionHtml = `<button disabled class="mt-auto w-full py-3.5 rounded-xl font-bold bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200">Submitted (Pending Review)</button>`;
+                    }
+                } else if (isActive && test.questions && test.questions.length > 0) {
+                    actionHtml = `<button onclick="prepareTest('${test.id}')" class="mt-auto w-full py-3.5 rounded-xl font-bold bg-slate-800 hover:bg-slate-900 text-white transition-colors">Enter Assessment</button>`;
+                } else {
+                    actionHtml = `<button disabled class="mt-auto w-full py-3.5 rounded-xl font-bold bg-slate-50 text-slate-400 cursor-not-allowed border border-slate-100">Not Available</button>`;
+                }
+
                 list.innerHTML += `
                     <div class="bg-white p-6 rounded-2xl border flex flex-col hover:border-[#5b54e5] transition-colors shadow-sm">
                         <h2 class="text-xl font-bold mb-4">${test.title}</h2>
                         <div class="flex gap-2 mb-6 text-xs font-bold">
-                            <span class="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-200">⏱ ${test.duration} mins</span>
-                            <span class="bg-[#f0f4ff] text-[#5b54e5] px-3 py-1.5 rounded-lg border border-[#c7d2fe]">${test.questions.length} Qs</span>
+                            <span class="bg-slate-50 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-200">⏱ ${test.duration} mins</span>
+                            <span class="bg-[#f0f4ff] text-[#5b54e5] px-3 py-1.5 rounded-lg border border-[#c7d2fe]">${test.questions ? test.questions.length : 0} Qs</span>
                         </div>
-                        <button onclick="prepareTest('${test.id}')" class="mt-auto w-full py-3.5 rounded-xl font-bold bg-[#5b54e5] hover:bg-[#4a44c9] transition-colors text-white">Enter Assessment</button>
+                        ${actionHtml}
                     </div>`;
             });
+        }
+
+        // --- STUDENT RESULTS ---
+        function viewResults(testTitle) {
+            const grade = dbGrades.find(g => g.testTitle === testTitle);
+            const sub = dbSubmissions.find(s => s.testTitle === testTitle);
+            if(!grade || !sub) return;
+
+            document.getElementById('res-test-title').innerText = testTitle;
+            document.getElementById('res-marks').innerText = grade.marks;
+            document.getElementById('res-remarks').innerText = grade.remarks || "No remarks provided.";
+
+            const container = document.getElementById('res-answers-container');
+            container.innerHTML = '';
+            const breakdown = grade.marksBreakdown || [];
+
+            sub.answers.forEach((ans, idx) => {
+                const markAwarded = breakdown[idx] !== undefined ? breakdown[idx] : 0;
+                container.innerHTML += `
+                    <div class="bg-[#1e1e1e] rounded-xl overflow-hidden shadow-sm">
+                        <div class="bg-[#2d2d2d] px-4 py-2 flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-[#3d3d3d]">
+                            <span>Answer ${idx + 1}</span>
+                            <span class="text-emerald-400 text-xs">${markAwarded} Marks</span>
+                        </div>
+                        <pre class="p-4 font-mono text-[13px] text-slate-300 overflow-x-auto whitespace-pre-wrap">${ans}</pre>
+                    </div>
+                `;
+            });
+            navigateTo('student-results-view');
         }
 
         function prepareTest(testId) {
@@ -551,7 +774,6 @@ endmodule</textarea>
             btn.className = btn.disabled ? "px-8 py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400 cursor-not-allowed transition-all" : "px-8 py-3.5 rounded-xl font-bold bg-[#5b54e5] hover:bg-[#4a44c9] text-white transition-all";
         }
 
-        // --- START TEST & SESSION RECOVERY ---
         async function startTest() {
             if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(e=>e);
             

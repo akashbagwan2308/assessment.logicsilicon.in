@@ -47,50 +47,105 @@
     <!-- MAIN CONTENT AREA -->
     <div class="main-content">
         
-        <!-- 1. LOGIN VIEW -->
-        <div id="login-view" class="view active items-center justify-center p-4">
-            <div class="mb-10 scale-110 flex items-center gap-2">
-                <div class="w-10 h-10 bg-slate-800 dark:bg-amber-600 text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-lg border-b-4 border-amber-600 dark:border-amber-800">
-                        LS
-                    </div>
-                <span class="font-bold text-2xl tracking-tight text-slate-800">LogicSilicon</span>
-            </div>
+        <!-- 1. LOGIN VIEW (FULLSCREEN HERO WITH FLOATING RIGHT CARD) -->
+        <div id="login-view" class="view active h-screen w-full relative overflow-hidden bg-[#090E17]">
             
-            <div class="bg-white p-10 rounded-[1.25rem] border border-slate-200 w-full max-w-[480px] shadow-sm">
-                <h2 class="text-[26px] font-bold text-slate-800 text-center mb-1">Welcome to LogicSilicon</h2>
-                <p class="text-slate-500 text-center text-[15px] mb-8" id="login-subtitle">Please authenticate to access your assigned assessment.</p>
+            <!-- Fullscreen Background Elements -->
+            <div class="absolute inset-0" style="background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 24px 24px;"></div>
+            
+            <!-- Glowing Orbs -->
+            <div class="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#5b54e5] rounded-full mix-blend-screen filter blur-[150px] opacity-40 animate-pulse"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-emerald-500 rounded-full mix-blend-screen filter blur-[150px] opacity-20"></div>
 
-                <div id="login-error" class="hidden bg-red-50 border border-red-200 text-red-600 p-3 rounded-xl mb-6 text-sm font-medium text-center"></div>
+            <!-- Content Container -->
+            <div class="relative z-10 w-full h-full max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center justify-center lg:justify-between px-6 lg:px-12">
+                
+                <!-- Left Hero Content -->
+                <div class="hidden lg:flex flex-col justify-center w-1/2 pr-10">
+                    <div class="flex items-center gap-3 text-white mb-16">
+                        <div class="w-12 h-12 bg-white text-[#5b54e5] rounded-[14px] flex items-center justify-center font-black text-2xl shadow-lg">LS</div>
+                        <span class="font-extrabold text-3xl tracking-tight">LogicSilicon</span>
+                    </div>
+                    
+                    <h1 class="text-5xl xl:text-[64px] font-extrabold text-white leading-[1.1] mb-6 tracking-tight">
+                        Secure Cloud<br/>Assessment Engine.
+                    </h1>
+                    <p class="text-indigo-100 text-lg font-medium max-w-lg leading-relaxed">
+                        A proctored, zero-setup verification environment evaluating true hardware engineering competency.
+                    </p>
 
-                <form id="student-form" onsubmit="handleStudentLogin(event)">
-                    <div class="mb-5">
-                        <label class="block text-[11px] font-bold text-[#8ba3c7] mb-1.5 uppercase">Enrollment ID</label>
-                        <input type="text" id="student-id" class="w-full p-3.5 rounded-xl border border-slate-200 focus:border-[#5b54e5] outline-none" placeholder="e.g. VLSI-2025-009" required>
+                    <div class="mt-12 flex gap-8">
+                        <div class="flex items-center gap-3 text-sm text-slate-300 font-semibold uppercase tracking-wider">
+                            <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
+                                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            </div>
+                            Live Proctoring
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-slate-300 font-semibold uppercase tracking-wider">
+                            <div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+                                <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            Auto-Grading
+                        </div>
                     </div>
-                    <div class="mb-8">
-                        <label class="block text-[11px] font-bold text-[#8ba3c7] mb-1.5 uppercase">Email Address</label>
-                        <input type="email" id="student-email" class="w-full p-3.5 rounded-xl border border-slate-200 focus:border-[#5b54e5] outline-none" placeholder="name@logicsilicon.in" required>
-                    </div>
-                    <div class="flex gap-3">
-                        <button type="submit" class="flex-grow py-3.5 rounded-xl font-bold bg-[#5b54e5] text-white">Student Login</button>
-                        <button type="button" onclick="switchLoginTab('admin')" class="px-6 py-3.5 rounded-xl font-bold bg-white border border-slate-200 text-slate-600">Instructor</button>
-                    </div>
-                </form>
+                </div>
 
-                <form id="admin-form" class="hidden" onsubmit="handleAdminLogin(event)">
-                    <div class="mb-5">
-                        <label class="block text-[11px] font-bold text-[#8ba3c7] mb-1.5 uppercase">Instructor Email</label>
-                        <input type="email" id="admin-email" class="w-full p-3.5 rounded-xl border border-slate-200 focus:border-[#5b54e5] outline-none" placeholder="admin@logicsilicon.in" required>
+                <!-- Right Floating Login Card -->
+                <div class="w-full max-w-[460px]">
+                    <div class="bg-white p-10 sm:p-12 rounded-[2rem] border border-slate-100 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] flex flex-col relative">
+                        
+                        <!-- Mobile Logo -->
+                        <div class="lg:hidden flex justify-center items-center gap-3 mb-10">
+                            <div class="w-12 h-12 bg-[#5b54e5] text-white rounded-[14px] flex items-center justify-center font-black text-2xl shadow-lg">LS</div>
+                            <span class="font-extrabold text-3xl tracking-tight text-slate-900">LogicSilicon</span>
+                        </div>
+
+                        <h2 class="text-3xl font-extrabold text-slate-900 mb-2">Welcome Back</h2>
+                        <p class="text-slate-500 text-[15px] mb-8 font-medium" id="login-subtitle">Sign in to access your assigned assessment.</p>
+
+                        <div id="login-error" class="hidden bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl mb-6 text-sm font-semibold flex items-start gap-3">
+                             <svg class="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span id="login-error-text"></span>
+                        </div>
+
+                        <!-- Form Tabs -->
+                        <div class="flex bg-slate-100/80 p-1.5 rounded-xl mb-8">
+                            <button id="tab-btn-student" onclick="switchLoginTab('student')" class="flex-1 py-3 text-[13px] font-bold rounded-lg bg-white text-slate-800 shadow-sm transition-all">Student</button>
+                            <button id="tab-btn-admin" onclick="switchLoginTab('admin')" class="flex-1 py-3 text-[13px] font-bold rounded-lg text-slate-500 hover:text-slate-700 transition-all">Instructor</button>
+                        </div>
+
+                        <!-- Student Form -->
+                        <form id="student-form" onsubmit="handleStudentLogin(event)">
+                            <div class="mb-5">
+                                <label class="block text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-wider">Enrollment ID</label>
+                                <input type="text" id="student-id" class="w-full p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] focus:ring-2 focus:ring-[#5b54e5]/20 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="e.g. VLSI-2025-009" required>
+                            </div>
+                            <div class="mb-8">
+                                <label class="block text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-wider">Email Address</label>
+                                <input type="email" id="student-email" class="w-full p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] focus:ring-2 focus:ring-[#5b54e5]/20 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="name@logicsilicon.in" required>
+                            </div>
+                            <button type="submit" class="w-full py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9] transition-all shadow-lg shadow-[#5b54e5]/30">Enter Assessment</button>
+                        </form>
+
+                        <!-- Admin Form -->
+                        <form id="admin-form" class="hidden" onsubmit="handleAdminLogin(event)">
+                            <div class="mb-5">
+                                <label class="block text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-wider">Instructor Email</label>
+                                <input type="email" id="admin-email" class="w-full p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] focus:ring-2 focus:ring-[#5b54e5]/20 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="admin@logicsilicon.in" required>
+                            </div>
+                            <div class="mb-8">
+                                <label class="block text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-wider">Password</label>
+                                <input type="password" id="admin-password" class="w-full p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] focus:ring-2 focus:ring-[#5b54e5]/20 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="••••••••" required>
+                            </div>
+                            <button type="submit" class="w-full py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9] transition-all shadow-lg shadow-[#5b54e5]/30">Instructor Login</button>
+                        </form>
+
+                        <p class="mt-8 text-[10px] text-slate-400 font-semibold italic uppercase tracking-widest text-center">
+                            Strict Proctoring Active
+                        </p>
                     </div>
-                    <div class="mb-8">
-                        <label class="block text-[11px] font-bold text-[#8ba3c7] mb-1.5 uppercase">Password</label>
-                        <input type="password" id="admin-password" class="w-full p-3.5 rounded-xl border border-slate-200 focus:border-[#5b54e5] outline-none" placeholder="••••••••" required>
-                    </div>
-                    <div class="flex gap-3">
-                        <button type="submit" class="flex-grow py-3.5 rounded-xl font-bold bg-[#5b54e5] text-white">Instructor Login</button>
-                        <button type="button" onclick="switchLoginTab('student')" class="px-6 py-3.5 rounded-xl font-bold bg-white border border-slate-200 text-slate-600">Student</button>
-                    </div>
-                </form>
+                </div>
+
             </div>
         </div>
 
@@ -523,8 +578,19 @@ endmodule</textarea>
         function switchLoginTab(tab) {
             document.getElementById('student-form').classList.toggle('hidden', tab !== 'student');
             document.getElementById('admin-form').classList.toggle('hidden', tab !== 'admin');
-            document.getElementById('login-subtitle').innerText = tab === 'student' ? "Please authenticate to access your assigned assessment." : "Instructor Access Panel";
+            document.getElementById('login-subtitle').innerText = tab === 'student' ? "Sign in to access your assigned assessment." : "Instructor Access Panel";
             document.getElementById('login-error').classList.add('hidden');
+
+            const btnStudent = document.getElementById('tab-btn-student');
+            const btnAdmin = document.getElementById('tab-btn-admin');
+            
+            if (tab === 'student') {
+                btnStudent.className = "flex-1 py-3 text-[13px] font-bold rounded-lg bg-white text-slate-800 shadow-sm transition-all";
+                btnAdmin.className = "flex-1 py-3 text-[13px] font-bold rounded-lg text-slate-500 hover:text-slate-700 transition-all";
+            } else {
+                btnAdmin.className = "flex-1 py-3 text-[13px] font-bold rounded-lg bg-white text-slate-800 shadow-sm transition-all";
+                btnStudent.className = "flex-1 py-3 text-[13px] font-bold rounded-lg text-slate-500 hover:text-slate-700 transition-all";
+            }
         }
 
         async function handleStudentLogin(e) {
@@ -539,6 +605,7 @@ endmodule</textarea>
 
         async function authenticateUser(role, email, authString) {
             const errorDiv = document.getElementById('login-error');
+            const errorText = document.getElementById('login-error-text');
             errorDiv.classList.add('hidden');
             const formId = role === 'admin' ? 'admin-form' : 'student-form';
             const btn = document.querySelector(`#${formId} button[type="submit"]`);
@@ -558,11 +625,13 @@ endmodule</textarea>
                     sessionStorage.setItem('ls_user', JSON.stringify(currentUser));
                     fetchDataFromGoogle(role === 'admin');
                 } else {
-                    errorDiv.innerText = data.message || "Invalid credentials.";
+                    if(errorText) errorText.innerText = data.message || "Invalid credentials.";
+                    else errorDiv.innerText = data.message || "Invalid credentials.";
                     errorDiv.classList.remove('hidden');
                 }
             } catch(err) {
-                errorDiv.innerText = "Connection error. Ensure your App Script is deployed.";
+                if(errorText) errorText.innerText = "Connection error. Ensure your App Script is deployed.";
+                else errorDiv.innerText = "Connection error. Ensure your App Script is deployed.";
                 errorDiv.classList.remove('hidden');
             } finally {
                 btn.innerText = originalText;

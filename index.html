@@ -829,6 +829,21 @@ endmodule</textarea>
                 const qMark = breakdown[idx] !== undefined ? breakdown[idx] : '';
                 const maxMarkLabel = q && q.marks ? `<span class="text-xs text-slate-400 ml-1">/ ${q.marks}</span>` : '';
 
+                let optionsHtml = '';
+                if (isMcq && q.options) {
+                    optionsHtml = `
+                        <div class="px-4 py-3 bg-[#252526] border-b border-[#3d3d3d] text-slate-300 text-[13px] font-mono">
+                            <div class="font-bold mb-1.5 text-slate-400 uppercase tracking-wider text-[10px]">Question Options:</div>
+                            <ul class="space-y-1.5 ml-2">
+                                <li><span class="font-bold text-[#5b54e5] mr-2">A)</span> ${q.options.A || ''}</li>
+                                <li><span class="font-bold text-[#5b54e5] mr-2">B)</span> ${q.options.B || ''}</li>
+                                <li><span class="font-bold text-[#5b54e5] mr-2">C)</span> ${q.options.C || ''}</li>
+                                <li><span class="font-bold text-[#5b54e5] mr-2">D)</span> ${q.options.D || ''}</li>
+                            </ul>
+                        </div>
+                    `;
+                }
+
                 container.innerHTML += `
                     <div class="bg-[#1e1e1e] rounded-xl overflow-hidden shadow-sm">
                         <div class="bg-[#2d2d2d] px-4 py-2 flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-[#3d3d3d]">
@@ -839,6 +854,7 @@ endmodule</textarea>
                                 ${maxMarkLabel}
                             </div>
                         </div>
+                        ${optionsHtml}
                         <pre class="p-4 font-mono text-[13px] text-slate-300 overflow-x-auto whitespace-pre-wrap">${ans}</pre>
                     </div>
                 `;
@@ -909,6 +925,21 @@ endmodule</textarea>
                 const startTime = new Date(test.startTime);
                 const endTime = new Date(test.endTime);
                 const isActive = now >= startTime && now <= endTime;
+                const isFuture = now < startTime;
+
+                let totalMarks = 0;
+                if (test.questions) {
+                    test.questions.forEach(q => { totalMarks += (parseInt(q.marks) || 0); });
+                }
+
+                // Format Future Date and Time
+                const day = startTime.getDate().toString().padStart(2, '0');
+                const month = startTime.toLocaleString('default', { month: 'short' });
+                const year = startTime.getFullYear();
+                const formattedDate = `${day} - ${month} ${year}`;
+                const startString = startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                const endString = endTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                const timeRange = `${startString} - ${endString}`;
 
                 let actionHtml = '';
 
@@ -920,16 +951,24 @@ endmodule</textarea>
                     }
                 } else if (isActive && test.questions && test.questions.length > 0) {
                     actionHtml = `<button onclick="prepareTest('${test.id}')" class="mt-auto w-full py-3.5 rounded-xl font-bold bg-slate-800 hover:bg-slate-900 text-white transition-colors">Enter Assessment</button>`;
+                } else if (isFuture) {
+                    actionHtml = `
+                        <div class="mt-auto bg-amber-50 border border-amber-200 rounded-xl p-3 text-center shadow-sm">
+                            <p class="text-[10px] font-black text-amber-600 uppercase tracking-wider mb-1">Scheduled For</p>
+                            <p class="text-sm font-bold text-slate-800">${formattedDate}</p>
+                            <p class="text-[11px] font-bold text-slate-500 mt-1">${timeRange}</p>
+                        </div>`;
                 } else {
-                    actionHtml = `<button disabled class="mt-auto w-full py-3.5 rounded-xl font-bold bg-slate-50 text-slate-400 cursor-not-allowed border border-slate-100">Not Available</button>`;
+                    actionHtml = `<button disabled class="mt-auto w-full py-3.5 rounded-xl font-bold bg-slate-50 text-slate-400 cursor-not-allowed border border-slate-100">Assessment Closed</button>`;
                 }
 
                 list.innerHTML += `
                     <div class="bg-white p-6 rounded-2xl border flex flex-col hover:border-[#5b54e5] transition-colors shadow-sm">
                         <h2 class="text-xl font-bold mb-4">${test.title}</h2>
-                        <div class="flex gap-2 mb-6 text-xs font-bold">
+                        <div class="flex flex-wrap gap-2 mb-6 text-xs font-bold">
                             <span class="bg-slate-50 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-200">⏱ ${test.duration} mins</span>
                             <span class="bg-[#f0f4ff] text-[#5b54e5] px-3 py-1.5 rounded-lg border border-[#c7d2fe]">${test.questions ? test.questions.length : 0} Qs</span>
+                            <span class="bg-emerald-50 text-emerald-600 px-3 py-1.5 rounded-lg border border-emerald-200">${totalMarks} Marks</span>
                         </div>
                         ${actionHtml}
                     </div>`;
@@ -960,7 +999,24 @@ endmodule</textarea>
 
             sub.answers.forEach((ans, idx) => {
                 const markAwarded = breakdown[idx] !== undefined ? breakdown[idx] : 0;
-                const qTitle = test.questions && test.questions[idx] ? test.questions[idx].title : `Answer ${idx + 1}`;
+                const q = test.questions && test.questions[idx];
+                const qTitle = q ? q.title : `Answer ${idx + 1}`;
+                const isMcq = q && q.type === 'mcq';
+
+                let optionsHtml = '';
+                if (isMcq && q.options) {
+                    optionsHtml = `
+                        <div class="px-4 py-3 bg-[#252526] border-b border-[#3d3d3d] text-slate-300 text-[13px] font-mono">
+                            <div class="font-bold mb-1.5 text-slate-400 uppercase tracking-wider text-[10px]">Question Options:</div>
+                            <ul class="space-y-1.5 ml-2">
+                                <li><span class="font-bold text-[#5b54e5] mr-2">A)</span> ${q.options.A || ''}</li>
+                                <li><span class="font-bold text-[#5b54e5] mr-2">B)</span> ${q.options.B || ''}</li>
+                                <li><span class="font-bold text-[#5b54e5] mr-2">C)</span> ${q.options.C || ''}</li>
+                                <li><span class="font-bold text-[#5b54e5] mr-2">D)</span> ${q.options.D || ''}</li>
+                            </ul>
+                        </div>
+                    `;
+                }
 
                 container.innerHTML += `
                     <div class="bg-[#1e1e1e] rounded-xl overflow-hidden shadow-sm">
@@ -968,6 +1024,7 @@ endmodule</textarea>
                             <span>${idx + 1}. ${qTitle}</span>
                             <span class="text-emerald-400 text-xs font-mono">${markAwarded} Marks</span>
                         </div>
+                        ${optionsHtml}
                         <pre class="p-4 font-mono text-[13px] text-slate-300 overflow-x-auto whitespace-pre-wrap">${ans}</pre>
                     </div>
                 `;

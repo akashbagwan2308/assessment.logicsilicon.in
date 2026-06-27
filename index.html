@@ -26,19 +26,19 @@
 <body class="text-slate-900">
 
     <!-- GLOBAL NAVBAR -->
-    <nav id="main-navbar" class="hidden bg-white border-b border-slate-200 px-8 py-4 justify-between items-center shadow-sm w-full shrink-0 z-50">
+    <nav id="main-navbar" class="hidden bg-white border-b border-slate-200 px-4 sm:px-8 py-4 justify-between items-center shadow-sm w-full shrink-0 z-50">
         <div class="flex items-center gap-2">
-            <div class="w-10 h-10 bg-slate-800 dark:bg-amber-600 text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-lg border-b-4 border-amber-600 dark:border-amber-800">
-                        LS
-                    </div>
-            <span class="font-bold text-xl tracking-tight text-slate-800">LogicSilicon</span>
+            <div class="w-8 h-8 sm:w-10 sm:h-10 bg-slate-800 dark:bg-amber-600 text-white rounded-lg flex items-center justify-center font-bold text-lg sm:text-xl shadow-lg border-b-4 border-amber-600 dark:border-amber-800 shrink-0">
+                LS
+            </div>
+            <span class="font-bold text-lg sm:text-xl tracking-tight text-slate-800 hidden sm:block">LogicSilicon</span>
         </div>
-        <div class="flex items-center gap-6">
+        <div class="flex items-center gap-4 sm:gap-6">
             <div class="flex flex-col text-right">
                 <span class="text-[10px] font-bold text-[#5b54e5] uppercase tracking-wider" id="nav-user-role">Role</span>
-                <span class="text-sm font-medium text-slate-600" id="nav-user-email">user@domain.com</span>
+                <span class="text-xs sm:text-sm font-medium text-slate-600 truncate max-w-[120px] sm:max-w-none" id="nav-user-email">user@domain.com</span>
             </div>
-            <button onclick="logout()" class="px-5 py-2 rounded-lg text-sm font-bold bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition-colors flex items-center gap-2">
+            <button onclick="logout()" class="px-3 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-bold bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition-colors flex items-center gap-2 shrink-0">
                 Log Out
             </button>
         </div>
@@ -54,11 +54,11 @@
             <div class="absolute inset-0" style="background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 24px 24px;"></div>
             
             <!-- Glowing Orbs -->
-            <div class="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#5b54e5] rounded-full mix-blend-screen filter blur-[150px] opacity-40 animate-pulse"></div>
-            <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-emerald-500 rounded-full mix-blend-screen filter blur-[150px] opacity-20"></div>
+            <div class="absolute top-[-10%] left-[-10%] w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[#5b54e5] rounded-full mix-blend-screen filter blur-[100px] md:blur-[150px] opacity-40 animate-pulse"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-emerald-500 rounded-full mix-blend-screen filter blur-[100px] md:blur-[150px] opacity-20"></div>
 
             <!-- Content Container -->
-            <div class="relative z-10 w-full h-full max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center justify-center lg:justify-between px-6 lg:px-12">
+            <div class="relative z-10 w-full h-full max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center justify-center lg:justify-between px-4 sm:px-6 lg:px-12 py-8 overflow-y-auto lg:overflow-hidden">
                 
                 <!-- Left Hero Content -->
                 <div class="hidden lg:flex flex-col justify-center w-1/2 pr-10">
@@ -91,17 +91,17 @@
                 </div>
 
                 <!-- Right Floating Login Card -->
-                <div class="w-full max-w-[460px]">
-                    <div class="bg-white p-10 sm:p-12 rounded-[2rem] border border-slate-100 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] flex flex-col relative">
+                <div class="w-full max-w-[460px] my-auto">
+                    <div class="bg-white p-8 sm:p-12 rounded-[2rem] border border-slate-100 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] flex flex-col relative">
                         
                         <!-- Mobile Logo -->
-                        <div class="lg:hidden flex justify-center items-center gap-3 mb-10">
+                        <div class="lg:hidden flex justify-center items-center gap-3 mb-8">
                             <div class="w-12 h-12 bg-[#5b54e5] text-white rounded-[14px] flex items-center justify-center font-black text-2xl shadow-lg">LS</div>
                             <span class="font-extrabold text-3xl tracking-tight text-slate-900">LogicSilicon</span>
                         </div>
 
-                        <h2 class="text-3xl font-extrabold text-slate-900 mb-2">Welcome Back</h2>
-                        <p class="text-slate-500 text-[15px] mb-8 font-medium" id="login-subtitle">Sign in to access your assigned assessment.</p>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">Welcome Back</h2>
+                        <p class="text-slate-500 text-sm sm:text-[15px] mb-8 font-medium" id="login-subtitle">Sign in to access your assigned assessment.</p>
 
                         <div id="login-error" class="hidden bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl mb-6 text-sm font-semibold flex items-start gap-3">
                              <svg class="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -110,34 +110,34 @@
 
                         <!-- Form Tabs -->
                         <div class="flex bg-slate-100/80 p-1.5 rounded-xl mb-8">
-                            <button id="tab-btn-student" onclick="switchLoginTab('student')" class="flex-1 py-3 text-[13px] font-bold rounded-lg bg-white text-slate-800 shadow-sm transition-all">Student</button>
-                            <button id="tab-btn-admin" onclick="switchLoginTab('admin')" class="flex-1 py-3 text-[13px] font-bold rounded-lg text-slate-500 hover:text-slate-700 transition-all">Instructor</button>
+                            <button id="tab-btn-student" onclick="switchLoginTab('student')" class="flex-1 py-2.5 sm:py-3 text-xs sm:text-[13px] font-bold rounded-lg bg-white text-slate-800 shadow-sm transition-all">Student</button>
+                            <button id="tab-btn-admin" onclick="switchLoginTab('admin')" class="flex-1 py-2.5 sm:py-3 text-xs sm:text-[13px] font-bold rounded-lg text-slate-500 hover:text-slate-700 transition-all">Instructor</button>
                         </div>
 
                         <!-- Student Form -->
                         <form id="student-form" onsubmit="handleStudentLogin(event)">
                             <div class="mb-5">
                                 <label class="block text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-wider">Enrollment ID</label>
-                                <input type="text" id="student-id" class="w-full p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] focus:ring-2 focus:ring-[#5b54e5]/20 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="e.g. VLSI-2025-009" required>
+                                <input type="text" id="student-id" class="w-full p-3.5 sm:p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] focus:ring-2 focus:ring-[#5b54e5]/20 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="e.g. VLSI-2025-009" required>
                             </div>
                             <div class="mb-8">
                                 <label class="block text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-wider">Email Address</label>
-                                <input type="email" id="student-email" class="w-full p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] focus:ring-2 focus:ring-[#5b54e5]/20 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="name@logicsilicon.in" required>
+                                <input type="email" id="student-email" class="w-full p-3.5 sm:p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] focus:ring-2 focus:ring-[#5b54e5]/20 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="name@logicsilicon.in" required>
                             </div>
-                            <button type="submit" class="w-full py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9] transition-all shadow-lg shadow-[#5b54e5]/30">Enter Assessment</button>
+                            <button type="submit" class="w-full py-3.5 sm:py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9] transition-all shadow-lg shadow-[#5b54e5]/30">Enter Assessment</button>
                         </form>
 
                         <!-- Admin Form -->
                         <form id="admin-form" class="hidden" onsubmit="handleAdminLogin(event)">
                             <div class="mb-5">
                                 <label class="block text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-wider">Instructor Email</label>
-                                <input type="email" id="admin-email" class="w-full p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] focus:ring-2 focus:ring-[#5b54e5]/20 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="admin@logicsilicon.in" required>
+                                <input type="email" id="admin-email" class="w-full p-3.5 sm:p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] focus:ring-2 focus:ring-[#5b54e5]/20 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="admin@logicsilicon.in" required>
                             </div>
                             <div class="mb-8">
                                 <label class="block text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-wider">Password</label>
-                                <input type="password" id="admin-password" class="w-full p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] focus:ring-2 focus:ring-[#5b54e5]/20 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="••••••••" required>
+                                <input type="password" id="admin-password" class="w-full p-3.5 sm:p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] focus:ring-2 focus:ring-[#5b54e5]/20 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="••••••••" required>
                             </div>
-                            <button type="submit" class="w-full py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9] transition-all shadow-lg shadow-[#5b54e5]/30">Instructor Login</button>
+                            <button type="submit" class="w-full py-3.5 sm:py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9] transition-all shadow-lg shadow-[#5b54e5]/30">Instructor Login</button>
                         </form>
 
                         <p class="mt-8 text-[10px] text-slate-400 font-semibold italic uppercase tracking-widest text-center">
@@ -151,35 +151,35 @@
 
         <!-- 2. INSTRUCTOR DASHBOARD -->
         <div id="admin-dashboard-view" class="view">
-            <div class="p-8 max-w-6xl mx-auto w-full">
-                <div class="flex justify-between items-center mb-10">
-                    <h1 class="text-3xl font-extrabold text-slate-900">Instructor Dashboard</h1>
-                    <button onclick="navigateTo('admin-create-test-view')" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white shadow-sm hover:bg-[#4a44c9]">
+            <div class="p-4 sm:p-8 max-w-6xl mx-auto w-full">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 sm:mb-10">
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Instructor Dashboard</h1>
+                    <button onclick="navigateTo('admin-create-test-view')" class="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-bold bg-[#5b54e5] text-white shadow-sm hover:bg-[#4a44c9] w-full sm:w-auto">
                         + Schedule New Test
                     </button>
                 </div>
                 <div id="admin-loading" class="text-center py-10 hidden"><div class="loader"></div><p class="text-slate-500 font-medium">Fetching tests and records...</p></div>
-                <div id="admin-test-list" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
+                <div id="admin-test-list" class="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
             </div>
         </div>
 
         <!-- 3. INSTRUCTOR CREATE TEST -->
         <div id="admin-create-test-view" class="view">
-            <div class="p-8 max-w-3xl mx-auto w-full">
+            <div class="p-4 sm:p-8 max-w-3xl mx-auto w-full">
                 <button onclick="fetchDataFromGoogle(true)" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Dashboard</button>
-                <h1 class="text-3xl font-extrabold text-slate-900 mb-8">Schedule Assessment</h1>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-6 sm:mb-8">Schedule Assessment</h1>
                 
-                <form onsubmit="handleCreateTest(event)" class="bg-white p-10 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                <form onsubmit="handleCreateTest(event)" class="bg-white p-6 sm:p-10 rounded-2xl border border-slate-200 shadow-sm space-y-6">
                     <div>
                         <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">Assessment Title</label>
-                        <input type="text" id="create-title" required class="w-full p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] outline-none">
+                        <input type="text" id="create-title" required class="w-full p-3.5 sm:p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] outline-none">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">General Description</label>
-                        <textarea id="create-desc" rows="3" class="w-full p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] outline-none"></textarea>
+                        <textarea id="create-desc" rows="3" class="w-full p-3.5 sm:p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] outline-none"></textarea>
                     </div>
                     
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 grid grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-4 sm:p-6 rounded-xl border border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div>
                             <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Start Date & Time</label>
                             <input type="datetime-local" id="create-start" required class="w-full p-3 rounded-lg border border-slate-300 focus:border-[#5b54e5] outline-none">
@@ -191,10 +191,10 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">Time Limit (Minutes)</label>
-                        <input type="number" id="create-duration" value="60" required class="w-full max-w-[200px] p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] outline-none">
+                        <input type="number" id="create-duration" value="60" required class="w-full sm:max-w-[200px] p-3.5 sm:p-4 rounded-xl border border-slate-200 focus:border-[#5b54e5] outline-none">
                     </div>
                     <div class="pt-4">
-                        <button type="submit" id="btn-create-test" class="w-full py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">Create Test & Add Questions &rarr;</button>
+                        <button type="submit" id="btn-create-test" class="w-full py-3.5 sm:py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">Create Test & Add Questions &rarr;</button>
                     </div>
                 </form>
             </div>
@@ -202,61 +202,61 @@
 
         <!-- 3.5. INSTRUCTOR MANAGE TEST -->
         <div id="admin-manage-test-view" class="view">
-            <div class="p-8 max-w-5xl mx-auto w-full">
+            <div class="p-4 sm:p-8 max-w-5xl mx-auto w-full">
                 <button onclick="fetchDataFromGoogle(true)" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Dashboard</button>
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm mb-8 flex justify-between items-center">
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
-                        <h1 class="text-2xl font-extrabold text-slate-900 mb-2" id="manage-test-title">Test Title</h1>
-                        <p class="text-slate-500 text-sm" id="manage-test-desc">Description</p>
+                        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-1 sm:mb-2" id="manage-test-title">Test Title</h1>
+                        <p class="text-slate-500 text-xs sm:text-sm" id="manage-test-desc">Description</p>
                     </div>
-                    <div class="flex gap-4">
-                        <button onclick="viewSubmissions()" class="px-6 py-3 rounded-xl font-bold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">
-                            View Submissions
+                    <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+                        <button onclick="viewSubmissions()" class="flex-1 sm:flex-none px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-bold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">
+                            Submissions
                         </button>
-                        <button onclick="openAddQuestionView()" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">
+                        <button onclick="openAddQuestionView()" class="flex-1 sm:flex-none px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9] text-sm">
                             + Add Question
                         </button>
                     </div>
                 </div>
-                <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">Questions <span id="manage-q-count" class="bg-slate-200 text-slate-600 px-3 py-1 rounded-full text-sm">0</span></h2>
+                <h2 class="text-lg sm:text-xl font-bold text-slate-800 mb-4 sm:mb-6 flex items-center gap-3">Questions <span id="manage-q-count" class="bg-slate-200 text-slate-600 px-3 py-1 rounded-full text-xs sm:text-sm">0</span></h2>
                 <div id="manage-q-list" class="space-y-4"></div>
             </div>
         </div>
 
         <!-- 3.6. INSTRUCTOR ADD/EDIT QUESTION -->
         <div id="admin-add-question-view" class="view">
-            <div class="p-8 max-w-4xl mx-auto w-full">
+            <div class="p-4 sm:p-8 max-w-4xl mx-auto w-full">
                 <button onclick="navigateTo('admin-manage-test-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Cancel</button>
-                <h1 class="text-3xl font-extrabold text-slate-900 mb-8" id="view-add-q-title">Add New Question</h1>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-6 sm:mb-8" id="view-add-q-title">Add New Question</h1>
                 
-                <form id="add-q-form" onsubmit="handleAddQuestion(event)" class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
-                    <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100 flex gap-6">
+                <form id="add-q-form" onsubmit="handleAddQuestion(event)" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4 sm:space-y-6">
+                    <div class="bg-indigo-50 p-4 sm:p-6 rounded-xl border border-indigo-100 flex flex-col sm:flex-row gap-4 sm:gap-6">
                         <div class="flex-1">
                             <label class="block text-xs font-bold text-[#5b54e5] mb-2 uppercase">Question Type</label>
-                            <select id="add-q-type" onchange="toggleQType()" class="w-full p-4 rounded-xl border border-slate-200 outline-none font-bold text-slate-700 bg-white">
+                            <select id="add-q-type" onchange="toggleQType()" class="w-full p-3.5 sm:p-4 rounded-xl border border-slate-200 outline-none font-bold text-slate-700 bg-white">
                                 <option value="coding">Coding / Verilog Simulation</option>
                                 <option value="mcq">Multiple Choice (MCQ)</option>
                             </select>
                         </div>
-                        <div class="w-1/3">
+                        <div class="w-full sm:w-1/3">
                             <label class="block text-xs font-bold text-[#5b54e5] mb-2 uppercase">Marks</label>
-                            <input type="number" id="add-q-marks" value="5" min="1" required class="w-full p-4 rounded-xl border border-slate-200 outline-none font-bold text-slate-700 bg-white">
+                            <input type="number" id="add-q-marks" value="5" min="1" required class="w-full p-3.5 sm:p-4 rounded-xl border border-slate-200 outline-none font-bold text-slate-700 bg-white">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">Question Title</label>
-                        <input type="text" id="add-q-title" required class="w-full p-4 rounded-xl border border-slate-200 outline-none">
+                        <input type="text" id="add-q-title" required class="w-full p-3.5 sm:p-4 rounded-xl border border-slate-200 outline-none">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">Problem Description</label>
-                        <textarea id="add-q-desc" rows="6" required class="w-full p-4 rounded-xl border border-slate-200 outline-none font-mono text-sm"></textarea>
+                        <textarea id="add-q-desc" rows="6" required class="w-full p-3.5 sm:p-4 rounded-xl border border-slate-200 outline-none font-mono text-sm"></textarea>
                     </div>
 
                     <!-- Coding Fields -->
                     <div id="q-coding-fields">
                         <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">Boilerplate Code</label>
-                        <textarea id="add-q-code" rows="6" class="w-full p-4 rounded-xl border border-slate-200 outline-none bg-[#1e1e1e] text-[#d4d4d4] font-mono text-sm">module top_module(input a, input b, output y);
+                        <textarea id="add-q-code" rows="6" class="w-full p-3.5 sm:p-4 rounded-xl border border-slate-200 outline-none bg-[#1e1e1e] text-[#d4d4d4] font-mono text-xs sm:text-sm">module top_module(input a, input b, output y);
 
     // Your logic here
 
@@ -264,14 +264,14 @@ endmodule</textarea>
                     </div>
 
                     <!-- MCQ Fields (Hidden by default) -->
-                    <div id="q-mcq-fields" class="hidden space-y-6 bg-slate-50 p-6 rounded-xl border border-slate-200">
-                        <div class="grid grid-cols-2 gap-4">
+                    <div id="q-mcq-fields" class="hidden space-y-4 sm:space-y-6 bg-slate-50 p-4 sm:p-6 rounded-xl border border-slate-200">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div><label class="block text-xs font-bold text-slate-500 mb-1">Option A</label><input type="text" id="mcq-opt-a" class="w-full p-3 rounded-lg border border-slate-300 outline-none focus:border-[#5b54e5]"></div>
                             <div><label class="block text-xs font-bold text-slate-500 mb-1">Option B</label><input type="text" id="mcq-opt-b" class="w-full p-3 rounded-lg border border-slate-300 outline-none focus:border-[#5b54e5]"></div>
                             <div><label class="block text-xs font-bold text-slate-500 mb-1">Option C</label><input type="text" id="mcq-opt-c" class="w-full p-3 rounded-lg border border-slate-300 outline-none focus:border-[#5b54e5]"></div>
                             <div><label class="block text-xs font-bold text-slate-500 mb-1">Option D</label><input type="text" id="mcq-opt-d" class="w-full p-3 rounded-lg border border-slate-300 outline-none focus:border-[#5b54e5]"></div>
                         </div>
-                        <div class="border-t border-slate-200 pt-6">
+                        <div class="border-t border-slate-200 pt-4 sm:pt-6">
                             <label class="block text-xs font-bold text-emerald-600 mb-1 uppercase tracking-wider">Correct Option</label>
                             <select id="mcq-correct" class="w-full p-3 rounded-lg border border-slate-300 outline-none font-bold text-slate-700">
                                 <option value="A">Option A</option>
@@ -282,31 +282,31 @@ endmodule</textarea>
                         </div>
                     </div>
 
-                    <button type="submit" id="btn-save-question" class="w-full py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">Save & Upload to Database</button>
+                    <button type="submit" id="btn-save-question" class="w-full py-3.5 sm:py-4 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">Save & Upload to Database</button>
                 </form>
             </div>
         </div>
 
         <!-- 3.7. INSTRUCTOR VIEW SUBMISSIONS -->
         <div id="admin-submissions-view" class="view">
-            <div class="p-8 max-w-5xl mx-auto w-full">
+            <div class="p-4 sm:p-8 max-w-5xl mx-auto w-full">
                 <button onclick="navigateTo('admin-manage-test-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Test Details</button>
-                <h1 class="text-3xl font-extrabold text-slate-900 mb-2">Student Submissions</h1>
-                <p class="text-slate-500 mb-8" id="subs-test-title">Test Title</p>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">Student Submissions</h1>
+                <p class="text-slate-500 mb-6 sm:mb-8 text-sm sm:text-base" id="subs-test-title">Test Title</p>
 
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto w-full">
                         <table class="w-full text-left min-w-[800px]">
                             <thead class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200">
                                 <tr>
-                                    <th class="px-6 py-4">Student Email</th>
-                                    <th class="px-6 py-4">Enrollment ID</th>
-                                    <th class="px-6 py-4">Timestamp</th>
-                                    <th class="px-6 py-4">Status</th>
-                                    <th class="px-6 py-4 text-right">Action</th>
+                                    <th class="px-4 sm:px-6 py-3 sm:py-4">Student Email</th>
+                                    <th class="px-4 sm:px-6 py-3 sm:py-4">Enrollment ID</th>
+                                    <th class="px-4 sm:px-6 py-3 sm:py-4">Timestamp</th>
+                                    <th class="px-4 sm:px-6 py-3 sm:py-4">Status</th>
+                                    <th class="px-4 sm:px-6 py-3 sm:py-4 text-right">Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="subs-list-body" class="divide-y divide-slate-100 text-sm text-slate-700">
+                            <tbody id="subs-list-body" class="divide-y divide-slate-100 text-xs sm:text-sm text-slate-700">
                                 <!-- Dynamic Rows -->
                             </tbody>
                         </table>
@@ -317,35 +317,35 @@ endmodule</textarea>
 
         <!-- 3.8. INSTRUCTOR GRADING VIEW -->
         <div id="admin-grade-view" class="view">
-            <div class="p-8 max-w-6xl mx-auto w-full">
-                <button onclick="navigateTo('admin-submissions-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Submissions</button>
-                <div class="flex justify-between items-end mb-8">
+            <div class="p-4 sm:p-8 max-w-6xl mx-auto w-full">
+                <button onclick="navigateTo('admin-submissions-view')" class="text-sm font-bold text-slate-500 mb-4 sm:mb-6 flex items-center gap-2">&larr; Back to Submissions</button>
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-6 sm:mb-8 gap-2">
                     <div>
-                        <h1 class="text-3xl font-extrabold text-slate-900 mb-2" id="grade-student-id">Enrollment ID</h1>
-                        <p class="text-slate-500" id="grade-student-email">Email</p>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-1 sm:mb-2" id="grade-student-id">Enrollment ID</h1>
+                        <p class="text-slate-500 text-sm sm:text-base" id="grade-student-email">Email</p>
                     </div>
                 </div>
 
-                <div class="flex gap-8">
+                <div class="flex flex-col lg:flex-row gap-6 sm:gap-8">
                     <!-- Left: Code Answers -->
-                    <div class="flex-1 space-y-6" id="grade-answers-container">
+                    <div class="flex-1 space-y-4 sm:space-y-6" id="grade-answers-container">
                         <!-- Code blocks injected here -->
                     </div>
 
                     <!-- Right: Grading Form -->
-                    <div class="w-96 shrink-0">
-                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm sticky top-8">
-                            <h3 class="text-lg font-bold text-slate-800 mb-6">Evaluation</h3>
+                    <div class="w-full lg:w-96 shrink-0">
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm lg:sticky top-4 sm:top-8">
+                            <h3 class="text-lg font-bold text-slate-800 mb-4 sm:mb-6">Evaluation</h3>
                             <form onsubmit="handleGradeSubmit(event)">
                                 <div class="mb-4">
                                     <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">Total Marks</label>
-                                    <div id="grade-total-display" class="text-4xl font-black text-[#5b54e5]">0</div>
+                                    <div id="grade-total-display" class="text-3xl sm:text-4xl font-black text-[#5b54e5]">0</div>
                                 </div>
-                                <div class="mb-6">
+                                <div class="mb-4 sm:mb-6">
                                     <label class="block text-xs font-bold text-[#8ba3c7] mb-2 uppercase">Instructor Remarks</label>
-                                    <textarea id="grade-remarks" rows="5" required class="w-full p-3 rounded-xl border border-slate-200 outline-none focus:border-[#5b54e5]" placeholder="Provide feedback here..."></textarea>
+                                    <textarea id="grade-remarks" rows="4" required class="w-full p-3 rounded-xl border border-slate-200 outline-none focus:border-[#5b54e5] text-sm" placeholder="Provide feedback here..."></textarea>
                                 </div>
-                                <button type="submit" id="btn-submit-grade" class="w-full py-3.5 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">Save Grade</button>
+                                <button type="submit" id="btn-submit-grade" class="w-full py-3 sm:py-3.5 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">Save Grade</button>
                             </form>
                         </div>
                     </div>
@@ -355,42 +355,41 @@ endmodule</textarea>
 
         <!-- 4. STUDENT DASHBOARD -->
         <div id="student-dashboard-view" class="view">
-            <div class="p-8 max-w-6xl mx-auto w-full">
-                <h1 class="text-3xl font-extrabold text-slate-900 mb-8">Your Assessments</h1>
+            <div class="p-4 sm:p-8 max-w-6xl mx-auto w-full">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-6 sm:mb-8">Your Assessments</h1>
                 <div id="student-loading" class="text-center py-10 hidden"><div class="loader"></div><p class="text-slate-500 font-medium">Fetching tests & records...</p></div>
-                <div id="student-test-list" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
+                <div id="student-test-list" class="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
             </div>
         </div>
 
-        <!-- 4.5. STUDENT RESULTS VIEW (Updated with Rank) -->
+        <!-- 4.5. STUDENT RESULTS VIEW -->
         <div id="student-results-view" class="view">
-            <div class="p-8 max-w-5xl mx-auto w-full">
+            <div class="p-4 sm:p-8 max-w-5xl mx-auto w-full">
                 <button onclick="navigateTo('student-dashboard-view')" class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2">&larr; Back to Dashboard</button>
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm mb-8 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <div class="flex-1">
-                        <h1 class="text-2xl font-extrabold text-slate-900 mb-2" id="res-test-title">Test Title</h1>
-                        <p class="text-emerald-600 font-bold text-sm bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200 inline-block mt-2">Evaluation Complete</p>
+                <div class="bg-white p-5 sm:p-8 rounded-2xl border border-slate-200 shadow-sm mb-6 sm:mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 sm:gap-8">
+                    <div class="flex-1 w-full">
+                        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-2" id="res-test-title">Test Title</h1>
+                        <p class="text-emerald-600 font-bold text-xs sm:text-sm bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200 inline-block mt-1 sm:mt-2">Evaluation Complete</p>
                         
-                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 mt-6">
-                            <h3 class="text-xs font-bold text-[#8ba3c7] uppercase tracking-wider mb-2">Instructor Remarks</h3>
-                            <p class="text-slate-700 whitespace-pre-wrap" id="res-remarks">No remarks provided.</p>
+                        <div class="bg-slate-50 p-4 sm:p-6 rounded-2xl border border-slate-200 mt-4 sm:mt-6">
+                            <h3 class="text-[10px] sm:text-xs font-bold text-[#8ba3c7] uppercase tracking-wider mb-2">Instructor Remarks</h3>
+                            <p class="text-slate-700 whitespace-pre-wrap text-sm" id="res-remarks">No remarks provided.</p>
                         </div>
                     </div>
                     
-                    <div class="w-full md:w-64 shrink-0 bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center flex flex-col justify-center">
-                        <p class="text-xs font-bold text-[#8ba3c7] uppercase mb-1">Your Total Marks</p>
-                        <p class="text-5xl font-black text-[#5b54e5] mb-2" id="res-marks">--</p>
+                    <div class="w-full md:w-64 shrink-0 bg-slate-50 p-4 sm:p-6 rounded-2xl border border-slate-200 text-center flex flex-col justify-center">
+                        <p class="text-[10px] sm:text-xs font-bold text-[#8ba3c7] uppercase mb-1">Your Total Marks</p>
+                        <p class="text-4xl sm:text-5xl font-black text-[#5b54e5] mb-2" id="res-marks">--</p>
                         
-                        <!-- NEW: Class Rank Display -->
-                        <div class="mt-4 pt-4 border-t border-slate-200">
-                            <p class="text-xs font-bold text-[#8ba3c7] uppercase mb-1">Class Rank</p>
-                            <p class="text-3xl font-black text-emerald-500" id="res-rank">--</p>
+                        <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-200">
+                            <p class="text-[10px] sm:text-xs font-bold text-[#8ba3c7] uppercase mb-1">Class Rank</p>
+                            <p class="text-2xl sm:text-3xl font-black text-emerald-500" id="res-rank">--</p>
                         </div>
                     </div>
                 </div>
 
-                <h2 class="text-xl font-bold text-slate-800 mb-6">Your Submitted Responses</h2>
-                <div id="res-answers-container" class="space-y-6">
+                <h2 class="text-lg sm:text-xl font-bold text-slate-800 mb-4 sm:mb-6">Your Submitted Responses</h2>
+                <div id="res-answers-container" class="space-y-4 sm:space-y-6">
                     <!-- Code blocks injected here -->
                 </div>
             </div>
@@ -398,19 +397,19 @@ endmodule</textarea>
 
         <!-- 5. TEST INSTRUCTIONS -->
         <div id="instructions-view" class="view items-center justify-center p-4">
-            <div class="bg-white p-10 rounded-[1.5rem] border border-slate-200 w-full max-w-[700px] shadow-sm">
-                <h1 class="text-[28px] font-extrabold text-slate-900 mb-6">Test Instructions & Policy</h1>
-                <p class="text-slate-600 mb-6 text-[17px]">You are about to begin the <strong id="inst-test-title">Assessment</strong>. Please read carefully:</p>
-                <ul class="space-y-4 text-slate-600 mb-10 list-disc pl-5">
+            <div class="bg-white p-6 sm:p-10 rounded-[1.5rem] border border-slate-200 w-full max-w-[700px] shadow-sm">
+                <h1 class="text-2xl sm:text-[28px] font-extrabold text-slate-900 mb-4 sm:mb-6">Test Instructions & Policy</h1>
+                <p class="text-slate-600 mb-4 sm:mb-6 text-sm sm:text-[17px]">You are about to begin the <strong id="inst-test-title">Assessment</strong>. Please read carefully:</p>
+                <ul class="space-y-3 sm:space-y-4 text-slate-600 mb-8 sm:mb-10 list-disc pl-4 sm:pl-5 text-sm sm:text-base">
                     <li><strong>Duration:</strong> Test timer: <span id="inst-duration">60</span> minutes. The timer starts when you click "Start Test".</li>
                     <li><strong>Questions:</strong> The test contains <strong id="inst-q-count">0</strong> questions. You can navigate between them.</li>
                     <li><strong>Environment (Strict):</strong> The system actively monitors window focus. Switching tabs or exiting full-screen will trigger an immediate warning and flag your submission.</li>
                     <li><strong>Copy & Paste:</strong> Pasting code from external sources is disabled to ensure academic integrity.</li>
                     <li><strong>Auto-Save:</strong> Your responses are automatically synced locally.</li>
                 </ul>
-                <div class="bg-[#f3f5fe] p-6 rounded-2xl flex items-center justify-between">
-                    <label class="flex items-center gap-3"><input type="checkbox" id="agree-checkbox" onchange="toggleStartButton()" class="w-5 h-5 rounded text-[#5b54e5]"><span class="font-medium">I agree to the policies.</span></label>
-                    <button id="start-test-btn" onclick="startTest()" disabled class="px-8 py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400">Start Test</button>
+                <div class="bg-[#f3f5fe] p-4 sm:p-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <label class="flex items-center gap-3 w-full sm:w-auto justify-center sm:justify-start"><input type="checkbox" id="agree-checkbox" onchange="toggleStartButton()" class="w-4 h-4 sm:w-5 sm:h-5 rounded text-[#5b54e5]"><span class="font-medium text-sm sm:text-base">I agree to the policies.</span></label>
+                    <button id="start-test-btn" onclick="startTest()" disabled class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400">Start Test</button>
                 </div>
             </div>
         </div>
@@ -418,54 +417,54 @@ endmodule</textarea>
         <!-- 6. TEST ENVIRONMENT (IDE) -->
         <div id="test-view" class="view h-full overflow-hidden bg-white relative">
             
-            <!-- NEW: Fullscreen Warning Overlay -->
-            <div id="fullscreen-warning" class="hidden absolute inset-0 z-[100] bg-slate-900/90 flex flex-col items-center justify-center backdrop-blur-sm">
-                <div class="bg-white p-8 rounded-3xl text-center max-w-md shadow-2xl">
-                    <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 animate-bounce">⚠️</div>
-                    <h2 class="text-2xl font-bold text-slate-900 mb-2">Fullscreen Exited</h2>
-                    <p class="text-slate-600 mb-6 text-sm">You must remain in fullscreen mode to continue the assessment. This action has been logged as a security warning.</p>
-                    <button onclick="enterFullscreen()" class="px-6 py-3.5 bg-[#5b54e5] text-white font-bold rounded-xl hover:bg-[#4a44c9] transition-colors w-full flex items-center justify-center gap-2">
-                        Return to Fullscreen <span class="bg-indigo-400/30 px-2 py-0.5 rounded text-xs">Press F</span>
+            <!-- Fullscreen Warning Overlay -->
+            <div id="fullscreen-warning" class="hidden absolute inset-0 z-[100] bg-slate-900/90 flex flex-col items-center justify-center backdrop-blur-sm p-4">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl text-center max-w-md shadow-2xl w-full">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-2xl sm:text-3xl mx-auto mb-4 animate-bounce">⚠️</div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Fullscreen Exited</h2>
+                    <p class="text-slate-600 mb-6 text-xs sm:text-sm">You must remain in fullscreen mode to continue the assessment. This action has been logged as a security warning.</p>
+                    <button onclick="enterFullscreen()" class="px-4 sm:px-6 py-3 sm:py-3.5 bg-[#5b54e5] text-white font-bold rounded-xl hover:bg-[#4a44c9] transition-colors w-full flex items-center justify-center gap-2 text-sm sm:text-base">
+                        Return to Fullscreen <span class="bg-indigo-400/30 px-2 py-0.5 rounded text-[10px] sm:text-xs">Press F</span>
                     </button>
                 </div>
             </div>
 
             <!-- Header (Glued to Top) -->
-            <div class="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shadow-sm z-10 shrink-0">
-                <span class="font-extrabold tracking-tight text-xl" id="ide-test-title">Test</span>
-                <div class="flex items-center gap-4">
+            <div class="bg-white border-b border-slate-200 px-3 sm:px-6 py-3 sm:py-4 flex justify-between items-center shadow-sm z-10 shrink-0">
+                <span class="font-extrabold tracking-tight text-lg sm:text-xl truncate max-w-[30%] sm:max-w-none" id="ide-test-title">Test</span>
+                <div class="flex items-center gap-2 sm:gap-4">
                     <!-- RUN CODE BUTTON -->
-                    <button onclick="runVerilogCode()" id="run-code-btn" class="px-5 py-2.5 rounded-xl font-bold bg-slate-800 text-white hover:bg-slate-700 flex items-center gap-2 transition-colors">
-                        ▶ Run Code
+                    <button onclick="runVerilogCode()" id="run-code-btn" class="px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl font-bold bg-slate-800 text-white hover:bg-slate-700 flex items-center gap-1 sm:gap-2 transition-colors text-xs sm:text-base">
+                        ▶ <span class="hidden sm:inline">Run Code</span>
                     </button>
                     
-                    <span id="save-status" class="text-slate-400 text-sm font-medium border-l pl-4 border-slate-200">Ready</span>
-                    <div id="timer-display" class="font-mono text-xl font-bold bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 text-[#5b54e5]">60:00</div>
-                    <button onclick="submitTest()" id="final-submit-btn" class="px-6 py-2.5 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9]">Submit</button>
+                    <span id="save-status" class="hidden sm:inline text-slate-400 text-xs sm:text-sm font-medium border-l pl-2 sm:pl-4 border-slate-200">Ready</span>
+                    <div id="timer-display" class="font-mono text-sm sm:text-xl font-bold bg-slate-50 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-slate-200 text-[#5b54e5]">60:00</div>
+                    <button onclick="submitTest()" id="final-submit-btn" class="px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9] text-xs sm:text-base">Submit</button>
                 </div>
             </div>
 
-            <!-- Workspace Body -->
-            <div class="flex-1 flex overflow-hidden">
+            <!-- Workspace Body: Stack on mobile, row on desktop -->
+            <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
                 
                 <!-- LEFT PANEL (Question Details) -->
-                <div id="left-panel" style="width: 33.333%;" class="bg-white border-r border-slate-200 p-8 overflow-y-auto shrink-0 flex flex-col">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-[#5b54e5] font-bold text-sm" id="ide-q-counter">Question 1</span>
-                        <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-xs font-bold" id="ide-q-marks">Marks: 5</span>
+                <div id="left-panel" class="w-full md:w-1/3 h-[35%] md:h-full bg-white border-b md:border-b-0 md:border-r border-slate-200 p-4 sm:p-6 md:p-8 overflow-y-auto shrink-0 flex flex-col">
+                    <div class="flex justify-between items-center mb-3 sm:mb-4">
+                        <span class="text-[#5b54e5] font-bold text-xs sm:text-sm" id="ide-q-counter">Question 1</span>
+                        <span class="bg-slate-100 text-slate-500 px-2 sm:px-3 py-1 rounded-lg text-[10px] sm:text-xs font-bold" id="ide-q-marks">Marks: 5</span>
                     </div>
-                    <h3 class="text-2xl font-extrabold text-slate-900 mb-6" id="ide-q-title">Title</h3>
-                    <div class="text-slate-600 text-[15px] whitespace-pre-wrap" id="ide-q-desc">Desc</div>
+                    <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-3 sm:mb-6" id="ide-q-title">Title</h3>
+                    <div class="text-slate-600 text-sm sm:text-[15px] whitespace-pre-wrap" id="ide-q-desc">Desc</div>
                 </div>
 
-                <!-- HORIZONTAL RESIZER -->
-                <div id="h-resizer" class="w-1.5 bg-slate-200 cursor-col-resize hover:bg-[#5b54e5] transition-colors shrink-0 z-20 flex items-center justify-center">
+                <!-- HORIZONTAL RESIZER (Hidden on mobile) -->
+                <div id="h-resizer" class="hidden md:flex w-1.5 bg-slate-200 cursor-col-resize hover:bg-[#5b54e5] transition-colors shrink-0 z-20 items-center justify-center">
                     <div class="h-8 w-0.5 bg-slate-400 rounded"></div>
                 </div>
 
                 <!-- RIGHT PANEL (Editor & Terminal & MCQ) -->
-                <div id="right-panel" class="flex-1 flex flex-col bg-[#1e1e1e] relative min-w-0 overflow-hidden">
-                    <div class="bg-[#2d2d2d] px-4 py-2.5 border-b border-[#3d3d3d] text-slate-300 font-mono text-sm shrink-0" id="ide-filename">module.v</div>
+                <div id="right-panel" class="flex-1 w-full h-[65%] md:h-full flex flex-col bg-[#1e1e1e] relative min-w-0 overflow-hidden">
+                    <div class="bg-[#2d2d2d] px-3 sm:px-4 py-2 sm:py-2.5 border-b border-[#3d3d3d] text-slate-300 font-mono text-xs sm:text-sm shrink-0 truncate" id="ide-filename">module.v</div>
                     
                     <!-- EDITOR WRAPPER -->
                     <div id="editor-wrapper" class="flex-1 w-full min-h-0 relative flex flex-col">
@@ -477,28 +476,28 @@ endmodule</textarea>
                         </div>
 
                         <!-- TERMINAL OUTPUT PANEL -->
-                        <div id="terminal-panel" style="height: 192px;" class="bg-[#0d0d0d] border-t border-[#3d3d3d] flex-col hidden shrink-0">
-                            <div class="bg-[#2d2d2d] px-4 py-1.5 flex justify-between items-center text-[10px] text-slate-400 font-bold tracking-widest uppercase shrink-0">
+                        <div id="terminal-panel" style="height: 150px;" class="md:h-[192px] bg-[#0d0d0d] border-t border-[#3d3d3d] flex-col hidden shrink-0">
+                            <div class="bg-[#2d2d2d] px-3 sm:px-4 py-1.5 flex justify-between items-center text-[10px] text-slate-400 font-bold tracking-widest uppercase shrink-0">
                                 <span>Terminal Output</span>
-                                <button onclick="closeTerminal()" class="hover:text-white transition-colors p-1">✕</button>
+                                <button onclick="closeTerminal()" class="hover:text-white transition-colors p-1 text-xs">✕</button>
                             </div>
-                            <div class="p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-slate-300" id="terminal-output"></div>
+                            <div class="p-3 sm:p-4 overflow-y-auto font-mono text-xs sm:text-sm flex-1 whitespace-pre-wrap text-slate-300" id="terminal-output"></div>
                         </div>
                     </div>
 
                     <!-- MCQ WRAPPER -->
-                    <div id="mcq-wrapper" class="flex-1 w-full min-h-0 bg-[#1e1e1e] hidden p-8 overflow-y-auto">
-                        <h3 class="text-xl font-bold text-slate-300 mb-6">Select the correct option:</h3>
-                        <div id="mcq-options-container" class="space-y-4 max-w-3xl">
+                    <div id="mcq-wrapper" class="flex-1 w-full min-h-0 bg-[#1e1e1e] hidden p-4 sm:p-8 overflow-y-auto">
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-300 mb-4 sm:mb-6">Select the correct option:</h3>
+                        <div id="mcq-options-container" class="space-y-3 sm:space-y-4 max-w-3xl">
                             <!-- Radio buttons injected here -->
                         </div>
                     </div>
 
                     <!-- PAGINATION FOOTER (Glued to Bottom) -->
-                    <div id="test-footer" class="bg-white border-t border-slate-200 p-4 flex justify-between items-center shrink-0 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-                        <button id="btn-prev-q" onclick="navigateQuestion(-1)" class="px-5 py-2.5 rounded-xl font-bold border border-slate-200 hover:bg-slate-50">&larr; Previous</button>
-                        <div id="q-dots-container" class="flex gap-2.5 overflow-x-auto max-w-[50vw]"></div>
-                        <button id="btn-next-q" onclick="navigateQuestion(1)" class="px-5 py-2.5 rounded-xl font-bold border border-slate-200 hover:bg-slate-50">Next &rarr;</button>
+                    <div id="test-footer" class="bg-white border-t border-slate-200 p-3 sm:p-4 flex justify-between items-center shrink-0 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                        <button id="btn-prev-q" onclick="navigateQuestion(-1)" class="px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl font-bold border border-slate-200 hover:bg-slate-50 text-xs sm:text-base whitespace-nowrap">&larr; <span class="hidden sm:inline">Previous</span></button>
+                        <div id="q-dots-container" class="flex gap-2 sm:gap-2.5 overflow-x-auto max-w-[40vw] sm:max-w-[50vw] hide-scroll px-1"></div>
+                        <button id="btn-next-q" onclick="navigateQuestion(1)" class="px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl font-bold border border-slate-200 hover:bg-slate-50 text-xs sm:text-base whitespace-nowrap"><span class="hidden sm:inline">Next</span> &rarr;</button>
                     </div>
                 </div>
 
@@ -507,10 +506,10 @@ endmodule</textarea>
 
         <!-- 7. SUBMIT SUCCESS -->
         <div id="submit-view" class="view items-center justify-center p-4">
-            <div class="bg-white p-10 rounded-[1.5rem] border border-slate-200 w-full max-w-[500px] text-center shadow-sm">
-                <h2 class="text-2xl font-extrabold text-slate-900 mb-4">Submitted Successfully</h2>
-                <p class="text-slate-500 mb-8" id="submit-success-msg">Data safely stored in Database.</p>
-                <button onclick="logout()" class="px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9] w-full transition-colors">Log Out & Return to Home</button>
+            <div class="bg-white p-6 sm:p-10 rounded-[1.5rem] border border-slate-200 w-full max-w-[500px] text-center shadow-sm">
+                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-3 sm:mb-4">Submitted Successfully</h2>
+                <p class="text-slate-500 mb-6 sm:mb-8 text-sm sm:text-base" id="submit-success-msg">Data safely stored in Database.</p>
+                <button onclick="logout()" class="px-4 sm:px-6 py-3 rounded-xl font-bold bg-[#5b54e5] text-white hover:bg-[#4a44c9] w-full transition-colors text-sm sm:text-base">Log Out & Return to Home</button>
             </div>
         </div>
     </div>
@@ -520,6 +519,9 @@ endmodule</textarea>
         // IMPORTANT URLs
         // =========================================================
         const GOOGLE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzhtk4rISUDJvMb3nLzJq2CBY5cVnm9kAnL_fuW77MLOkoR0-_dS0nKtmCwBjpD3mpAnQ/exec"; 
+        
+        // 🔴 SECURE ROUTES
+        const AUTH_API_URL = "https://assessment-backend-6yrh.onrender.com/login"; 
         const VERILOG_API_URL = "https://assessment-backend-6yrh.onrender.com/run"; 
 
         // =========================================================
@@ -531,7 +533,7 @@ endmodule</textarea>
         let dbClassAverages = {}; 
         
         let currentManageTestId = null; 
-        let currentEditQuestionIndex = -1; // -1 means adding new, >= 0 means editing
+        let currentEditQuestionIndex = -1; 
         let currentActiveTest = null;   
         let currentGradingSubmission = null;
 
@@ -542,13 +544,15 @@ endmodule</textarea>
         let autosaveInterval = null;
         let editorInstance = null;
         
-        let warningCount = 0; // Tracks anti-cheating warnings
-        let isSubmitting = false; // Tracks if test is currently being submitted
+        let warningCount = 0;
+        let isSubmitting = false;
 
         // On Load Check Session
         window.onload = () => {
+            const token = sessionStorage.getItem('ls_jwt_token');
             const session = sessionStorage.getItem('ls_user');
-            if(session) {
+            
+            if(token && session) {
                 currentUser = JSON.parse(session);
                 fetchDataFromGoogle(currentUser.role === 'admin');
             } else {
@@ -574,7 +578,7 @@ endmodule</textarea>
             }
         }
 
-        // --- AUTH ---
+        // --- SECURE AUTHENTICATION ---
         function switchLoginTab(tab) {
             document.getElementById('student-form').classList.toggle('hidden', tab !== 'student');
             document.getElementById('admin-form').classList.toggle('hidden', tab !== 'admin');
@@ -585,11 +589,11 @@ endmodule</textarea>
             const btnAdmin = document.getElementById('tab-btn-admin');
             
             if (tab === 'student') {
-                btnStudent.className = "flex-1 py-3 text-[13px] font-bold rounded-lg bg-white text-slate-800 shadow-sm transition-all";
-                btnAdmin.className = "flex-1 py-3 text-[13px] font-bold rounded-lg text-slate-500 hover:text-slate-700 transition-all";
+                btnStudent.className = "flex-1 py-2.5 sm:py-3 text-xs sm:text-[13px] font-bold rounded-lg bg-white text-slate-800 shadow-sm transition-all";
+                btnAdmin.className = "flex-1 py-2.5 sm:py-3 text-xs sm:text-[13px] font-bold rounded-lg text-slate-500 hover:text-slate-700 transition-all";
             } else {
-                btnAdmin.className = "flex-1 py-3 text-[13px] font-bold rounded-lg bg-white text-slate-800 shadow-sm transition-all";
-                btnStudent.className = "flex-1 py-3 text-[13px] font-bold rounded-lg text-slate-500 hover:text-slate-700 transition-all";
+                btnAdmin.className = "flex-1 py-2.5 sm:py-3 text-xs sm:text-[13px] font-bold rounded-lg bg-white text-slate-800 shadow-sm transition-all";
+                btnStudent.className = "flex-1 py-2.5 sm:py-3 text-xs sm:text-[13px] font-bold rounded-lg text-slate-500 hover:text-slate-700 transition-all";
             }
         }
 
@@ -607,6 +611,7 @@ endmodule</textarea>
             const errorDiv = document.getElementById('login-error');
             const errorText = document.getElementById('login-error-text');
             errorDiv.classList.add('hidden');
+            
             const formId = role === 'admin' ? 'admin-form' : 'student-form';
             const btn = document.querySelector(`#${formId} button[type="submit"]`);
             const originalText = btn.innerText;
@@ -614,15 +619,20 @@ endmodule</textarea>
             btn.disabled = true;
 
             try {
-                const res = await fetch(GOOGLE_WEB_APP_URL, {
-                    method: 'POST', headers: {'Content-Type': 'text/plain'}, 
-                    body: JSON.stringify({ action: 'login', role, email, authString })
+                const res = await fetch(AUTH_API_URL, {
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({ role: role, email: email, authString: authString })
                 });
+                
                 const data = await res.json();
                 
-                if (data.status === 'success') {
-                    currentUser = { email, id: role === 'student' ? authString : null, role };
+                if (data.status === 'success' && data.token) {
+                    sessionStorage.setItem('ls_jwt_token', data.token);
+                    
+                    currentUser = { email: email, id: role === 'student' ? authString : null, role: role };
                     sessionStorage.setItem('ls_user', JSON.stringify(currentUser));
+                    
                     fetchDataFromGoogle(role === 'admin');
                 } else {
                     if(errorText) errorText.innerText = data.message || "Invalid credentials.";
@@ -630,8 +640,8 @@ endmodule</textarea>
                     errorDiv.classList.remove('hidden');
                 }
             } catch(err) {
-                if(errorText) errorText.innerText = "Connection error. Ensure your App Script is deployed.";
-                else errorDiv.innerText = "Connection error. Ensure your App Script is deployed.";
+                if(errorText) errorText.innerText = "Connection error. Unable to reach backend authentication server.";
+                else errorDiv.innerText = "Connection error. Unable to reach backend authentication server.";
                 errorDiv.classList.remove('hidden');
             } finally {
                 btn.innerText = originalText;
@@ -640,12 +650,13 @@ endmodule</textarea>
         }
 
         function logout() {
+            sessionStorage.removeItem('ls_jwt_token'); 
             sessionStorage.removeItem('ls_user');
             currentUser = null;
             navigateTo('login-view');
         }
 
-        // --- FETCH DATA (TESTS + SUBMISSIONS + GRADES) ---
+        // --- FETCH DATA ---
         async function fetchDataFromGoogle(isAdmin) {
             navigateTo(isAdmin ? 'admin-dashboard-view' : 'student-dashboard-view');
             const loadingId = isAdmin ? 'admin-loading' : 'student-loading';
@@ -680,15 +691,15 @@ endmodule</textarea>
         function renderAdminDashboard() {
             const list = document.getElementById('admin-test-list');
             list.innerHTML = '';
-            if(dbTests.length === 0) { list.innerHTML = `<div class="col-span-full bg-white p-12 rounded-2xl border text-center text-slate-500">No tests scheduled.</div>`; return; }
+            if(dbTests.length === 0) { list.innerHTML = `<div class="col-span-full bg-white p-8 sm:p-12 rounded-2xl border text-center text-slate-500">No tests scheduled.</div>`; return; }
 
             dbTests.forEach(test => {
                 const qCount = test.questions ? test.questions.length : 0;
                 list.innerHTML += `
-                    <div class="bg-white p-6 rounded-2xl border shadow-sm flex flex-col hover:border-[#5b54e5] transition-colors">
-                        <h2 class="text-xl font-bold mb-2">${test.title}</h2>
-                        <p class="text-slate-500 mb-6 text-sm flex-grow">${test.description}</p>
-                        <button onclick="manageTest('${test.id}')" class="w-full py-2.5 rounded-xl font-bold border border-slate-200 text-[#5b54e5] hover:bg-slate-50 transition-colors bg-white">Manage Questions (${qCount})</button>
+                    <div class="bg-white p-5 sm:p-6 rounded-2xl border shadow-sm flex flex-col hover:border-[#5b54e5] transition-colors">
+                        <h2 class="text-lg sm:text-xl font-bold mb-2">${test.title}</h2>
+                        <p class="text-slate-500 mb-4 sm:mb-6 text-xs sm:text-sm flex-grow">${test.description}</p>
+                        <button onclick="manageTest('${test.id}')" class="w-full py-2 sm:py-2.5 rounded-xl font-bold border border-slate-200 text-[#5b54e5] hover:bg-slate-50 transition-colors bg-white text-xs sm:text-sm">Manage Questions (${qCount})</button>
                     </div>`;
             });
         }
@@ -706,7 +717,7 @@ endmodule</textarea>
             
             await fetch(GOOGLE_WEB_APP_URL, { method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify({ action: 'createTest', test: newTest }) });
             dbTests.push(newTest);
-            btn.innerText = "Create Test"; btn.disabled = false; e.target.reset();
+            btn.innerText = "Create Test & Add Questions \u2192"; btn.disabled = false; e.target.reset();
             manageTest(newTest.id);
         }
 
@@ -722,15 +733,15 @@ endmodule</textarea>
             test.questions.forEach((q, idx) => {
                 const typeLabel = q.type === 'mcq' ? '<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-[10px] ml-2">MCQ</span>' : '<span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-[10px] ml-2">Coding</span>';
                 qList.innerHTML += `
-                    <div class="bg-slate-50 p-6 rounded-xl border flex justify-between items-center gap-4">
-                        <div class="flex items-center gap-4">
-                            <div class="bg-[#e0e7ff] text-[#5b54e5] font-bold w-8 h-8 rounded flex items-center justify-center shrink-0">${idx + 1}</div>
-                            <div>
-                                <h3 class="font-bold flex items-center">${q.title} ${typeLabel}</h3>
+                    <div class="bg-slate-50 p-4 sm:p-6 rounded-xl border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
+                        <div class="flex items-start sm:items-center gap-3 sm:gap-4 w-full">
+                            <div class="bg-[#e0e7ff] text-[#5b54e5] font-bold w-6 h-6 sm:w-8 sm:h-8 rounded flex items-center justify-center shrink-0 text-xs sm:text-base">${idx + 1}</div>
+                            <div class="flex-1">
+                                <h3 class="font-bold flex items-center flex-wrap text-sm sm:text-base">${q.title} ${typeLabel}</h3>
                                 <p class="text-xs text-slate-500 mt-1">Marks: ${q.marks || '0'}</p>
                             </div>
                         </div>
-                        <button onclick="editQuestion(${idx})" class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors">Edit</button>
+                        <button onclick="editQuestion(${idx})" class="w-full sm:w-auto px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors">Edit</button>
                     </div>`;
             });
             navigateTo('admin-manage-test-view');
@@ -839,30 +850,30 @@ endmodule</textarea>
             const testSubs = dbSubmissions.filter(s => String(s.testTitle) === String(test.title));
 
             if(testSubs.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-500 font-medium">No submissions yet for this test.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 sm:p-8 text-center text-slate-500 font-medium text-xs sm:text-sm">No submissions yet for this test.</td></tr>`;
             } else {
                 testSubs.forEach(sub => {
                     const gradeRecord = dbGrades.find(g => String(g.email).toLowerCase() === String(sub.email).toLowerCase() && String(g.testTitle) === String(test.title));
                     
                     const statusHtml = gradeRecord 
-                        ? `<span class="bg-[#ecfdf5] text-[#10b981] px-3 py-1 rounded-full text-xs font-bold border border-[#a7f3d0]">Graded: ${gradeRecord.marks} Marks</span>`
-                        : `<span class="bg-[#fffbeb] text-[#f59e0b] px-3 py-1 rounded-full text-xs font-bold border border-[#fde68a]">Needs Grading</span>`;
+                        ? `<span class="bg-[#ecfdf5] text-[#10b981] px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold border border-[#a7f3d0] whitespace-nowrap">Graded: ${gradeRecord.marks}</span>`
+                        : `<span class="bg-[#fffbeb] text-[#f59e0b] px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold border border-[#fde68a] whitespace-nowrap">Needs Grading</span>`;
                     
                     const warningBadge = sub.warnings > 0 
-                        ? `<span class="bg-red-100 text-red-700 px-2 py-0.5 rounded-md text-[10px] font-bold animate-pulse border border-red-200 inline-block">⚠️ ${sub.warnings} Warnings</span>` 
+                        ? `<span class="bg-red-100 text-red-700 px-1.5 sm:px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold animate-pulse border border-red-200 inline-block whitespace-nowrap">⚠️ ${sub.warnings} Warn</span>` 
                         : '';
 
                     tbody.innerHTML += `
-                        <tr class="hover:bg-slate-50 transition">
-                            <td class="px-6 py-4">
-                                <div class="font-bold text-slate-800 break-all">${sub.email}</div>
+                        <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                            <td class="px-4 sm:px-6 py-3 sm:py-4 align-top">
+                                <div class="font-bold text-slate-800 break-all text-xs sm:text-sm">${sub.email}</div>
                                 ${warningBadge ? `<div class="mt-1">${warningBadge}</div>` : ''}
                             </td>
-                            <td class="px-6 py-4 font-mono text-slate-500 text-xs">${sub.enrollment}</td>
-                            <td class="px-6 py-4 text-slate-500 text-xs whitespace-nowrap">${sub.timestamp}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">${statusHtml}</td>
-                            <td class="px-6 py-4 text-right whitespace-nowrap">
-                                <button onclick="openGradeView('${sub.email}', '${sub.enrollment}', '${test.id}')" class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-[#5b54e5] hover:bg-slate-50">Review & Grade</button>
+                            <td class="px-4 sm:px-6 py-3 sm:py-4 font-mono text-slate-500 text-[10px] sm:text-xs align-top">${sub.enrollment}</td>
+                            <td class="px-4 sm:px-6 py-3 sm:py-4 text-slate-500 text-[10px] sm:text-xs whitespace-nowrap align-top">${sub.timestamp}</td>
+                            <td class="px-4 sm:px-6 py-3 sm:py-4 align-top">${statusHtml}</td>
+                            <td class="px-4 sm:px-6 py-3 sm:py-4 text-right whitespace-nowrap align-top">
+                                <button onclick="openGradeView('${sub.email}', '${sub.enrollment}', '${test.id}')" class="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-[10px] sm:text-xs font-bold text-[#5b54e5] hover:bg-slate-50">Review</button>
                             </td>
                         </tr>
                     `;
@@ -896,18 +907,18 @@ endmodule</textarea>
                 const q = testQuestions[idx];
                 const isMcq = q && q.type === 'mcq';
                 const qMark = breakdown[idx] !== undefined ? breakdown[idx] : '';
-                const maxMarkLabel = q && q.marks ? `<span class="text-xs text-slate-400 ml-1">/ ${q.marks}</span>` : '';
+                const maxMarkLabel = q && q.marks ? `<span class="text-[10px] sm:text-xs text-slate-400 ml-1">/ ${q.marks}</span>` : '';
 
                 let optionsHtml = '';
                 if (isMcq && q.options) {
                     optionsHtml = `
-                        <div class="px-4 py-3 bg-[#252526] border-b border-[#3d3d3d] text-slate-300 text-[13px] font-mono">
-                            <div class="font-bold mb-1.5 text-slate-400 uppercase tracking-wider text-[10px]">Question Options:</div>
-                            <ul class="space-y-1.5 ml-2">
-                                <li><span class="font-bold text-[#5b54e5] mr-2">A)</span> ${q.options.A || ''}</li>
-                                <li><span class="font-bold text-[#5b54e5] mr-2">B)</span> ${q.options.B || ''}</li>
-                                <li><span class="font-bold text-[#5b54e5] mr-2">C)</span> ${q.options.C || ''}</li>
-                                <li><span class="font-bold text-[#5b54e5] mr-2">D)</span> ${q.options.D || ''}</li>
+                        <div class="px-3 sm:px-4 py-2.5 sm:py-3 bg-[#252526] border-b border-[#3d3d3d] text-slate-300 text-xs sm:text-[13px] font-mono">
+                            <div class="font-bold mb-1.5 text-slate-400 uppercase tracking-wider text-[9px] sm:text-[10px]">Question Options:</div>
+                            <ul class="space-y-1 sm:space-y-1.5 ml-1 sm:ml-2">
+                                <li><span class="font-bold text-[#5b54e5] mr-1.5 sm:mr-2">A)</span> ${q.options.A || ''}</li>
+                                <li><span class="font-bold text-[#5b54e5] mr-1.5 sm:mr-2">B)</span> ${q.options.B || ''}</li>
+                                <li><span class="font-bold text-[#5b54e5] mr-1.5 sm:mr-2">C)</span> ${q.options.C || ''}</li>
+                                <li><span class="font-bold text-[#5b54e5] mr-1.5 sm:mr-2">D)</span> ${q.options.D || ''}</li>
                             </ul>
                         </div>
                     `;
@@ -915,16 +926,16 @@ endmodule</textarea>
 
                 container.innerHTML += `
                     <div class="bg-[#1e1e1e] rounded-xl overflow-hidden shadow-sm">
-                        <div class="bg-[#2d2d2d] px-4 py-2 flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-[#3d3d3d]">
-                            <span>Answer ${idx + 1} ${isMcq ? '(MCQ - Auto Graded)' : ''}</span>
-                            <div class="flex items-center gap-2">
+                        <div class="bg-[#2d2d2d] px-3 sm:px-4 py-2 flex justify-between items-center text-[9px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-[#3d3d3d] flex-wrap gap-2">
+                            <span class="truncate pr-2">Ans ${idx + 1} ${isMcq ? '(MCQ)' : ''}</span>
+                            <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
                                 <span>Marks:</span>
-                                <input type="number" min="0" max="${q ? q.marks : ''}" class="q-grade-input bg-[#1e1e1e] border border-[#3d3d3d] text-white rounded px-2 py-1 w-16 text-center outline-none focus:border-[#5b54e5]" value="${qMark}" oninput="recalcTotalMarks()">
+                                <input type="number" min="0" max="${q ? q.marks : ''}" class="q-grade-input bg-[#1e1e1e] border border-[#3d3d3d] text-white rounded px-1.5 sm:px-2 py-1 w-12 sm:w-16 text-center outline-none focus:border-[#5b54e5] text-xs" value="${qMark}" oninput="recalcTotalMarks()">
                                 ${maxMarkLabel}
                             </div>
                         </div>
                         ${optionsHtml}
-                        <pre class="p-4 font-mono text-[13px] text-slate-300 overflow-x-auto whitespace-pre-wrap">${ans}</pre>
+                        <pre class="p-3 sm:p-4 font-mono text-xs sm:text-[13px] text-slate-300 overflow-x-auto whitespace-pre-wrap">${ans}</pre>
                     </div>
                 `;
             });
@@ -983,7 +994,7 @@ endmodule</textarea>
             const list = document.getElementById('student-test-list');
             list.innerHTML = '';
             
-            if(dbTests.length === 0) { list.innerHTML = `<div class="col-span-full bg-white p-12 rounded-2xl border text-center text-slate-500 font-medium">No assessments scheduled.</div>`; return; }
+            if(dbTests.length === 0) { list.innerHTML = `<div class="col-span-full bg-white p-8 sm:p-12 rounded-2xl border text-center text-slate-500 font-medium">No assessments scheduled.</div>`; return; }
 
             const now = new Date();
 
@@ -1001,7 +1012,6 @@ endmodule</textarea>
                     test.questions.forEach(q => { totalMarks += (parseInt(q.marks) || 0); });
                 }
 
-                // Format Future Date and Time
                 const day = startTime.getDate().toString().padStart(2, '0');
                 const month = startTime.toLocaleString('default', { month: 'short' });
                 const year = startTime.getFullYear();
@@ -1014,30 +1024,30 @@ endmodule</textarea>
 
                 if (isSubmitted) {
                     if (isGraded) {
-                        actionHtml = `<button onclick="viewResults('${test.id}')" class="mt-auto w-full py-3.5 rounded-xl font-bold bg-[#5b54e5] hover:bg-[#4a44c9] text-white transition-colors">View Results</button>`;
+                        actionHtml = `<button onclick="viewResults('${test.id}')" class="mt-auto w-full py-3 sm:py-3.5 rounded-xl font-bold bg-[#5b54e5] hover:bg-[#4a44c9] text-white transition-colors text-sm sm:text-base">View Results</button>`;
                     } else {
-                        actionHtml = `<button disabled class="mt-auto w-full py-3.5 rounded-xl font-bold bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200">Submitted (Pending Review)</button>`;
+                        actionHtml = `<button disabled class="mt-auto w-full py-3 sm:py-3.5 rounded-xl font-bold bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200 text-sm sm:text-base">Submitted (Pending Review)</button>`;
                     }
                 } else if (isActive && test.questions && test.questions.length > 0) {
-                    actionHtml = `<button onclick="prepareTest('${test.id}')" class="mt-auto w-full py-3.5 rounded-xl font-bold bg-slate-800 hover:bg-slate-900 text-white transition-colors">Enter Assessment</button>`;
+                    actionHtml = `<button onclick="prepareTest('${test.id}')" class="mt-auto w-full py-3 sm:py-3.5 rounded-xl font-bold bg-slate-800 hover:bg-slate-900 text-white transition-colors text-sm sm:text-base">Enter Assessment</button>`;
                 } else if (isFuture) {
                     actionHtml = `
                         <div class="mt-auto bg-amber-50 border border-amber-200 rounded-xl p-3 text-center shadow-sm">
-                            <p class="text-[10px] font-black text-amber-600 uppercase tracking-wider mb-1">Scheduled For</p>
-                            <p class="text-sm font-bold text-slate-800">${formattedDate}</p>
-                            <p class="text-[11px] font-bold text-slate-500 mt-1">${timeRange}</p>
+                            <p class="text-[9px] sm:text-[10px] font-black text-amber-600 uppercase tracking-wider mb-1">Scheduled For</p>
+                            <p class="text-xs sm:text-sm font-bold text-slate-800">${formattedDate}</p>
+                            <p class="text-[10px] sm:text-[11px] font-bold text-slate-500 mt-1">${timeRange}</p>
                         </div>`;
                 } else {
-                    actionHtml = `<button disabled class="mt-auto w-full py-3.5 rounded-xl font-bold bg-slate-50 text-slate-400 cursor-not-allowed border border-slate-100">Assessment Closed</button>`;
+                    actionHtml = `<button disabled class="mt-auto w-full py-3 sm:py-3.5 rounded-xl font-bold bg-slate-50 text-slate-400 cursor-not-allowed border border-slate-100 text-sm sm:text-base">Assessment Closed</button>`;
                 }
 
                 list.innerHTML += `
-                    <div class="bg-white p-6 rounded-2xl border flex flex-col hover:border-[#5b54e5] transition-colors shadow-sm">
-                        <h2 class="text-xl font-bold mb-4">${test.title}</h2>
-                        <div class="flex flex-wrap gap-2 mb-6 text-xs font-bold">
-                            <span class="bg-slate-50 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-200">⏱ ${test.duration} mins</span>
-                            <span class="bg-[#f0f4ff] text-[#5b54e5] px-3 py-1.5 rounded-lg border border-[#c7d2fe]">${test.questions ? test.questions.length : 0} Qs</span>
-                            <span class="bg-emerald-50 text-emerald-600 px-3 py-1.5 rounded-lg border border-emerald-200">${totalMarks} Marks</span>
+                    <div class="bg-white p-5 sm:p-6 rounded-2xl border flex flex-col hover:border-[#5b54e5] transition-colors shadow-sm">
+                        <h2 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4">${test.title}</h2>
+                        <div class="flex flex-wrap gap-2 mb-4 sm:mb-6 text-[10px] sm:text-xs font-bold">
+                            <span class="bg-slate-50 text-slate-600 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-slate-200">⏱ ${test.duration} mins</span>
+                            <span class="bg-[#f0f4ff] text-[#5b54e5] px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-[#c7d2fe]">${test.questions ? test.questions.length : 0} Qs</span>
+                            <span class="bg-emerald-50 text-emerald-600 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-emerald-200">${totalMarks} Marks</span>
                         </div>
                         ${actionHtml}
                     </div>`;
@@ -1075,13 +1085,13 @@ endmodule</textarea>
                 let optionsHtml = '';
                 if (isMcq && q.options) {
                     optionsHtml = `
-                        <div class="px-4 py-3 bg-[#252526] border-b border-[#3d3d3d] text-slate-300 text-[13px] font-mono">
-                            <div class="font-bold mb-1.5 text-slate-400 uppercase tracking-wider text-[10px]">Question Options:</div>
-                            <ul class="space-y-1.5 ml-2">
-                                <li><span class="font-bold text-[#5b54e5] mr-2">A)</span> ${q.options.A || ''}</li>
-                                <li><span class="font-bold text-[#5b54e5] mr-2">B)</span> ${q.options.B || ''}</li>
-                                <li><span class="font-bold text-[#5b54e5] mr-2">C)</span> ${q.options.C || ''}</li>
-                                <li><span class="font-bold text-[#5b54e5] mr-2">D)</span> ${q.options.D || ''}</li>
+                        <div class="px-3 sm:px-4 py-2.5 sm:py-3 bg-[#252526] border-b border-[#3d3d3d] text-slate-300 text-xs sm:text-[13px] font-mono">
+                            <div class="font-bold mb-1 sm:mb-1.5 text-slate-400 uppercase tracking-wider text-[9px] sm:text-[10px]">Question Options:</div>
+                            <ul class="space-y-1 sm:space-y-1.5 ml-1 sm:ml-2">
+                                <li><span class="font-bold text-[#5b54e5] mr-1.5 sm:mr-2">A)</span> ${q.options.A || ''}</li>
+                                <li><span class="font-bold text-[#5b54e5] mr-1.5 sm:mr-2">B)</span> ${q.options.B || ''}</li>
+                                <li><span class="font-bold text-[#5b54e5] mr-1.5 sm:mr-2">C)</span> ${q.options.C || ''}</li>
+                                <li><span class="font-bold text-[#5b54e5] mr-1.5 sm:mr-2">D)</span> ${q.options.D || ''}</li>
                             </ul>
                         </div>
                     `;
@@ -1089,12 +1099,12 @@ endmodule</textarea>
 
                 container.innerHTML += `
                     <div class="bg-[#1e1e1e] rounded-xl overflow-hidden shadow-sm">
-                        <div class="bg-[#2d2d2d] px-4 py-2 flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-[#3d3d3d]">
-                            <span>${idx + 1}. ${qTitle}</span>
-                            <span class="text-emerald-400 text-xs font-mono">${markAwarded} Marks</span>
+                        <div class="bg-[#2d2d2d] px-3 sm:px-4 py-2 flex justify-between items-center text-[9px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-[#3d3d3d] gap-2">
+                            <span class="truncate">${idx + 1}. ${qTitle}</span>
+                            <span class="text-emerald-400 text-[10px] sm:text-xs font-mono shrink-0">${markAwarded} Marks</span>
                         </div>
                         ${optionsHtml}
-                        <pre class="p-4 font-mono text-[13px] text-slate-300 overflow-x-auto whitespace-pre-wrap">${ans}</pre>
+                        <pre class="p-3 sm:p-4 font-mono text-xs sm:text-[13px] text-slate-300 overflow-x-auto whitespace-pre-wrap">${ans}</pre>
                     </div>
                 `;
             });
@@ -1108,7 +1118,7 @@ endmodule</textarea>
             document.getElementById('inst-q-count').innerText = currentActiveTest.questions.length;
             document.getElementById('agree-checkbox').checked = false;
             document.getElementById('start-test-btn').disabled = true;
-            document.getElementById('start-test-btn').className = "px-8 py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400 cursor-not-allowed";
+            document.getElementById('start-test-btn').className = "w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400 cursor-not-allowed";
             document.getElementById('start-test-btn').innerText = "Start Test";
             navigateTo('instructions-view');
         }
@@ -1116,7 +1126,7 @@ endmodule</textarea>
         function toggleStartButton() {
             const btn = document.getElementById('start-test-btn');
             btn.disabled = !document.getElementById('agree-checkbox').checked;
-            btn.className = btn.disabled ? "px-8 py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400 cursor-not-allowed transition-all" : "px-8 py-3.5 rounded-xl font-bold bg-[#5b54e5] hover:bg-[#4a44c9] text-white transition-all";
+            btn.className = btn.disabled ? "w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-bold bg-slate-200 text-slate-400 cursor-not-allowed transition-all" : "w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-bold bg-[#5b54e5] hover:bg-[#4a44c9] text-white transition-all";
         }
 
         async function startTest() {
@@ -1127,7 +1137,7 @@ endmodule</textarea>
             btn.disabled = true;
 
             warningCount = 0;
-            isSubmitting = false; // Reset submitting flag
+            isSubmitting = false; 
 
             currentTimeLeft = currentActiveTest.duration * 60;
             studentAnswers = currentActiveTest.questions.map(q => q.type === 'mcq' ? "" : (q.code || ""));
@@ -1157,17 +1167,14 @@ endmodule</textarea>
         }
 
         // --- ANTI-CHEATING LISTENERS ---
-
-        // Helper to force fullscreen via button or keypress
         window.enterFullscreen = function() {
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen().catch(e => console.log(e));
             }
         };
 
-        // NEW: Strict Fullscreen Enforcement
         document.addEventListener('fullscreenchange', () => {
-            if (isSubmitting) return; // Do not trigger warning if the student is submitting the test
+            if (isSubmitting) return; 
             if (document.getElementById('test-view').classList.contains('active')) {
                 if (!document.fullscreenElement) {
                     document.getElementById('fullscreen-warning').classList.remove('hidden');
@@ -1180,7 +1187,7 @@ endmodule</textarea>
         });
 
         document.addEventListener('visibilitychange', () => {
-            if (isSubmitting) return; // Do not trigger warning if the student is submitting the test
+            if (isSubmitting) return; 
             if (document.hidden && document.getElementById('test-view').classList.contains('active')) {
                 warningCount++;
                 alert("WARNING: You have switched tabs or minimized the window.\n\nThis incident has been logged. Multiple infractions may result in your disqualification from the exam.");
@@ -1197,15 +1204,12 @@ endmodule</textarea>
 
         document.addEventListener('keydown', (e) => {
             if (document.getElementById('test-view').classList.contains('active')) {
-                // Prevent Ctrl+V
                 if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
                     e.preventDefault();
                     alert('Pasting code is strictly prohibited during the assessment to maintain academic integrity.');
                 }
-
-                // Allow 'F' to return to fullscreen if overlay is active
                 if (!document.fullscreenElement && e.key.toLowerCase() === 'f') {
-                    e.preventDefault(); // Prevents typing 'f' in editor
+                    e.preventDefault(); 
                     enterFullscreen();
                 }
             }
@@ -1216,7 +1220,7 @@ endmodule</textarea>
             require(['vs/editor/editor.main'], function() {
                 if(editorInstance) editorInstance.dispose();
                 editorInstance = monaco.editor.create(document.getElementById('monaco-container'), {
-                    value: "", language: 'verilog', theme: 'vs-dark', automaticLayout: true, minimap: { enabled: false }, fontSize: 15
+                    value: "", language: 'verilog', theme: 'vs-dark', automaticLayout: true, minimap: { enabled: false }, fontSize: window.innerWidth < 768 ? 12 : 15
                 });
                 
                 editorInstance.onContextMenu((e) => { e.event.preventDefault(); });
@@ -1249,7 +1253,7 @@ endmodule</textarea>
             const dots = document.getElementById('q-dots-container');
             dots.innerHTML = '';
             for(let i=0; i<currentActiveTest.questions.length; i++) {
-                dots.innerHTML += `<button onclick="jumpToQuestion(${i})" class="shrink-0 w-10 h-10 rounded-full font-bold transition-colors ${i === currentQuestionIndex ? 'bg-[#5b54e5] text-white shadow-md' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}">${i+1}</button>`;
+                dots.innerHTML += `<button onclick="jumpToQuestion(${i})" class="shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full font-bold transition-colors text-xs sm:text-base ${i === currentQuestionIndex ? 'bg-[#5b54e5] text-white shadow-md' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}">${i+1}</button>`;
             }
 
             if (q.type === 'mcq') {
@@ -1264,10 +1268,10 @@ endmodule</textarea>
                     if (q.options && q.options[opt]) {
                         const isChecked = studentAnswers[currentQuestionIndex] === opt;
                         container.innerHTML += `
-                            <label class="flex items-center gap-4 p-4 rounded-xl border ${isChecked ? 'border-[#5b54e5] bg-[#2d2d3d]' : 'border-[#3d3d3d] bg-[#2d2d2d] hover:border-[#5b54e5]'} cursor-pointer transition-colors">
+                            <label class="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border ${isChecked ? 'border-[#5b54e5] bg-[#2d2d3d]' : 'border-[#3d3d3d] bg-[#2d2d2d] hover:border-[#5b54e5]'} cursor-pointer transition-colors">
                                 <input type="radio" name="mcq-ans" value="${opt}" ${isChecked ? 'checked' : ''} onchange="saveMcqAnswer('${opt}')" class="hidden">
-                                <span class="w-8 h-8 rounded-lg bg-[#1e1e1e] text-slate-400 flex items-center justify-center font-bold text-sm border border-[#3d3d3d]">${opt}</span>
-                                <span class="text-slate-200 text-[15px] font-medium">${q.options[opt]}</span>
+                                <span class="shrink-0 w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-[#1e1e1e] text-slate-400 flex items-center justify-center font-bold text-xs sm:text-sm border border-[#3d3d3d]">${opt}</span>
+                                <span class="text-slate-200 text-xs sm:text-[15px] font-medium leading-snug">${q.options[opt]}</span>
                             </label>
                         `;
                     }
@@ -1302,20 +1306,30 @@ endmodule</textarea>
                 m = Math.floor(currentTimeLeft / 60); s = currentTimeLeft % 60;
                 timerDisplay.innerText = `${m < 10 ? "0"+m : m}:${s < 10 ? "0"+s : s}`;
                 
-                if(currentTimeLeft < 300) timerDisplay.className = "font-mono text-xl font-bold bg-red-50 px-4 py-2 rounded-lg border border-red-200 text-red-600 animate-pulse";
+                if(currentTimeLeft < 300) timerDisplay.className = "font-mono text-sm sm:text-xl font-bold bg-red-50 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-red-200 text-red-600 animate-pulse";
 
                 if (--currentTimeLeft < 0) { clearInterval(testTimer); submitTest(); }
             }, 1000);
         }
 
+        // ==========================================
+        // SECURE JWT EXECUTION 
+        // ==========================================
         async function runVerilogCode() {
             if(!editorInstance) return;
+
+            const token = sessionStorage.getItem('ls_jwt_token');
+            if(!token) {
+                alert("Security Error: No active session. Please log in again.");
+                return;
+            }
+
             const btn = document.getElementById('run-code-btn');
             const terminal = document.getElementById('terminal-panel');
             const vResizer = document.getElementById('v-resizer');
             const output = document.getElementById('terminal-output');
             
-            btn.innerText = "Running...";
+            btn.innerHTML = `Running...`;
             btn.disabled = true;
             
             terminal.classList.remove('hidden');
@@ -1325,32 +1339,39 @@ endmodule</textarea>
             
             if (editorInstance) setTimeout(() => editorInstance.layout(), 50);
 
-            output.innerText = "Compiling and simulating...\n";
-            output.className = "p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-slate-400";
+            output.innerText = "Connecting to Secure Compilation Server...\n";
+            output.className = "p-3 sm:p-4 overflow-y-auto font-mono text-xs sm:text-sm flex-1 whitespace-pre-wrap text-slate-400";
 
             const code = editorInstance.getValue();
 
             try {
                 const res = await fetch(VERILOG_API_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` 
+                    },
                     body: JSON.stringify({ code: code })
                 });
                 
                 const data = await res.json();
                 
+                if (res.status === 401 || res.status === 403) {
+                    throw new Error("UNAUTHORIZED: " + (data.output || "Invalid token."));
+                }
+
                 if (data.status === "success") {
-                    output.className = "p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-emerald-400";
+                    output.className = "p-3 sm:p-4 overflow-y-auto font-mono text-xs sm:text-sm flex-1 whitespace-pre-wrap text-emerald-400";
                     output.innerText += "\n--- SIMULATION SUCCESS ---\n\n" + data.output;
                 } else {
-                    output.className = "p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-red-400";
+                    output.className = "p-3 sm:p-4 overflow-y-auto font-mono text-xs sm:text-sm flex-1 whitespace-pre-wrap text-red-400";
                     output.innerText += "\n--- COMPILATION ERROR ---\n\n" + data.output;
                 }
             } catch (err) {
-                output.className = "p-4 overflow-y-auto font-mono text-sm flex-1 whitespace-pre-wrap text-red-400";
-                output.innerText += "\n--- NETWORK ERROR ---\nCould not connect to compilation server.";
+                output.className = "p-3 sm:p-4 overflow-y-auto font-mono text-xs sm:text-sm flex-1 whitespace-pre-wrap text-red-400";
+                output.innerText += "\n--- NETWORK / SECURITY ERROR ---\n" + err.message;
             } finally {
-                btn.innerHTML = "▶ Run Code";
+                btn.innerHTML = `▶ <span class="hidden sm:inline">Run Code</span>`;
                 btn.disabled = false;
             }
         }
@@ -1363,6 +1384,7 @@ endmodule</textarea>
             if (editorInstance) setTimeout(() => editorInstance.layout(), 50);
         }
 
+        // --- Responsive Resizers ---
         const hResizer = document.getElementById('h-resizer');
         const vResizer = document.getElementById('v-resizer');
         const leftPanel = document.getElementById('left-panel');
@@ -1374,7 +1396,10 @@ endmodule</textarea>
         let isResizingV = false;
 
         hResizer.addEventListener('mousedown', function(e) {
-            isResizingH = true; document.body.style.cursor = 'col-resize'; monacoContainer.style.pointerEvents = 'none'; e.preventDefault(); 
+            // Only resize horizontally on desktop
+            if (window.innerWidth >= 768) {
+                isResizingH = true; document.body.style.cursor = 'col-resize'; monacoContainer.style.pointerEvents = 'none'; e.preventDefault(); 
+            }
         });
 
         vResizer.addEventListener('mousedown', function(e) {
@@ -1382,7 +1407,7 @@ endmodule</textarea>
         });
 
         document.addEventListener('mousemove', function(e) {
-            if (isResizingH) {
+            if (isResizingH && window.innerWidth >= 768) {
                 const containerWidth = document.body.clientWidth; const newWidth = (e.clientX / containerWidth) * 100;
                 if (newWidth > 15 && newWidth < 60) leftPanel.style.width = newWidth + '%';
             }
@@ -1400,6 +1425,14 @@ endmodule</textarea>
             }
         });
 
+        window.addEventListener('resize', () => {
+            // Clear horizontal inline styles if resizing to mobile
+            if (window.innerWidth < 768 && leftPanel) {
+                leftPanel.style.width = ''; 
+            }
+            if (editorInstance) editorInstance.layout();
+        });
+
         async function triggerAutosave() {
             const currentQ = currentActiveTest.questions[currentQuestionIndex];
             if ((!currentQ.type || currentQ.type === 'coding') && editorInstance) {
@@ -1407,7 +1440,9 @@ endmodule</textarea>
             }
 
             const statusIndicator = document.getElementById('save-status');
-            statusIndicator.style.color = '#f59e0b'; statusIndicator.innerText = "Syncing...";
+            if(statusIndicator) {
+                statusIndicator.style.color = '#f59e0b'; statusIndicator.innerText = "Syncing...";
+            }
 
             const payload = {
                 action: 'autosave', email: currentUser.email, enrollment: currentUser.id,
@@ -1417,19 +1452,23 @@ endmodule</textarea>
 
             try {
                 await fetch(GOOGLE_WEB_APP_URL, { method: 'POST', headers: {'Content-Type': 'text/plain'}, body: JSON.stringify(payload) });
-                statusIndicator.style.color = '#94a3b8'; statusIndicator.innerText = `Saved at ${new Date().toLocaleTimeString()}`;
+                if(statusIndicator) {
+                    statusIndicator.style.color = '#94a3b8'; statusIndicator.innerText = `Saved at ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+                }
             } catch(e) {
-                statusIndicator.style.color = '#ef4444'; statusIndicator.innerText = "Sync failed";
+                if(statusIndicator) {
+                    statusIndicator.style.color = '#ef4444'; statusIndicator.innerText = "Sync failed";
+                }
             }
         }
 
         async function submitTest() {
-            isSubmitting = true; // Set flag to true so fullscreen exit isn't logged as cheating
+            isSubmitting = true; 
             clearInterval(testTimer); clearInterval(autosaveInterval); 
             if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen().catch(e=>e);
             
             const btn = document.getElementById('final-submit-btn');
-            btn.innerText = "Uploading & Evaluating..."; btn.disabled = true;
+            btn.innerText = "Uploading..."; btn.disabled = true;
 
             const currentQ = currentActiveTest.questions[currentQuestionIndex];
             if ((!currentQ.type || currentQ.type === 'coding') && editorInstance) {
@@ -1479,9 +1518,9 @@ endmodule</textarea>
                 document.getElementById('submit-success-msg').innerText = hasCoding ? "Data safely stored in Database. Pending instructor review." : "Data safely stored. Your test was automatically graded!";
                 navigateTo('submit-view');
             } catch(e) {
-                isSubmitting = false; // Reset flag if submission fails so they can retry securely
+                isSubmitting = false; 
                 alert("Submission error. Please check your internet connection.");
-                btn.innerText = "Submit Test"; btn.disabled = false;
+                btn.innerText = "Submit"; btn.disabled = false;
             }
         }
     </script>

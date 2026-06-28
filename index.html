@@ -549,17 +549,34 @@ endmodule</textarea>
         let isSubmitting = false;
 
         // On Load Check Session
-        window.onload = () => {
-            const token = sessionStorage.getItem('ls_jwt_token');
-            const session = sessionStorage.getItem('ls_user');
-            
-            if(token && session) {
-                currentUser = JSON.parse(session);
-                fetchDataFromGoogle(currentUser.role === 'admin');
-            } else {
-                navigateTo('login-view');
-            }
-        };
+       window.onload = () => {
+    // 1. Check if we arrived from the LMS with SSO tokens in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlToken = urlParams.get('token');
+    const urlUser = urlParams.get('user');
+
+    if (urlToken && urlUser) {
+        // Save the passed data into the Assessment's sessionStorage
+        sessionStorage.setItem('ls_jwt_token', urlToken);
+        sessionStorage.setItem('ls_user', decodeURIComponent(urlUser));
+
+        // SECURITY: Immediately clean the URL so the token isn't visible 
+        // and doesn't get accidentally shared if the user copies the link.
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // 2. Standard Session Check (This will now succeed automatically if they came from LMS)
+    const token = sessionStorage.getItem('ls_jwt_token');
+    const session = sessionStorage.getItem('ls_user');
+    
+    if(token && session) {
+        currentUser = JSON.parse(session);
+        fetchDataFromGoogle(currentUser.role === 'admin');
+    } else {
+        // If no token exists in URL or Session, show login screen
+        navigateTo('login-view');
+    }
+};
 
         function navigateTo(viewId) {
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));

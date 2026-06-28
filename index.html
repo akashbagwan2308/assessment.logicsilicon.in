@@ -95,9 +95,11 @@
 
     <!-- Animated Progress Dots -->
     <div class="mt-12 flex gap-2">
-        <div id="assess-dot-0" class="w-6 h-1.5 rounded-full bg-white transition-all duration-500"></div>
+        <div id="assess-dot-0" class="w-10 h-1.5 rounded-full bg-white transition-all duration-500"></div>
         <div id="assess-dot-1" class="w-2 h-1.5 rounded-full bg-white/30 transition-all duration-500"></div>
         <div id="assess-dot-2" class="w-2 h-1.5 rounded-full bg-white/30 transition-all duration-500"></div>
+	<div id="assess-dot-3" class="w-2 h-1.5 rounded-full bg-white/30 transition-all duration-500"></div>
+        <div id="assess-dot-4" class="w-2 h-1.5 rounded-full bg-white/30 transition-all duration-500"></div>
     </div>
 </div>
 
@@ -537,12 +539,28 @@ endmodule</textarea>
             icon2: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" // Check Circle Icon
         },
         {
+            title: "Rigorous<br/>Skill Evaluation.",
+            desc: "Validate your SystemVerilog and UVM expertise through timed quizzes and complex protocol-level coding tasks.",
+            badge1: "Timed Tests",
+            icon1: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", // Clock Icon
+            badge2: "Coding Tasks",
+            icon2: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" // Code Brackets Icon
+        },
+        {
             title: "Icarus Verilog<br/>Backend Engine.",
             desc: "Instantly compile and simulate Verilog and SystemVerilog testbenches in isolated Docker containers.",
             badge1: "Zero Setup",
             icon1: "M13 10V3L4 14h7v7l9-11h-7z", // Lightning Icon
             badge2: "Isolated Run",
             icon2: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" // Lock Icon
+        },
+        {
+            title: "In-Depth<br/>Performance Analytics.",
+            desc: "Track your progress, identify weak points, and ensure you are fully interview-ready for top semiconductor companies.",
+            badge1: "Detailed Reports",
+            icon1: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z", // Chart Bar Icon
+            badge2: "Interview Ready",
+            icon2: "M13 10V3L4 14h7v7l9-11h-7z" // Lightning Icon
         },
         {
             title: "Industry-Standard<br/>Verification.",
@@ -552,6 +570,7 @@ endmodule</textarea>
             badge2: "Advanced Debug",
             icon2: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" // Code Brackets Icon
         }
+
     ];
 
     let currentAssessSlide = 0;

@@ -60,36 +60,46 @@
 
             <!-- Content Container -->
             <div class="relative z-10 w-full h-full max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center justify-center lg:justify-between px-4 sm:px-6 lg:px-12 py-8 overflow-y-auto lg:overflow-hidden">
-                
                 <!-- Left Hero Content -->
-                <div class="hidden lg:flex flex-col justify-center w-1/2 pr-10">
-                    <div class="flex items-center gap-3 text-white mb-16">
-                        <div class="w-12 h-12 bg-white text-[#5b54e5] rounded-[14px] flex items-center justify-center font-black text-2xl shadow-lg">LS</div>
-                        <span class="font-extrabold text-3xl tracking-tight">LogicSilicon | Assess</span>
-                    </div>
-                    
-                    <h1 class="text-5xl xl:text-[64px] font-extrabold text-white leading-[1.1] mb-6 tracking-tight">
-                        Secure Cloud<br/>Assessment Engine.
-                    </h1>
-                    <p class="text-indigo-100 text-lg font-medium max-w-lg leading-relaxed">
-                        A proctored, zero-setup verification environment evaluating true hardware engineering competency.
-                    </p>
+<div class="hidden lg:flex flex-col justify-center w-1/2 pr-10 pointer-events-none">
+    <div class="flex items-center gap-3 text-white mb-16">
+        <div class="w-12 h-12 bg-white text-[#5b54e5] rounded-[14px] flex items-center justify-center font-black text-2xl shadow-lg">LS</div>
+        <span class="font-extrabold text-3xl tracking-tight">LogicSilicon | Assess</span>
+    </div>
+    
+    <!-- Wrapper to handle the fade transition -->
+    <div id="hero-content-wrapper" class="transition-opacity duration-500 opacity-100 min-h-[220px]">
+        <h1 id="hero-assess-title" class="text-5xl xl:text-[64px] font-extrabold text-white leading-[1.1] mb-6 tracking-tight">
+            Secure Cloud<br/>Assessment Engine.
+        </h1>
+        <p id="hero-assess-desc" class="text-indigo-100 text-lg font-medium max-w-lg leading-relaxed">
+            A proctored, zero-setup verification environment evaluating true hardware engineering competency.
+        </p>
 
-                    <div class="mt-12 flex gap-8">
-                        <div class="flex items-center gap-3 text-sm text-slate-300 font-semibold uppercase tracking-wider">
-                            <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
-                                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                            </div>
-                            Live Proctoring
-                        </div>
-                        <div class="flex items-center gap-3 text-sm text-slate-300 font-semibold uppercase tracking-wider">
-                            <div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
-                                <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            Auto-Grading
-                        </div>
-                    </div>
+        <div class="mt-12 flex gap-8">
+            <div class="flex items-center gap-3 text-sm text-slate-300 font-semibold uppercase tracking-wider">
+                <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
+                    <!-- Added ID to the path to swap SVG icons dynamically -->
+                    <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="hero-badge-1-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                 </div>
+                <span id="hero-badge-1-text">Live Proctoring</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm text-slate-300 font-semibold uppercase tracking-wider">
+                <div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+                    <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="hero-badge-2-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <span id="hero-badge-2-text">Auto-Grading</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animated Progress Dots -->
+    <div class="mt-12 flex gap-2">
+        <div id="assess-dot-0" class="w-6 h-1.5 rounded-full bg-white transition-all duration-500"></div>
+        <div id="assess-dot-1" class="w-2 h-1.5 rounded-full bg-white/30 transition-all duration-500"></div>
+        <div id="assess-dot-2" class="w-2 h-1.5 rounded-full bg-white/30 transition-all duration-500"></div>
+    </div>
+</div>
 
                 <!-- Right Floating Login Card -->
                 <div class="w-full max-w-[460px] my-auto">
@@ -514,6 +524,82 @@ endmodule</textarea>
             </div>
         </div>
     </div>
+
+<script>
+    // 1. Data for the dynamic slides
+    const assessSlides = [
+        {
+            title: "Secure Cloud<br/>Assessment Engine.",
+            desc: "A proctored, zero-setup verification environment evaluating true hardware engineering competency.",
+            badge1: "Live Proctoring",
+            icon1: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z", // Eye Icon
+            badge2: "Auto-Grading",
+            icon2: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" // Check Circle Icon
+        },
+        {
+            title: "Icarus Verilog<br/>Backend Engine.",
+            desc: "Instantly compile and simulate Verilog and SystemVerilog testbenches in isolated Docker containers.",
+            badge1: "Zero Setup",
+            icon1: "M13 10V3L4 14h7v7l9-11h-7z", // Lightning Icon
+            badge2: "Isolated Run",
+            icon2: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" // Lock Icon
+        },
+        {
+            title: "Industry-Standard<br/>Verification.",
+            desc: "Evaluate your UVM architecture knowledge with complex, protocol-level coding assessments.",
+            badge1: "UVM 1.2 Ready",
+            icon1: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z", // Microchip Icon
+            badge2: "Advanced Debug",
+            icon2: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" // Code Brackets Icon
+        }
+    ];
+
+    let currentAssessSlide = 0;
+
+    // 2. Function to handle the transitions
+    function cycleAssessHero() {
+        const wrapper = document.getElementById('hero-content-wrapper');
+        if (!wrapper) return;
+
+        // Fade out
+        wrapper.style.opacity = 0;
+
+        // Wait 500ms for fade out, then swap text and fade back in
+        setTimeout(() => {
+            currentAssessSlide = (currentAssessSlide + 1) % assessSlides.length;
+            const slide = assessSlides[currentAssessSlide];
+
+            // Update Text
+            document.getElementById('hero-assess-title').innerHTML = slide.title;
+            document.getElementById('hero-assess-desc').innerHTML = slide.desc;
+            
+            // Update Badges and SVG Paths
+            document.getElementById('hero-badge-1-text').innerText = slide.badge1;
+            document.getElementById('hero-badge-1-icon').setAttribute('d', slide.icon1);
+            
+            document.getElementById('hero-badge-2-text').innerText = slide.badge2;
+            document.getElementById('hero-badge-2-icon').setAttribute('d', slide.icon2);
+
+            // Update Progress Dots
+            for (let i = 0; i < assessSlides.length; i++) {
+                const dot = document.getElementById(`assess-dot-${i}`);
+                if (dot) {
+                    dot.className = i === currentAssessSlide 
+                        ? "w-6 h-1.5 rounded-full bg-white transition-all duration-500" 
+                        : "w-2 h-1.5 rounded-full bg-white/30 transition-all duration-500";
+                }
+            }
+
+            // Fade back in
+            wrapper.style.opacity = 1;
+        }, 500); 
+    }
+
+    // 3. Start the timer to cycle every 5 seconds
+    window.addEventListener('DOMContentLoaded', () => {
+        setInterval(cycleAssessHero, 5000);
+    });
+</script>
 
     <script>
         // =========================================================

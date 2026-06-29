@@ -652,17 +652,20 @@ endmodule</textarea>
         
         let warningCount = 0;
         let isSubmitting = false;
+// On Load Check Session
+        window.onload = () => {
+            // WAKE UP PING: Fire a background request to Render immediately to start bootup
+            fetch("https://assessment-backend-6yrh.onrender.com").catch(() => { /* Fire and forget silently */ });
 
-        // On Load Check Session
-       window.onload = () => {
-    // 1. Check if we arrived from the LMS with SSO tokens in the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlToken = urlParams.get('token');
-    const urlUser = urlParams.get('user');
+            // 1. Check if we arrived from the LMS with SSO tokens in the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlToken = urlParams.get('token');
+            const urlUser = urlParams.get('user');
 
-    if (urlToken && urlUser) {
-        // Save the passed data into the Assessment's sessionStorage
-        sessionStorage.setItem('ls_jwt_token', urlToken);
+            if (urlToken && urlUser) {
+                // Save the passed data into the Assessment's sessionStorage
+                sessionStorage.setItem('ls_jwt_token', urlToken);
+// ... (keep the rest of your existing window.onload code exactly the same)
         sessionStorage.setItem('ls_user', decodeURIComponent(urlUser));
 
         // SECURITY: Immediately clean the URL so the token isn't visible 
@@ -773,10 +776,34 @@ endmodule</textarea>
         }
 
         function logout() {
-            sessionStorage.removeItem('ls_jwt_token'); 
-            sessionStorage.removeItem('ls_user');
+            // 1. Completely wipe all local and session storage data
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            // 2. Reset the internal application state
             currentUser = null;
+            currentActiveTest = null;
+            currentGradingSubmission = null;
+            studentAnswers = [];
+            
+            // 3. Clear any active test timers to prevent background auto-saving after logout
+            if (testTimer) clearInterval(testTimer);
+            if (autosaveInterval) clearInterval(autosaveInterval);
+
+            // 4. Swap the views back to the login screen
             navigateTo('login-view');
+            
+            // 5. Clear ALL login form inputs for security
+            document.getElementById('student-email').value = '';
+            document.getElementById('student-id').value = '';
+            document.getElementById('admin-email').value = '';
+            document.getElementById('admin-password').value = '';
+
+            // 6. Dispose Monaco instance to free memory
+            if (editorInstance) { 
+                editorInstance.dispose(); 
+                editorInstance = null; 
+            }
         }
 
         // --- FETCH DATA ---
